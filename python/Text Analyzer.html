@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Analyzer - Python + HTML</title>
+    
+    <!-- PyScript allows Python to run in the browser -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .demo-card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .textarea-wrapper {
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            min-height: 150px;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #output {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            display: none;
+            color: #2d2d2d;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        #output.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .info-box strong {
+            color: #1976d2;
+        }
+
+        .code-section {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+
+        .code-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        pre {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-top: 30px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Text Analyzer</h1>
+            <p class="subtitle">Real Python Code Running in Your Browser</p>
+            <span class="badge">Powered by PyScript</span>
+        </header>
+
+        <div class="demo-card">
+            <div class="info-box">
+                <strong>🐍 This runs ACTUAL Python code!</strong> Using PyScript, the Python code below executes directly in your browser - no server needed!
+            </div>
+
+            <h2>🎯 Try the Analyzer</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                Enter any text below and click "Analyze with Python" to see the real Python code in action.
+            </p>
+            
+            <div class="textarea-wrapper">
+                <textarea id="textInput" placeholder="Paste or type your text here...">Python is an amazing programming language that is widely used in web development, data science, artificial intelligence, and automation. Python's simplicity and readability make it perfect for beginners, while its powerful libraries and frameworks make it suitable for advanced applications.</textarea>
+            </div>
+            
+            <button class="button" id="analyzeBtn" py-click="analyze_text()">Analyze with Python</button>
+            
+            <div class="loading" id="loading">⏳ Running Python analysis...</div>
+            <div id="output"></div>
+        </div>
+
+        <div class="demo-card">
+            <h2>💻 The Python Code</h2>
+            <p style="color: #666; margin-bottom: 20px;">
+                This is the actual Python code running in your browser:
+            </p>
+            
+            <div class="code-section">
+                <pre><code>import re
+from collections import Counter
+
+class TextAnalyzer:
+    def __init__(self, text):
+        self.text = text
+        self.words = self._extract_words()
+    
+    def _extract_words(self):
+        words = re.findall(r'\b[a-z]+\b', self.text.lower())
+        return words
+    
+    def word_count(self):
+        return len(self.words)
+    
+    def unique_words(self):
+        return len(set(self.words))
+    
+    def average_word_length(self):
+        if not self.words:
+            return 0
+        return round(sum(len(w) for w in self.words) / len(self.words), 2)
+    
+    def most_common_words(self, n=10):
+        word_freq = Counter(self.words)
+        return word_freq.most_common(n)
+    
+    def longest_words(self, n=5):
+        unique_words = list(set(self.words))
+        sorted_words = sorted(unique_words, key=len, reverse=True)
+        return sorted_words[:n]</code></pre>
+            </div>
+        </div>
+
+        <a href="../../index.html" class="back-link">← Back to Portfolio</a>
+    </div>
+
+    <!-- Python code that runs in the browser -->
+    <script type="py">
+        import re
+        from collections import Counter
+        from pyscript import document
+
+        class TextAnalyzer:
+            def __init__(self, text):
+                self.text = text
+                self.words = self._extract_words()
+            
+            def _extract_words(self):
+                words = re.findall(r'\b[a-z]+\b', self.text.lower())
+                return words
+            
+            def word_count(self):
+                return len(self.words)
+            
+            def unique_words(self):
+                return len(set(self.words))
+            
+            def average_word_length(self):
+                if not self.words:
+                    return 0
+                return round(sum(len(word) for word in self.words) / len(self.words), 2)
+            
+            def most_common_words(self, n=10):
+                word_freq = Counter(self.words)
+                return word_freq.most_common(n)
+            
+            def longest_words(self, n=5):
+                unique_words = list(set(self.words))
+                sorted_words = sorted(unique_words, key=len, reverse=True)
+                return sorted_words[:n]
+            
+            def character_count(self):
+                return len(self.text.replace(' ', '').replace('\n', ''))
+            
+            def sentence_count(self):
+                sentences = re.split(r'[.!?]+', self.text)
+                return len([s for s in sentences if s.strip()])
+            
+            def get_formatted_output(self):
+                result = "=" * 50 + "\n"
+                result += "TEXT ANALYSIS RESULTS\n"
+                result += "=" * 50 + "\n\n"
+                result += "📊 Basic Statistics:\n"
+                result += f"   Total Words: {self.word_count()}\n"
+                result += f"   Unique Words: {self.unique_words()}\n"
+                result += f"   Characters: {self.character_count()}\n"
+                result += f"   Sentences: {self.sentence_count()}\n"
+                result += f"   Average Word Length: {self.average_word_length()} letters\n\n"
+                
+                result += "🔥 Most Common Words:\n"
+                for word, count in self.most_common_words():
+                    result += f"   '{word}': {count} times\n"
+                
+                result += "\n📏 Longest Words:\n"
+                for word in self.longest_words():
+                    result += f"   '{word}' ({len(word)} letters)\n"
+                
+                result += "\n" + "=" * 50
+                return result
+
+        def analyze_text():
+            # Get text from textarea
+            text_input = document.querySelector("#textInput")
+            text = text_input.value
+            
+            if not text.strip():
+                output_div = document.querySelector("#output")
+                output_div.innerText = "⚠️ Please enter some text to analyze!"
+                output_div.classList.add("show")
+                return
+            
+            # Show loading
+            loading_div = document.querySelector("#loading")
+            loading_div.classList.add("show")
+            
+            # Hide previous output
+            output_div = document.querySelector("#output")
+            output_div.classList.remove("show")
+            
+            # Simulate slight delay for better UX
+            import asyncio
+            async def run_analysis():
+                await asyncio.sleep(0.5)
+                
+                # Create analyzer and get results
+                analyzer = TextAnalyzer(text)
+                result = analyzer.get_formatted_output()
+                
+                # Display results
+                output_div.innerText = result
+                output_div.classList.add("show")
+                
+                # Hide loading
+                loading_div.classList.remove("show")
+            
+            asyncio.ensure_future(run_analysis())
+    </script>
+</body>
+</html>
