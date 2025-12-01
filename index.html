@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>América BH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -161,6 +162,12 @@
         .footer-link:hover {
             opacity: 0.7;
         }
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -190,7 +197,40 @@
                         </div>
                     </div>
                 </a>
-                <!-- More HTML/CSS projects will appear here -->
+
+                <a href="html-css-projects/InteractiveCards.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Interactive Cards</h3>
+                        <p class="project-type">HTML/CSS/JS</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Dynamic card components with 3D hover effects, smooth animations, and responsive design principles.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">3D Effects</span>
+                            <span class="tag">Animations</span>
+                            <span class="tag">Interactive</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="https://github.com/Amerique82/Hotel-Booking-System" class="project-card" target="_blank">
+                    <div class="project-header">
+                        <h3 class="project-name">Hotel Booking System</h3>
+                        <p class="project-type">HTML/CSS/JS</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A complete hotel booking system demonstrating full-stack development concepts with interactive user interface and booking functionality.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Full Project</span>
+                            <span class="tag">Booking System</span>
+                            <span class="tag">Interactive UI</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </section>
 
@@ -225,5 +265,9 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        // You can add interactive JavaScript here if needed
+    </script>
 </body>
 </html>
