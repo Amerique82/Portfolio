@@ -3,276 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Cards</title>
-
+    <title>América BH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-    /* ========== DRIVES SECTION ========== */
-.drives-section {
-  font-family: "Outfit", sans-serif;
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
-  position: relative;
-  overflow: hidden;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* Efecto decorativo de fondo */
-.drives-section::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(255, 105, 180, 0.1) 0%, transparent 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
 
-.drives-section .section-title {
-  text-align: center;
-  font-family: "Outfit", sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: #ff69b4;
-  font-weight: 800;
-  margin-bottom: 60px;
-  letter-spacing: -0.02em;
-  position: relative;
-  display: inline-block;
-  left: 50%;
-  transform: translateX(-50%);
-}
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* Línea decorativa bajo el título */
-.drives-section .section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(to right, #ff69b4, #ff1493);
-  border-radius: 2px;
-}
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
 
-/* ========== ESTRUCTURA DE ROWS Y COLUMNS ========== */
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  max-width: 1200px;
-  margin: 0 auto 30px;
-  padding: 0 50px;
-  position: relative;
-  z-index: 1;
-}
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
 
-.column {
-  flex: 1;
-  min-width: 300px;
-  animation: fadeInUp 0.6s ease-out backwards;
-}
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
 
-/* Animación escalonada para cada columna */
-.row:nth-child(2) .column:nth-child(1) { animation-delay: 0.1s; }
-.row:nth-child(2) .column:nth-child(2) { animation-delay: 0.2s; }
-.row:nth-child(3) .column:nth-child(1) { animation-delay: 0.3s; }
-.row:nth-child(3) .column:nth-child(2) { animation-delay: 0.4s; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+        .section-title {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-/* ========== DRIVE CARDS ========== */
-.drive-card {
-  height: 100%;
-  background: white;
-  border-radius: 20px;
-  padding: 40px 30px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-  border: 2px solid transparent;
-}
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-/* Efecto de brillo en hover */
-.drive-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 105, 180, 0.1), transparent);
-  transition: left 0.5s ease;
-}
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
 
-.drive-card:hover::before {
-  left: 100%;
-}
+        .project-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            color: white;
+        }
 
-.drive-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
-  border-color: #ff69b4;
-}
+        .project-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
 
-.drive-card h3 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #2d1443;
-  margin-bottom: 15px;
-  position: relative;
-  padding-left: 50px;
-  transition: color 0.3s ease;
-}
+        .project-type {
+            font-size: 14px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-/* Icono decorativo antes del título */
-.drive-card h3::before {
-  content: '✦';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  color: #ff69b4;
-  transition: transform 0.3s ease;
-}
+        .project-body {
+            padding: 25px;
+        }
 
-.drive-card:hover h3 {
-  color: #ff69b4;
-}
+        .project-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
 
-.drive-card:hover h3::before {
-  transform: translateY(-50%) rotate(180deg);
-}
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
 
-.drive-card p {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #666;
-  margin: 0;
-  transition: color 0.3s ease;
-}
+        .tag {
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 600;
+        }
 
-.drive-card:hover p {
-  color: #333;
-}
+        .empty-state {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 60px 30px;
+            text-align: center;
+            color: white;
+        }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  .drives-section {
-    padding: 60px 20px;
-  }
-  
-  .row {
-    padding: 0 20px;
-    gap: 20px;
-  }
-  
-  .column {
-    min-width: 100%;
-  }
-  
-  .drive-card {
-    padding: 30px 25px;
-  }
-  
-  .drive-card h3 {
-    font-size: 1.4rem;
-    padding-left: 45px;
-  }
-}
+        .empty-state h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            opacity: 0.8;
+            font-size: 16px;
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.7;
+        }
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+        }
     </style>
 </head>
-
 <body>
-<section class="drives-section">
-  <h2 class="section-title">What Drives My Work</h2>
-  
-  <!-- Primera fila -->
-  <div class="row">
-    <div class="column">
-      <div class="drive-card">
-        <h3>User-Centered Design</h3>
-        <p>Creating intuitive experiences that put users first, ensuring every interaction feels natural and purposeful.</p>
-      </div>
-    </div>
-    <div class="column">
-      <div class="drive-card">
-        <h3>Responsive Design</h3>
-        <p>Building websites that look stunning on every device, from mobile phones to large desktop screens.</p>
-      </div>
-    </div>
-  </div>
+    <div class="container">
+        <header>
+            <h1>América Bernal</h1>
+            <p class="subtitle">Digital Strategist | UX-driven Web Developer</p>
+        </header>
 
-  <!-- Segunda fila -->
-  <div class="row">
-    <div class="column">
-      <div class="drive-card">
-        <h3>Accessibility First</h3>
-        <p>Ensuring everyone can access and enjoy the web, regardless of their abilities or tools they use.</p>
-      </div>
+        <!-- HTML/CSS Projects -->
+        <section>
+            <h2 class="section-title">HTML & CSS Projects</h2>
+            <div class="projects-grid">
+                <a href="html-css-projects/profile-card.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Profile Card Component</h3>
+                        <p class="project-type">HTML/CSS</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A responsive profile card component demonstrating modern CSS techniques including flexbox, gradients, and smooth transitions.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Responsive</span>
+                            <span class="tag">Flexbox</span>
+                            <span class="tag">CSS Gradients</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="html-css-projects/InteractiveCards.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Interactive Cards</h3>
+                        <p class="project-type">HTML/CSS/JS</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Dynamic card components with 3D hover effects, smooth animations, and responsive design principles.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">3D Effects</span>
+                            <span class="tag">Animations</span>
+                            <span class="tag">Interactive</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Python Projects -->
+        <section>
+            <h2 class="section-title">Python Projects</h2>
+            <div class="projects-grid">
+                <div class="empty-state">
+                    <h3>Coming Soon</h3>
+                    <p>Python projects will be added as coursework progresses</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SQL Projects -->
+        <section>
+            <h2 class="section-title">SQL Projects</h2>
+            <div class="projects-grid">
+                <div class="empty-state">
+                    <h3>Coming Soon</h3>
+                    <p>SQL projects will be added as coursework progresses</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 América Bernal | MSc Web Development Journey</p>
+            <div class="footer-links">
+                <a href="https://github.com/Amerique82" class="footer-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/americabernal" class="footer-link">LinkedIn</a>
+                <a href="https://www.americabernal.com" class="footer-link">Portfolio</a>
+            </div>
+        </footer>
     </div>
-    <div class="column">
-      <div class="drive-card">
-        <h3>SEO Friendly</h3>
-        <p>Optimizing every project for search engines to help your content reach the right audience.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const cards = document.querySelectorAll('.drive-card');
-  
-  // Efecto de inclinación 3D al mover el mouse
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      
-      const rotateX = (y - centerY) / 20;
-      const rotateY = (centerX - x) / 20;
-      
-      card.style.transform = `translateY(-10px) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = 'translateY(0) perspective(1000px) rotateX(0) rotateY(0)';
-    });
-  });
-  
-  // Animación de contador o progreso (opcional)
-  const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px 0px -100px 0px'
-  };
-  
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, observerOptions);
-  
-  cards.forEach(card => observer.observe(card));
-});
+        // You can add interactive JavaScript here if needed
     </script>
 </body>
 </html>
