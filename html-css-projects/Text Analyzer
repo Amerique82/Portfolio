@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Analyzer - Python Project</title>
+    <title>Text Analyzer - Python + HTML</title>
+    
+    <!-- PyScript allows Python to run in the browser -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    
     <style>
         * {
             margin: 0;
@@ -39,6 +44,15 @@
             font-size: 20px;
             opacity: 0.9;
             font-weight: 300;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 10px;
         }
 
         .demo-card {
@@ -93,12 +107,26 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .results {
-            margin-top: 30px;
-            display: none;
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
 
-        .results.show {
+        #output {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            line-height: 1.6;
+            display: none;
+            color: #2d2d2d;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        #output.show {
             display: block;
             animation: fadeIn 0.5s;
         }
@@ -108,70 +136,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-box {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
-            padding: 25px;
-            border-radius: 15px;
+        .loading {
             text-align: center;
-            border: 2px solid #667eea30;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
             color: #667eea;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+            display: none;
         }
 
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .loading.show {
+            display: block;
         }
 
-        .word-list {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
             margin-bottom: 20px;
+            border-radius: 5px;
         }
 
-        .word-list h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 20px;
-        }
-
-        .word-item {
-            display: inline-block;
-            background: white;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .word-count {
-            color: #667eea;
-            font-weight: 700;
-            margin-left: 5px;
+        .info-box strong {
+            color: #1976d2;
         }
 
         .code-section {
             background: #2d2d2d;
             color: #f8f8f2;
-            padding: 30px;
-            border-radius: 15px;
+            padding: 20px;
+            border-radius: 10px;
             margin-top: 20px;
+            overflow-x: auto;
         }
 
         .code-section h3 {
@@ -179,12 +174,12 @@
             margin-bottom: 15px;
         }
 
-        .code-section pre {
-            overflow-x: auto;
+        pre {
+            margin: 0;
             line-height: 1.6;
         }
 
-        .code-section code {
+        code {
             font-family: 'Courier New', monospace;
             font-size: 14px;
         }
@@ -203,188 +198,180 @@
         .back-link:hover {
             background: rgba(255, 255, 255, 0.3);
         }
-
-        .features {
-            margin-top: 30px;
-        }
-
-        .feature-item {
-            background: #f8f9fa;
-            padding: 15px 20px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .feature-item strong {
-            color: #667eea;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>📊 Text Analyzer</h1>
-            <p class="subtitle">A Python Project by América Bernal</p>
+            <p class="subtitle">Real Python Code Running in Your Browser</p>
+            <span class="badge">Powered by PyScript</span>
         </header>
 
         <div class="demo-card">
+            <div class="info-box">
+                <strong>🐍 This runs ACTUAL Python code!</strong> Using PyScript, the Python code below executes directly in your browser - no server needed!
+            </div>
+
             <h2>🎯 Try the Analyzer</h2>
             <p style="color: #666; margin-bottom: 20px;">
-                Enter any text below and discover interesting statistics about word frequency, 
-                length patterns, and more!
+                Enter any text below and click "Analyze with Python" to see the real Python code in action.
             </p>
             
             <div class="textarea-wrapper">
-                <textarea id="textInput" placeholder="Paste or type your text here..."></textarea>
+                <textarea id="textInput" placeholder="Paste or type your text here...">Python is an amazing programming language that is widely used in web development, data science, artificial intelligence, and automation. Python's simplicity and readability make it perfect for beginners, while its powerful libraries and frameworks make it suitable for advanced applications.</textarea>
             </div>
             
-            <button class="button" onclick="analyzeText()">Analyze Text</button>
-
-            <div id="results" class="results">
-                <div class="stats-grid" id="statsGrid"></div>
-                <div class="word-list" id="commonWords"></div>
-                <div class="word-list" id="longestWords"></div>
-            </div>
+            <button class="button" id="analyzeBtn" py-click="analyze_text()">Analyze with Python</button>
+            
+            <div class="loading" id="loading">⏳ Running Python analysis...</div>
+            <div id="output"></div>
         </div>
 
         <div class="demo-card">
-            <h2>✨ Features</h2>
-            <div class="features">
-                <div class="feature-item">
-                    <strong>Word Frequency Analysis:</strong> Identifies the most commonly used words in your text
-                </div>
-                <div class="feature-item">
-                    <strong>Statistical Insights:</strong> Calculates total words, unique words, average length, and more
-                </div>
-                <div class="feature-item">
-                    <strong>Pattern Recognition:</strong> Finds the longest words and analyses text structure
-                </div>
-                <div class="feature-item">
-                    <strong>Clean Data Processing:</strong> Uses regex to extract and process words efficiently
-                </div>
-            </div>
-        </div>
-
-        <div class="demo-card">
-            <h2>💻 Python Implementation</h2>
+            <h2>💻 The Python Code</h2>
             <p style="color: #666; margin-bottom: 20px;">
-                This project demonstrates object-oriented programming, regex patterns, 
-                data structures (Counter, sets), and text processing algorithms.
+                This is the actual Python code running in your browser:
             </p>
             
             <div class="code-section">
-                <h3>Key Python Concepts Used:</h3>
-                <pre><code># Classes and Methods
+                <pre><code>import re
+from collections import Counter
+
 class TextAnalyzer:
     def __init__(self, text):
         self.text = text
         self.words = self._extract_words()
     
-# Regular Expressions
-words = re.findall(r'\b[a-z]+\b', text.lower())
-
-# Collections and Data Structures
-from collections import Counter
-word_freq = Counter(self.words)
-
-# List Comprehensions
-unique_words = len(set(self.words))
-
-# Statistical Analysis
-average = sum(len(w) for w in words) / len(words)</code></pre>
+    def _extract_words(self):
+        words = re.findall(r'\b[a-z]+\b', self.text.lower())
+        return words
+    
+    def word_count(self):
+        return len(self.words)
+    
+    def unique_words(self):
+        return len(set(self.words))
+    
+    def average_word_length(self):
+        if not self.words:
+            return 0
+        return round(sum(len(w) for w in self.words) / len(self.words), 2)
+    
+    def most_common_words(self, n=10):
+        word_freq = Counter(self.words)
+        return word_freq.most_common(n)
+    
+    def longest_words(self, n=5):
+        unique_words = list(set(self.words))
+        sorted_words = sorted(unique_words, key=len, reverse=True)
+        return sorted_words[:n]</code></pre>
             </div>
         </div>
 
         <a href="../../index.html" class="back-link">← Back to Portfolio</a>
     </div>
 
-    <script>
-        function analyzeText() {
-            const text = document.getElementById('textInput').value;
+    <!-- Python code that runs in the browser -->
+    <script type="py">
+        import re
+        from collections import Counter
+        from pyscript import document
+
+        class TextAnalyzer:
+            def __init__(self, text):
+                self.text = text
+                self.words = self._extract_words()
             
-            if (!text.trim()) {
-                alert('Please enter some text to analyze!');
-                return;
-            }
-
-            // Extract words
-            const words = text.toLowerCase().match(/\b[a-z]+\b/g) || [];
+            def _extract_words(self):
+                words = re.findall(r'\b[a-z]+\b', self.text.lower())
+                return words
             
-            // Calculate statistics
-            const totalWords = words.length;
-            const uniqueWords = new Set(words).size;
-            const totalChars = text.replace(/\s/g, '').length;
-            const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
-            const avgLength = words.reduce((sum, word) => sum + word.length, 0) / totalWords;
+            def word_count(self):
+                return len(self.words)
             
-            // Word frequency
-            const wordFreq = {};
-            words.forEach(word => {
-                wordFreq[word] = (wordFreq[word] || 0) + 1;
-            });
+            def unique_words(self):
+                return len(set(self.words))
             
-            const commonWords = Object.entries(wordFreq)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10);
+            def average_word_length(self):
+                if not self.words:
+                    return 0
+                return round(sum(len(word) for word in self.words) / len(self.words), 2)
             
-            // Longest words
-            const longestWords = [...new Set(words)]
-                .sort((a, b) => b.length - a.length)
-                .slice(0, 5);
+            def most_common_words(self, n=10):
+                word_freq = Counter(self.words)
+                return word_freq.most_common(n)
+            
+            def longest_words(self, n=5):
+                unique_words = list(set(self.words))
+                sorted_words = sorted(unique_words, key=len, reverse=True)
+                return sorted_words[:n]
+            
+            def character_count(self):
+                return len(self.text.replace(' ', '').replace('\n', ''))
+            
+            def sentence_count(self):
+                sentences = re.split(r'[.!?]+', self.text)
+                return len([s for s in sentences if s.strip()])
+            
+            def get_formatted_output(self):
+                result = "=" * 50 + "\n"
+                result += "TEXT ANALYSIS RESULTS\n"
+                result += "=" * 50 + "\n\n"
+                result += "📊 Basic Statistics:\n"
+                result += f"   Total Words: {self.word_count()}\n"
+                result += f"   Unique Words: {self.unique_words()}\n"
+                result += f"   Characters: {self.character_count()}\n"
+                result += f"   Sentences: {self.sentence_count()}\n"
+                result += f"   Average Word Length: {self.average_word_length()} letters\n\n"
+                
+                result += "🔥 Most Common Words:\n"
+                for word, count in self.most_common_words():
+                    result += f"   '{word}': {count} times\n"
+                
+                result += "\n📏 Longest Words:\n"
+                for word in self.longest_words():
+                    result += f"   '{word}' ({len(word)} letters)\n"
+                
+                result += "\n" + "=" * 50
+                return result
 
-            // Display results
-            displayResults({
-                totalWords,
-                uniqueWords,
-                totalChars,
-                sentences,
-                avgLength: avgLength.toFixed(2),
-                commonWords,
-                longestWords
-            });
-        }
-
-        function displayResults(data) {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.classList.add('show');
-
-            // Stats grid
-            document.getElementById('statsGrid').innerHTML = `
-                <div class="stat-box">
-                    <div class="stat-number">${data.totalWords}</div>
-                    <div class="stat-label">Total Words</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">${data.uniqueWords}</div>
-                    <div class="stat-label">Unique Words</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">${data.totalChars}</div>
-                    <div class="stat-label">Characters</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number">${data.avgLength}</div>
-                    <div class="stat-label">Avg Word Length</div>
-                </div>
-            `;
-
-            // Common words
-            document.getElementById('commonWords').innerHTML = `
-                <h3>🔥 Most Common Words</h3>
-                ${data.commonWords.map(([word, count]) => 
-                    `<span class="word-item">${word}<span class="word-count">${count}×</span></span>`
-                ).join('')}
-            `;
-
-            // Longest words
-            document.getElementById('longestWords').innerHTML = `
-                <h3>📏 Longest Words</h3>
-                ${data.longestWords.map(word => 
-                    `<span class="word-item">${word}<span class="word-count">${word.length} letters</span></span>`
-                ).join('')}
-            `;
-        }
+        def analyze_text():
+            # Get text from textarea
+            text_input = document.querySelector("#textInput")
+            text = text_input.value
+            
+            if not text.strip():
+                output_div = document.querySelector("#output")
+                output_div.innerText = "⚠️ Please enter some text to analyze!"
+                output_div.classList.add("show")
+                return
+            
+            # Show loading
+            loading_div = document.querySelector("#loading")
+            loading_div.classList.add("show")
+            
+            # Hide previous output
+            output_div = document.querySelector("#output")
+            output_div.classList.remove("show")
+            
+            # Simulate slight delay for better UX
+            import asyncio
+            async def run_analysis():
+                await asyncio.sleep(0.5)
+                
+                # Create analyzer and get results
+                analyzer = TextAnalyzer(text)
+                result = analyzer.get_formatted_output()
+                
+                # Display results
+                output_div.innerText = result
+                output_div.classList.add("show")
+                
+                # Hide loading
+                loading_div.classList.remove("show")
+            
+            asyncio.ensure_future(run_analysis())
     </script>
 </body>
 </html>
