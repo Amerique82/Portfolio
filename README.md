@@ -1,5 +1,13 @@
-Modernising my technical stack through MSc Web Development at the University of Roehampton. With a foundation in systems engineering (C++, Visual FoxPro, database architecture) and 5+ years building digital products through Creatiloom, I'm bridging legacy technical fluency with contemporary web development practices.
+# Portfolio
 
-This repository documents my progression across HTML/CSS, Python, and SQL – translating existing programming logic into current industry-standard technologies. Each project demonstrates applied learning rather than theoretical exercises, because real understanding comes from building solutions that solve actual problems.
+Code that solves problems, design that tells stories.
 
-Current focus: Web development, data architecture, and technical product strategy.
+This repository houses a collection of web applications and interactive tools built with intention and care. From academic citation generators to security utilities, each project prioritises clarity in code and elegance in execution. These aren't just exercises in syntax—they're functional solutions wrapped in thoughtful interfaces, designed for real people solving real problems. Whether it's helping students format their bibliographies or analysing text patterns, the goal remains constant: build tools that work beautifully and look effortless.
+
+Built with HTML, CSS, JavaScript, and an obsessive attention to detail.
+
+---
+
+**[→ View Live Portfolio](https://amerique82.github.io/Portfolio/)**
+
+📬 [LinkedIn](https://linkedin.com/in/americabernal) · 💫 [Website](https://americabernal.com) · 🐙 [GitHub](https://github.com/Amerique82)
