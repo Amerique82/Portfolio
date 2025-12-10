@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -523,24 +523,24 @@
 
         <div class="info-banner">
             <h3>📚 About Harvard Referencing (Cite Them Right)</h3>
-            <p>Esta herramienta genera citas en formato Harvard según las directrices de Cite Them Right (11ª edición), el estándar adoptado por universidades británicas como Oxford, Cambridge, UCL, y Roehampton. El sistema Harvard utiliza citas autor-fecha en el texto y una lista de referencias completa al final.</p>
+            <p>This tool generates citations in Harvard format following Cite Them Right guidelines (11th edition), the standard adopted by British universities such as Oxford, Cambridge, UCL, and Roehampton. The Harvard system uses author-date citations in text and a complete reference list at the end.</p>
         </div>
 
         <div class="generator-card">
-            <div class="section-title">Selecciona el tipo de fuente</div>
+            <div class="section-title">Select source type</div>
             
             <div class="source-selector">
                 <button class="source-btn active" data-source="book">
-                    <span>📖 Libro</span>
+                    <span>📖 Book</span>
                 </button>
                 <button class="source-btn" data-source="journal">
-                    <span>📄 Artículo de revista</span>
+                    <span>📄 Journal Article</span>
                 </button>
                 <button class="source-btn" data-source="website">
-                    <span>🌐 Sitio web</span>
+                    <span>🌐 Website</span>
                 </button>
                 <button class="source-btn" data-source="chapter">
-                    <span>📑 Capítulo de libro</span>
+                    <span>📑 Book Chapter</span>
                 </button>
             </div>
 
@@ -548,209 +548,209 @@
             <form id="book-form" class="form-section active">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Apellido del autor</label>
+                        <label>Author surname</label>
                         <input type="text" id="book-author-surname" required>
                     </div>
                     <div class="form-group">
-                        <label>Inicial(es) del autor</label>
-                        <input type="text" id="book-author-initial" placeholder="Ej: J. K." required>
+                        <label>Author initial(s)</label>
+                        <input type="text" id="book-author-initial" placeholder="E.g: J. K." required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Año de publicación</label>
+                        <label>Year of publication</label>
                         <input type="text" id="book-year" required>
                     </div>
                     <div class="form-group">
-                        <label>Edición <span class="optional">(opcional)</span></label>
-                        <input type="text" id="book-edition" placeholder="Ej: 2nd ed.">
+                        <label>Edition <span class="optional">(optional)</span></label>
+                        <input type="text" id="book-edition" placeholder="E.g: 2nd ed.">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Título del libro</label>
+                        <label>Book title</label>
                         <input type="text" id="book-title" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Lugar de publicación</label>
-                        <input type="text" id="book-place" placeholder="Ej: London" required>
+                        <label>Place of publication</label>
+                        <input type="text" id="book-place" placeholder="E.g: London" required>
                     </div>
                     <div class="form-group">
-                        <label>Editorial</label>
+                        <label>Publisher</label>
                         <input type="text" id="book-publisher" required>
                     </div>
                 </div>
-                <button type="button" class="generate-btn" onclick="generateBookCitation()">Generar cita Harvard</button>
+                <button type="button" class="generate-btn" onclick="generateBookCitation()">Generate Harvard Citation</button>
             </form>
 
             <!-- Journal Form -->
             <form id="journal-form" class="form-section">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Apellido del autor</label>
+                        <label>Author surname</label>
                         <input type="text" id="journal-author-surname" required>
                     </div>
                     <div class="form-group">
-                        <label>Inicial(es) del autor</label>
+                        <label>Author initial(s)</label>
                         <input type="text" id="journal-author-initial" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Año de publicación</label>
+                        <label>Year of publication</label>
                         <input type="text" id="journal-year" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Título del artículo</label>
+                        <label>Article title</label>
                         <input type="text" id="journal-article-title" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Nombre de la revista</label>
+                        <label>Journal name</label>
                         <input type="text" id="journal-name" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Volumen</label>
+                        <label>Volume</label>
                         <input type="text" id="journal-volume" required>
                     </div>
                     <div class="form-group">
-                        <label>Número <span class="optional">(opcional)</span></label>
+                        <label>Issue <span class="optional">(optional)</span></label>
                         <input type="text" id="journal-issue">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Páginas</label>
-                        <input type="text" id="journal-pages" placeholder="Ej: 25-48" required>
+                        <label>Page numbers</label>
+                        <input type="text" id="journal-pages" placeholder="E.g: 25-48" required>
                     </div>
                     <div class="form-group">
-                        <label>DOI <span class="optional">(si disponible)</span></label>
+                        <label>DOI <span class="optional">(if available)</span></label>
                         <input type="text" id="journal-doi" placeholder="10.xxxx/xxxxx">
                     </div>
                 </div>
-                <button type="button" class="generate-btn" onclick="generateJournalCitation()">Generar cita Harvard</button>
+                <button type="button" class="generate-btn" onclick="generateJournalCitation()">Generate Harvard Citation</button>
             </form>
 
             <!-- Website Form -->
             <form id="website-form" class="form-section">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Apellido del autor <span class="optional">(si disponible)</span></label>
+                        <label>Author surname <span class="optional">(if available)</span></label>
                         <input type="text" id="web-author-surname">
                     </div>
                     <div class="form-group">
-                        <label>Inicial(es) <span class="optional">(si disponible)</span></label>
+                        <label>Author initial(s) <span class="optional">(if available)</span></label>
                         <input type="text" id="web-author-initial">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Año de publicación</label>
+                        <label>Year of publication</label>
                         <input type="text" id="web-year" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Título de la página</label>
+                        <label>Page title</label>
                         <input type="text" id="web-title" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>URL completa</label>
+                        <label>Full URL</label>
                         <input type="text" id="web-url" placeholder="https://..." required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Fecha de acceso</label>
+                        <label>Access date</label>
                         <input type="date" id="web-access-date" required>
                     </div>
                 </div>
-                <button type="button" class="generate-btn" onclick="generateWebsiteCitation()">Generar cita Harvard</button>
+                <button type="button" class="generate-btn" onclick="generateWebsiteCitation()">Generate Harvard Citation</button>
             </form>
 
             <!-- Chapter Form -->
             <form id="chapter-form" class="form-section">
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Apellido del autor del capítulo</label>
+                        <label>Chapter author surname</label>
                         <input type="text" id="chapter-author-surname" required>
                     </div>
                     <div class="form-group">
-                        <label>Inicial(es) del autor</label>
+                        <label>Author initial(s)</label>
                         <input type="text" id="chapter-author-initial" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Año de publicación</label>
+                        <label>Year of publication</label>
                         <input type="text" id="chapter-year" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Título del capítulo</label>
+                        <label>Chapter title</label>
                         <input type="text" id="chapter-title" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Apellido del editor</label>
+                        <label>Editor surname</label>
                         <input type="text" id="chapter-editor-surname" required>
                     </div>
                     <div class="form-group">
-                        <label>Inicial(es) del editor</label>
+                        <label>Editor initial(s)</label>
                         <input type="text" id="chapter-editor-initial" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Título del libro</label>
+                        <label>Book title</label>
                         <input type="text" id="chapter-book-title" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Lugar de publicación</label>
+                        <label>Place of publication</label>
                         <input type="text" id="chapter-place" required>
                     </div>
                     <div class="form-group">
-                        <label>Editorial</label>
+                        <label>Publisher</label>
                         <input type="text" id="chapter-publisher" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Páginas del capítulo</label>
-                        <input type="text" id="chapter-pages" placeholder="Ej: 45-67" required>
+                        <label>Chapter page numbers</label>
+                        <input type="text" id="chapter-pages" placeholder="E.g: 45-67" required>
                     </div>
                 </div>
-                <button type="button" class="generate-btn" onclick="generateChapterCitation()">Generar cita Harvard</button>
+                <button type="button" class="generate-btn" onclick="generateChapterCitation()">Generate Harvard Citation</button>
             </form>
         </div>
 
         <div id="output" class="output-section">
             <div class="output-header">
                 <div class="check-icon"></div>
-                <h3>Tu cita Harvard está lista</h3>
+                <h3>Your Harvard citation is ready</h3>
             </div>
             <div class="citation-display">
                 <div class="citation-text" id="citation-text"></div>
             </div>
-            <button class="copy-btn" onclick="copyCitation()">Copiar al portapapeles</button>
+            <button class="copy-btn" onclick="copyCitation()">Copy to clipboard</button>
         </div>
 
         <footer>
-            <p>Basado en <a href="https://www.citethemrightonline.com/" target="_blank">Cite Them Right</a> (11ª edición) · Harvard Referencing Style</p>
-            <p style="margin-top: 10px; font-size: 12px;">Diseñado con ♥ para estudiantes académicos</p>
+            <p>Based on <a href="https://www.citethemrightonline.com/" target="_blank">Cite Them Right</a> (11th edition) · Harvard Referencing Style</p>
+            <p style="margin-top: 10px; font-size: 12px;">Designed with ♥ for academic students</p>
         </footer>
     </div>
 
@@ -800,7 +800,7 @@
             const publisher = document.getElementById('book-publisher').value.trim();
 
             if (!surname || !initial || !year || !title || !place || !publisher) {
-                alert('Por favor completa todos los campos requeridos');
+                alert('Please complete all required fields');
                 return;
             }
 
@@ -825,7 +825,7 @@
             const doi = document.getElementById('journal-doi').value.trim();
 
             if (!surname || !initial || !year || !articleTitle || !journalName || !volume || !pages) {
-                alert('Por favor completa todos los campos requeridos');
+                alert('Please complete all required fields');
                 return;
             }
 
@@ -851,7 +851,7 @@
             const accessDate = document.getElementById('web-access-date').value;
 
             if (!year || !title || !url || !accessDate) {
-                alert('Por favor completa todos los campos requeridos');
+                alert('Please complete all required fields');
                 return;
             }
 
@@ -880,7 +880,7 @@
             const pages = document.getElementById('chapter-pages').value.trim();
 
             if (!surname || !initial || !year || !chapterTitle || !editorSurname || !editorInitial || !bookTitle || !place || !publisher || !pages) {
-                alert('Por favor completa todos los campos requeridos');
+                alert('Please complete all required fields');
                 return;
             }
 
@@ -902,7 +902,7 @@
             navigator.clipboard.writeText(citationText).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
-                btn.textContent = '✓ Copiado';
+                btn.textContent = '✓ Copied';
                 btn.classList.add('copied');
                 
                 setTimeout(() => {
