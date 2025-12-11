@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder/Decoder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 16px;
+            margin-top: 4px;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            background: #f3f4f6;
+            padding: 6px;
+            border-radius: 12px;
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .char-count {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            resize: vertical;
+            min-height: 120px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 8px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .info-text {
+            color: #78350f;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .examples {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 24px;
+        }
+
+        .examples-title {
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .example {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .example:hover {
+            border-color: #667eea;
+            transform: translateX(4px);
+        }
+
+        .example:last-child {
+            margin-bottom: 0;
+        }
+
+        .example-label {
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .example-value {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 12px;
+            color: #667eea;
+            background: #ede9fe;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 32px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .footer-signature {
+            margin-bottom: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .copied-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .copied-notification.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">🔗</div>
+            <div>
+                <h1>URL Encoder/Decoder</h1>
+                <p class="subtitle">Transform URLs in seconds</p>
+            </div>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" id="encodeBtn" onclick="switchMode('encode')">
+                Encode
+            </button>
+            <button class="mode-btn" id="decodeBtn" onclick="switchMode('decode')">
+                Decode
+            </button>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                <span id="inputLabel">Enter text to encode</span>
+                <span class="char-count" id="inputCount">0 characters</span>
+            </div>
+            <textarea id="input" placeholder="Type or paste your text here..." oninput="processInput()"></textarea>
+        </div>
+
+        <div class="input-group">
+            <div class="input-label">
+                <span id="outputLabel">Encoded result</span>
+                <span class="char-count" id="outputCount">0 characters</span>
+            </div>
+            <textarea id="output" placeholder="Your result will appear here..." readonly></textarea>
+        </div>
+
+        <div class="info-box">
+            <div class="info-title">
+                💡 How it works
+            </div>
+            <div class="info-text" id="infoText">
+                URL encoding converts special characters into a format that can be transmitted over the internet. Spaces become %20, & becomes %26, and so on.
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="copyToClipboard()">
+                📋 Copy Result
+            </button>
+            <button class="btn btn-secondary" onclick="clearAll()">
+                🗑️ Clear All
+            </button>
+            <button class="btn btn-secondary" onclick="swapInputOutput()">
+                🔄 Swap
+            </button>
+        </div>
+
+        <div class="examples">
+            <div class="examples-title">📝 Try these examples</div>
+            <div class="example" onclick="loadExample('https://example.com/search?q=hello world&lang=en')">
+                <span class="example-label">URL with parameters</span>
+                <span class="example-value">Click to try</span>
+            </div>
+            <div class="example" onclick="loadExample('user@email.com')">
+                <span class="example-label">Email address</span>
+                <span class="example-value">Click to try</span>
+            </div>
+            <div class="example" onclick="loadExample('Hello, World! #123')">
+                <span class="example-label">Text with special chars</span>
+                <span class="example-value">Click to try</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-signature">
+                © 2025 URL Encoder/Decoder | Created by América Bernal
+            </div>
+            <div class="footer-links">
+                <a href="https://amerique82.github.io/Portfolio/" target="_blank">← Back to Portfolio</a>
+                <a href="https://github.com/amerique82" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="copied-notification" id="copiedNotification">
+        ✓ Copied to clipboard!
+    </div>
+
+    <script>
+        let currentMode = 'encode';
+
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            // Update button states
+            document.getElementById('encodeBtn').classList.toggle('active', mode === 'encode');
+            document.getElementById('decodeBtn').classList.toggle('active', mode === 'decode');
+            
+            // Update labels
+            if (mode === 'encode') {
+                document.getElementById('inputLabel').textContent = 'Enter text to encode';
+                document.getElementById('outputLabel').textContent = 'Encoded result';
+                document.getElementById('infoText').textContent = 'URL encoding converts special characters into a format that can be transmitted over the internet. Spaces become %20, & becomes %26, and so on.';
+            } else {
+                document.getElementById('inputLabel').textContent = 'Enter URL to decode';
+                document.getElementById('outputLabel').textContent = 'Decoded result';
+                document.getElementById('infoText').textContent = 'URL decoding converts percent-encoded characters back to their original form. %20 becomes a space, %26 becomes &, and so on.';
+            }
+            
+            // Re-process current input
+            processInput();
+        }
+
+        function processInput() {
+            const input = document.getElementById('input').value;
+            const output = document.getElementById('output');
+            
+            // Update character counts
+            document.getElementById('inputCount').textContent = `${input.length} characters`;
+            
+            try {
+                if (currentMode === 'encode') {
+                    output.value = encodeURIComponent(input);
+                } else {
+                    output.value = decodeURIComponent(input);
+                }
+            } catch (e) {
+                output.value = 'Error: Invalid input for decoding';
+            }
+            
+            document.getElementById('outputCount').textContent = `${output.value.length} characters`;
+        }
+
+        function copyToClipboard() {
+            const output = document.getElementById('output');
+            output.select();
+            document.execCommand('copy');
+            
+            // Show notification
+            const notification = document.getElementById('copiedNotification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function clearAll() {
+            document.getElementById('input').value = '';
+            document.getElementById('output').value = '';
+            document.getElementById('inputCount').textContent = '0 characters';
+            document.getElementById('outputCount').textContent = '0 characters';
+        }
+
+        function swapInputOutput() {
+            const input = document.getElementById('input');
+            const output = document.getElementById('output');
+            
+            const temp = input.value;
+            input.value = output.value;
+            
+            // Switch mode
+            switchMode(currentMode === 'encode' ? 'decode' : 'encode');
+        }
+
+        function loadExample(text) {
+            document.getElementById('input').value = text;
+            processInput();
+        }
+    </script>
+</body>
+</html>
