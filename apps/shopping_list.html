@@ -260,6 +260,10 @@
                 display: none;
             }
 
+            .footer {
+                display: none;
+            }
+
             .delete-btn {
                 display: none;
             }
@@ -283,6 +287,51 @@
             }
         }
 
+        .footer {
+            margin-top: 3rem;
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid #fce4ec;
+            color: #8e8e8e;
+        }
+
+        .footer-content {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #d81b60;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .footer-link:hover {
+            color: #c2185b;
+            background: #fce4ec;
+            transform: translateY(-2px);
+        }
+
+        .footer-link.github {
+            color: #f57c00;
+        }
+
+        .footer-link.github:hover {
+            color: #e65100;
+            background: #fff9e6;
+        }
+
         @media (max-width: 768px) {
             .header-inputs {
                 grid-template-columns: 1fr;
@@ -303,6 +352,11 @@
 
             .btn {
                 width: 100%;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -336,6 +390,16 @@
             <button class="btn btn-secondary" onclick="saveList()">💾 Save List</button>
             <button class="btn btn-tertiary" onclick="clearList()">🗑️ Clear All</button>
         </div>
+
+        <footer class="footer">
+            <div class="footer-content">
+                © 2025 My Shopping List | Created by <strong>América Bernal</strong>
+            </div>
+            <div class="footer-links">
+                <a href="https://amerique82.github.io/Portfolio/" class="footer-link" target="_blank">← Back to Portfolio</a>
+                <a href="https://github.com/amerique82" class="footer-link github" target="_blank">GitHub</a>
+            </div>
+        </footer>
     </div>
 
     <script>
