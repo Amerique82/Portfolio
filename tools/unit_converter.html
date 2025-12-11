@@ -1,282 +1,331 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRightLeft, Ruler, Weight, Thermometer, Droplet, Gauge, Square } from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter - Elegant conversions at your fingertips</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        .gradient-pink-purple {
+            background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #f9fafb 0%, #fae8ff 50%, #fce7f3 100%);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+    <div id="app" class="p-6"></div>
 
-const UnitConverter = () => {
-  const [category, setCategory] = useState('length');
-  const [fromUnit, setFromUnit] = useState('metre');
-  const [toUnit, setToUnit] = useState('foot');
-  const [fromValue, setFromValue] = useState('');
-  const [toValue, setToValue] = useState('');
+    <script>
+        const categories = {
+            length: {
+                icon: '',
+                name: 'Length',
+                units: {
+                    metre: { name: 'Metre', symbol: 'm', toBase: 1 },
+                    kilometre: { name: 'Kilometre', symbol: 'km', toBase: 1000 },
+                    centimetre: { name: 'Centimetre', symbol: 'cm', toBase: 0.01 },
+                    millimetre: { name: 'Millimetre', symbol: 'mm', toBase: 0.001 },
+                    mile: { name: 'Mile', symbol: 'mi', toBase: 1609.344 },
+                    yard: { name: 'Yard', symbol: 'yd', toBase: 0.9144 },
+                    foot: { name: 'Foot', symbol: 'ft', toBase: 0.3048 },
+                    inch: { name: 'Inch', symbol: 'in', toBase: 0.0254 },
+                    nauticalMile: { name: 'Nautical Mile', symbol: 'nmi', toBase: 1852 },
+                },
+                fact: "A 'beard-second' is the length an average beard grows in one second—about 5 nanometres!"
+            },
+            mass: {
+                icon: '',
+                name: 'Mass',
+                units: {
+                    kilogram: { name: 'Kilogram', symbol: 'kg', toBase: 1 },
+                    gram: { name: 'Gram', symbol: 'g', toBase: 0.001 },
+                    milligram: { name: 'Milligram', symbol: 'mg', toBase: 0.000001 },
+                    tonne: { name: 'Tonne', symbol: 't', toBase: 1000 },
+                    pound: { name: 'Pound', symbol: 'lb', toBase: 0.45359237 },
+                    ounce: { name: 'Ounce', symbol: 'oz', toBase: 0.028349523125 },
+                    stone: { name: 'Stone', symbol: 'st', toBase: 6.35029318 },
+                    troyOunce: { name: 'Troy Ounce', symbol: 'oz t', toBase: 0.0311034768 },
+                },
+                fact: "A stone is traditionally 14 pounds—still used for body weight in the UK!"
+            },
+            temperature: {
+                icon: '',
+                name: 'Temperature',
+                units: {
+                    celsius: { name: 'Celsius', symbol: '°C' },
+                    fahrenheit: { name: 'Fahrenheit', symbol: '°F' },
+                    kelvin: { name: 'Kelvin', symbol: 'K' },
+                },
+                fact: "Absolute zero (0 K) is when atoms theoretically stop moving entirely!"
+            },
+            volume: {
+                icon: '',
+                name: 'Volume',
+                units: {
+                    litre: { name: 'Litre', symbol: 'L', toBase: 1 },
+                    millilitre: { name: 'Millilitre', symbol: 'mL', toBase: 0.001 },
+                    cubicMetre: { name: 'Cubic Metre', symbol: 'm³', toBase: 1000 },
+                    gallon: { name: 'Gallon (UK)', symbol: 'gal', toBase: 4.54609 },
+                    gallonUS: { name: 'Gallon (US)', symbol: 'gal (US)', toBase: 3.785411784 },
+                    pint: { name: 'Pint (UK)', symbol: 'pt', toBase: 0.56826125 },
+                    fluidOunce: { name: 'Fluid Ounce (UK)', symbol: 'fl oz', toBase: 0.0284130625 },
+                    cup: { name: 'Cup', symbol: 'cup', toBase: 0.25 },
+                },
+                fact: "A British pint is about 20% larger than an American pint—cheers to that!"
+            },
+            speed: {
+                icon: '',
+                name: 'Speed',
+                units: {
+                    metrePerSecond: { name: 'Metre/Second', symbol: 'm/s', toBase: 1 },
+                    kilometrePerHour: { name: 'Kilometre/Hour', symbol: 'km/h', toBase: 0.277778 },
+                    milePerHour: { name: 'Mile/Hour', symbol: 'mph', toBase: 0.44704 },
+                    knot: { name: 'Knot', symbol: 'kn', toBase: 0.514444 },
+                    mach: { name: 'Mach', symbol: 'Ma', toBase: 343 },
+                },
+                fact: "Mach 1 is the speed of sound—roughly 767 mph at sea level!"
+            },
+            area: {
+                icon: '',
+                name: 'Area',
+                units: {
+                    squareMetre: { name: 'Square Metre', symbol: 'm²', toBase: 1 },
+                    squareKilometre: { name: 'Square Kilometre', symbol: 'km²', toBase: 1000000 },
+                    squareCentimetre: { name: 'Square Centimetre', symbol: 'cm²', toBase: 0.0001 },
+                    hectare: { name: 'Hectare', symbol: 'ha', toBase: 10000 },
+                    acre: { name: 'Acre', symbol: 'ac', toBase: 4046.86 },
+                    squareMile: { name: 'Square Mile', symbol: 'mi²', toBase: 2589988.11 },
+                    squareFoot: { name: 'Square Foot', symbol: 'ft²', toBase: 0.09290304 },
+                },
+                fact: "An acre was originally the amount of land ploughable by one ox in one day!"
+            }
+        };
 
-  const categories = {
-    length: {
-      icon: Ruler,
-      name: 'Length',
-      units: {
-        metre: { name: 'Metre', symbol: 'm', toBase: 1 },
-        kilometre: { name: 'Kilometre', symbol: 'km', toBase: 1000 },
-        centimetre: { name: 'Centimetre', symbol: 'cm', toBase: 0.01 },
-        millimetre: { name: 'Millimetre', symbol: 'mm', toBase: 0.001 },
-        mile: { name: 'Mile', symbol: 'mi', toBase: 1609.344 },
-        yard: { name: 'Yard', symbol: 'yd', toBase: 0.9144 },
-        foot: { name: 'Foot', symbol: 'ft', toBase: 0.3048 },
-        inch: { name: 'Inch', symbol: 'in', toBase: 0.0254 },
-        nauticalMile: { name: 'Nautical Mile', symbol: 'nmi', toBase: 1852 },
-      },
-      fact: "A 'beard-second' is the length an average beard grows in one second—about 5 nanometres!"
-    },
-    mass: {
-      icon: Weight,
-      name: 'Mass',
-      units: {
-        kilogram: { name: 'Kilogram', symbol: 'kg', toBase: 1 },
-        gram: { name: 'Gram', symbol: 'g', toBase: 0.001 },
-        milligram: { name: 'Milligram', symbol: 'mg', toBase: 0.000001 },
-        tonne: { name: 'Tonne', symbol: 't', toBase: 1000 },
-        pound: { name: 'Pound', symbol: 'lb', toBase: 0.45359237 },
-        ounce: { name: 'Ounce', symbol: 'oz', toBase: 0.028349523125 },
-        stone: { name: 'Stone', symbol: 'st', toBase: 6.35029318 },
-        troyOunce: { name: 'Troy Ounce', symbol: 'oz t', toBase: 0.0311034768 },
-      },
-      fact: "A stone is traditionally 14 pounds—still used for body weight in the UK!"
-    },
-    temperature: {
-      icon: Thermometer,
-      name: 'Temperature',
-      units: {
-        celsius: { name: 'Celsius', symbol: '°C' },
-        fahrenheit: { name: 'Fahrenheit', symbol: '°F' },
-        kelvin: { name: 'Kelvin', symbol: 'K' },
-      },
-      fact: "Absolute zero (0 K) is when atoms theoretically stop moving entirely!"
-    },
-    volume: {
-      icon: Droplet,
-      name: 'Volume',
-      units: {
-        litre: { name: 'Litre', symbol: 'L', toBase: 1 },
-        millilitre: { name: 'Millilitre', symbol: 'mL', toBase: 0.001 },
-        cubicMetre: { name: 'Cubic Metre', symbol: 'm³', toBase: 1000 },
-        gallon: { name: 'Gallon (UK)', symbol: 'gal', toBase: 4.54609 },
-        gallonUS: { name: 'Gallon (US)', symbol: 'gal (US)', toBase: 3.785411784 },
-        pint: { name: 'Pint (UK)', symbol: 'pt', toBase: 0.56826125 },
-        fluidOunce: { name: 'Fluid Ounce (UK)', symbol: 'fl oz', toBase: 0.0284130625 },
-        cup: { name: 'Cup', symbol: 'cup', toBase: 0.25 },
-      },
-      fact: "A British pint is about 20% larger than an American pint—cheers to that!"
-    },
-    speed: {
-      icon: Gauge,
-      name: 'Speed',
-      units: {
-        metrePerSecond: { name: 'Metre/Second', symbol: 'm/s', toBase: 1 },
-        kilometrePerHour: { name: 'Kilometre/Hour', symbol: 'km/h', toBase: 0.277778 },
-        milePerHour: { name: 'Mile/Hour', symbol: 'mph', toBase: 0.44704 },
-        knot: { name: 'Knot', symbol: 'kn', toBase: 0.514444 },
-        mach: { name: 'Mach', symbol: 'Ma', toBase: 343 },
-      },
-      fact: "Mach 1 is the speed of sound—roughly 767 mph at sea level!"
-    },
-    area: {
-      icon: Square,
-      name: 'Area',
-      units: {
-        squareMetre: { name: 'Square Metre', symbol: 'm²', toBase: 1 },
-        squareKilometre: { name: 'Square Kilometre', symbol: 'km²', toBase: 1000000 },
-        squareCentimetre: { name: 'Square Centimetre', symbol: 'cm²', toBase: 0.0001 },
-        hectare: { name: 'Hectare', symbol: 'ha', toBase: 10000 },
-        acre: { name: 'Acre', symbol: 'ac', toBase: 4046.86 },
-        squareMile: { name: 'Square Mile', symbol: 'mi²', toBase: 2589988.11 },
-        squareFoot: { name: 'Square Foot', symbol: 'ft²', toBase: 0.09290304 },
-      },
-      fact: "An acre was originally the amount of land ploughable by one ox in one day!"
-    }
-  };
+        let state = {
+            category: 'length',
+            fromUnit: 'metre',
+            toUnit: 'foot',
+            fromValue: '',
+            toValue: ''
+        };
 
-  const convertTemperature = (value, from, to) => {
-    if (from === to) return value;
-    
-    let celsius;
-    if (from === 'celsius') celsius = value;
-    else if (from === 'fahrenheit') celsius = (value - 32) * 5/9;
-    else celsius = value - 273.15;
+        function convertTemperature(value, from, to) {
+            if (from === to) return value;
+            
+            let celsius;
+            if (from === 'celsius') celsius = value;
+            else if (from === 'fahrenheit') celsius = (value - 32) * 5/9;
+            else celsius = value - 273.15;
 
-    if (to === 'celsius') return celsius;
-    else if (to === 'fahrenheit') return celsius * 9/5 + 32;
-    else return celsius + 273.15;
-  };
+            if (to === 'celsius') return celsius;
+            else if (to === 'fahrenheit') return celsius * 9/5 + 32;
+            else return celsius + 273.15;
+        }
 
-  const convert = (value, from, to, cat) => {
-    if (!value || isNaN(value)) return '';
-    
-    const num = parseFloat(value);
-    
-    if (cat === 'temperature') {
-      return convertTemperature(num, from, to).toFixed(4);
-    }
-    
-    const fromUnit = categories[cat].units[from];
-    const toUnit = categories[cat].units[to];
-    
-    const baseValue = num * fromUnit.toBase;
-    const result = baseValue / toUnit.toBase;
-    
-    return result.toFixed(6).replace(/\.?0+$/, '');
-  };
+        function convert(value, from, to, cat) {
+            if (!value || isNaN(value)) return '';
+            
+            const num = parseFloat(value);
+            
+            if (cat === 'temperature') {
+                return convertTemperature(num, from, to).toFixed(4);
+            }
+            
+            const fromUnit = categories[cat].units[from];
+            const toUnit = categories[cat].units[to];
+            
+            const baseValue = num * fromUnit.toBase;
+            const result = baseValue / toUnit.toBase;
+            
+            return result.toFixed(6).replace(/\.?0+$/, '');
+        }
 
-  useEffect(() => {
-    const units = Object.keys(categories[category].units);
-    setFromUnit(units[0]);
-    setToUnit(units[1] || units[0]);
-    setFromValue('');
-    setToValue('');
-  }, [category]);
+        function setCategory(cat) {
+            const units = Object.keys(categories[cat].units);
+            state = {
+                category: cat,
+                fromUnit: units[0],
+                toUnit: units[1] || units[0],
+                fromValue: '',
+                toValue: ''
+            };
+            render();
+        }
 
-  const handleFromChange = (value) => {
-    setFromValue(value);
-    if (value) {
-      const result = convert(value, fromUnit, toUnit, category);
-      setToValue(result);
-    } else {
-      setToValue('');
-    }
-  };
+        function handleFromChange(value) {
+            state.fromValue = value;
+            if (value) {
+                state.toValue = convert(value, state.fromUnit, state.toUnit, state.category);
+            } else {
+                state.toValue = '';
+            }
+            render();
+        }
 
-  const handleToChange = (value) => {
-    setToValue(value);
-    if (value) {
-      const result = convert(value, toUnit, fromUnit, category);
-      setFromValue(result);
-    } else {
-      setFromValue('');
-    }
-  };
+        function handleToChange(value) {
+            state.toValue = value;
+            if (value) {
+                state.fromValue = convert(value, state.toUnit, state.fromUnit, state.category);
+            } else {
+                state.fromValue = '';
+            }
+            render();
+        }
 
-  const swapUnits = () => {
-    setFromUnit(toUnit);
-    setToUnit(fromUnit);
-    setFromValue(toValue);
-    setToValue(fromValue);
-  };
+        function swapUnits() {
+            const temp = state.fromUnit;
+            state.fromUnit = state.toUnit;
+            state.toUnit = temp;
+            
+            const tempVal = state.fromValue;
+            state.fromValue = state.toValue;
+            state.toValue = tempVal;
+            
+            render();
+        }
 
-  const Icon = categories[category].icon;
+        function setFromUnit(unit) {
+            state.fromUnit = unit;
+            if (state.fromValue) {
+                state.toValue = convert(state.fromValue, state.fromUnit, state.toUnit, state.category);
+            }
+            render();
+        }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-pink-50 p-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold text-gray-800 mb-2 tracking-wide">Unit Converter</h1>
-          <p className="text-gray-600 italic">Elegant conversions at your fingertips</p>
-        </div>
+        function setToUnit(unit) {
+            state.toUnit = unit;
+            if (state.fromValue) {
+                state.toValue = convert(state.fromValue, state.fromUnit, state.toUnit, state.category);
+            }
+            render();
+        }
 
-        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
-          <div className="flex flex-wrap gap-3 mb-8 justify-center">
-            {Object.entries(categories).map(([key, cat]) => {
-              const CategoryIcon = cat.icon;
-              return (
-                <button
-                  key={key}
-                  onClick={() => setCategory(key)}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-xl transition-all duration-300 ${
-                    category === key
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg shadow-pink-500/30 scale-105'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900'
-                  }`}
-                >
-                  <CategoryIcon size={18} />
-                  <span className="font-medium">{cat.name}</span>
-                </button>
-              );
-            })}
-          </div>
+        function render() {
+            const app = document.getElementById('app');
+            const cat = categories[state.category];
+            
+            app.innerHTML = `
+                <div class="max-w-4xl mx-auto fade-in">
+                    <div class="text-center mb-8">
+                        <h1 class="text-5xl font-bold text-gray-800 mb-2 tracking-wide">Unit Converter</h1>
+                        <p class="text-gray-600 italic">Elegant conversions at your fingertips</p>
+                    </div>
 
-          <div className="grid md:grid-cols-2 gap-6 items-start mb-6">
-            <div className="space-y-3">
-              <label className="block text-sm font-medium text-gray-700 mb-2">From</label>
-              <select
-                value={fromUnit}
-                onChange={(e) => {
-                  setFromUnit(e.target.value);
-                  if (fromValue) {
-                    const result = convert(fromValue, e.target.value, toUnit, category);
-                    setToValue(result);
-                  }
-                }}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
-              >
-                {Object.entries(categories[category].units).map(([key, unit]) => (
-                  <option key={key} value={key}>
-                    {unit.name} ({unit.symbol})
-                  </option>
-                ))}
-              </select>
-              <input
-                type="number"
-                value={fromValue}
-                onChange={(e) => handleFromChange(e.target.value)}
-                placeholder="Enter value"
-                className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
-              />
-            </div>
+                    <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8">
+                        <div class="flex flex-wrap gap-3 mb-8 justify-center">
+                            ${Object.entries(categories).map(([key, category]) => `
+                                <button 
+                                    onclick="setCategory('${key}')"
+                                    class="flex items-center gap-2 px-5 py-3 rounded-xl transition-all duration-300 ${
+                                        state.category === key
+                                            ? 'gradient-pink-purple text-white shadow-lg shadow-pink-500/30 scale-105'
+                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:text-gray-900'
+                                    }">
+                                    <span class="font-medium">${category.name}</span>
+                                </button>
+                            `).join('')}
+                        </div>
 
-            <div className="flex items-center justify-center md:pt-12">
-              <button
-                onClick={swapUnits}
-                className="p-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-white hover:scale-110 transition-transform duration-300 shadow-lg shadow-pink-500/30"
-                title="Swap units"
-              >
-                <ArrowRightLeft size={24} />
-              </button>
-            </div>
+                        <div class="grid md:grid-cols-2 gap-6 items-start mb-6">
+                            <div class="space-y-3">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">From</label>
+                                <select 
+                                    onchange="setFromUnit(this.value)"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all">
+                                    ${Object.entries(cat.units).map(([key, unit]) => `
+                                        <option value="${key}" ${state.fromUnit === key ? 'selected' : ''}>
+                                            ${unit.name} (${unit.symbol})
+                                        </option>
+                                    `).join('')}
+                                </select>
+                                <input 
+                                    type="number" 
+                                    value="${state.fromValue}"
+                                    oninput="handleFromChange(this.value)"
+                                    placeholder="Enter value"
+                                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all">
+                            </div>
 
-            <div className="space-y-3 md:col-start-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">To</label>
-              <select
-                value={toUnit}
-                onChange={(e) => {
-                  setToUnit(e.target.value);
-                  if (fromValue) {
-                    const result = convert(fromValue, fromUnit, e.target.value, category);
-                    setToValue(result);
-                  }
-                }}
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-              >
-                {Object.entries(categories[category].units).map(([key, unit]) => (
-                  <option key={key} value={key}>
-                    {unit.name} ({unit.symbol})
-                  </option>
-                ))}
-              </select>
-              <input
-                type="number"
-                value={toValue}
-                onChange={(e) => handleToChange(e.target.value)}
-                placeholder="Result"
-                className="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
-              />
-            </div>
-          </div>
+                            <div class="flex items-center justify-center md:pt-12">
+                                <button 
+                                    onclick="swapUnits()"
+                                    class="p-4 gradient-pink-purple rounded-full text-white hover:scale-110 transition-transform duration-300 shadow-lg shadow-pink-500/30"
+                                    title="Swap units">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M7 16V4M7 4L3 8M7 4l4 4"></path>
+                                        <path d="M17 8v12m0 0l4-4m-4 4l-4-4"></path>
+                                    </svg>
+                                </button>
+                            </div>
 
-          <div className="mt-8 p-5 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-xl">
-            <div className="flex items-start gap-3">
-              <Icon className="text-pink-500 flex-shrink-0 mt-1" size={22} />
-              <div>
-                <h3 className="text-pink-600 font-bold text-sm uppercase tracking-wide mb-1">Fun Fact</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  {categories[category].fact}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+                            <div class="space-y-3 md:col-start-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
+                                <select 
+                                    onchange="setToUnit(this.value)"
+                                    class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                                    ${Object.entries(cat.units).map(([key, unit]) => `
+                                        <option value="${key}" ${state.toUnit === key ? 'selected' : ''}>
+                                            ${unit.name} (${unit.symbol})
+                                        </option>
+                                    `).join('')}
+                                </select>
+                                <input 
+                                    type="number" 
+                                    value="${state.toValue}"
+                                    oninput="handleToChange(this.value)"
+                                    placeholder="Result"
+                                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all">
+                            </div>
+                        </div>
 
-        <div className="text-center mt-6 text-gray-500 text-sm">
-          <p>Crafted with care • Precise calculations • British elegance</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+                        <div class="mt-8 p-5 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-xl">
+                            <div class="flex items-start gap-3">
+                                <div>
+                                    <h3 class="text-pink-600 font-bold text-sm uppercase tracking-wide mb-1">Fun Fact</h3>
+                                    <p class="text-gray-700 text-sm leading-relaxed">
+                                        ${cat.fact}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-export default UnitConverter;
+                    <div class="text-center mt-6 text-gray-500 text-sm">
+                        <p>Crafted with care • Precise calculations • British elegance</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
