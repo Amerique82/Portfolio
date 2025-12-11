@@ -263,6 +263,50 @@
             font-size: 14px;
             line-height: 1.5;
         }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .footer-copyright {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #e91e63;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .footer-link:hover {
+            color: #9c27b0;
+            transform: translateY(-2px);
+        }
+
+        .footer-link.portfolio {
+            color: #9c27b0;
+        }
+
+        .footer-link.portfolio:hover {
+            color: #e91e63;
+        }
     </style>
 </head>
 <body>
@@ -315,6 +359,20 @@
             <div class="tip-card">
                 <div class="tip-title">→ Multiple Palettes</div>
                 <div class="tip-text">Extract different palettes from various images</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="footer-copyright">
+                © 2025 Colour Palette Picker | Created with 💜 by <strong>América Bernal</strong>
+            </div>
+            <div class="footer-links">
+                <a href="https://amerique82.github.io/Portfolio/" class="footer-link portfolio">
+                    ← Back to Portfolio
+                </a>
+                <a href="https://github.com/amerique82" class="footer-link" target="_blank">
+                    GitHub →
+                </a>
             </div>
         </div>
     </div>
