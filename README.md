@@ -8,6 +8,12 @@ But mostly, I’m thinking about accessibility, especially for people with dysca
 
 Made with HTML, CSS, JavaScript, love and way too much coffee 🩷☕️
 
+
+Cisco Cyber Security badges:
+https://www.credly.com/badges/070c3fc3-f4a7-43c2-bf17-caf2fc895081/public_url
+
+
+
 ---
 
 **[→ View Live Portfolio](https://amerique82.github.io/Portfolio/)**
