@@ -10,6 +10,7 @@ Made with HTML, CSS, JavaScript, love and way too much coffee 🩷☕️
 
 
 Cisco badges:
+
 Cyber Security - https://www.credly.com/badges/070c3fc3-f4a7-43c2-bf17-caf2fc895081/public_url
 
 Linux Unhatched - https://www.credly.com/badges/7cdcb076-324c-4130-aed8-649cf0c17e26/public_url
