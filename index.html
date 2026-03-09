@@ -59,7 +59,6 @@
             opacity: 0.85;
         }
 
-        /* Navigation Chips */
         .nav-chips {
             display: flex;
             justify-content: center;
@@ -88,41 +87,14 @@
             box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5);
         }
 
-        .chip.tools {
-            background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%);
-            box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3);
-        }
-
-        .chip.tools:hover {
-            box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5);
-        }
-
-        .chip.apps {
-            background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%);
-            box-shadow: 0 4px 15px rgba(241, 124, 54, 0.4);
-        }
-
-        .chip.apps:hover {
-            box-shadow: 0 8px 25px rgba(241, 124, 54, 0.6);
-        }
-
-        .chip.websites {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3);
-        }
-
-        .chip.websites:hover {
-            box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5);
-        }
-
-        .chip.components {
-            background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%);
-            box-shadow: 0 4px 15px rgba(241, 124, 54, 0.3);
-        }
-
-        .chip.components:hover {
-            box-shadow: 0 8px 25px rgba(241, 124, 54, 0.5);
-        }
+        .chip.tools { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
+        .chip.tools:hover { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
+        .chip.apps { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.4); }
+        .chip.apps:hover { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.6); }
+        .chip.websites { background: linear-gradient(135deg, #f44496 0%, #f17c36 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
+        .chip.websites:hover { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
+        .chip.components { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.3); }
+        .chip.components:hover { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.5); }
 
         .projects-grid {
             display: grid;
@@ -162,22 +134,10 @@
             border-radius: 2px;
         }
 
-        /* Section-specific underlines */
-        .section-title.tools::after {
-            background: #f44496;
-        }
-
-        .section-title.apps::after {
-            background: #f17c36;
-        }
-
-        .section-title.websites::after {
-            background: #f44496;
-        }
-
-        .section-title.components::after {
-            background: #f17c36;
-        }
+        .section-title.tools::after { background: #f44496; }
+        .section-title.apps::after { background: #f17c36; }
+        .section-title.websites::after { background: #f44496; }
+        .section-title.components::after { background: #f17c36; }
 
         .project-card {
             background: white;
@@ -207,22 +167,10 @@
             overflow: hidden;
         }
 
-        /* Category-specific header colours */
-        .tools .project-header {
-            background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%);
-        }
-
-        .apps .project-header {
-            background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%);
-        }
-
-        .websites .project-header {
-            background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%);
-        }
-
-        .components .project-header {
-            background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%);
-        }
+        .tools .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
+        .apps .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
+        .websites .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
+        .components .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
 
         .project-header::before {
             content: '';
@@ -336,82 +284,30 @@
             transition: width 0.3s ease;
         }
 
-        .footer-link:hover::after {
-            width: 100%;
-        }
+        .footer-link:hover::after { width: 100%; }
+        .footer-link:hover { color: #f17c36; }
 
-        .footer-link:hover {
-            color: #f17c36;
-        }
-
-        /* ========== RESPONSIVE ========== */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 36px;
-            }
-
-            .subtitle {
-                font-size: 18px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-                gap: 25px;
-            }
-
-            .nav-chips {
-                gap: 12px;
-            }
-
-            .chip {
-                padding: 10px 20px;
-                font-size: 14px;
-            }
-
-            .footer-links {
-                gap: 25px;
-            }
+            h1 { font-size: 36px; }
+            .subtitle { font-size: 18px; }
+            .section-title { font-size: 24px; }
+            .projects-grid { grid-template-columns: 1fr; gap: 25px; }
+            .nav-chips { gap: 12px; }
+            .chip { padding: 10px 20px; font-size: 14px; }
+            .footer-links { gap: 25px; }
         }
 
         @media (max-width: 480px) {
-            body {
-                padding: 30px 15px;
-            }
-
-            h1 {
-                font-size: 32px;
-            }
-
-            .project-header {
-                padding: 25px;
-            }
-
-            .project-body {
-                padding: 22px;
-            }
-
-            .nav-chips {
-                gap: 10px;
-            }
-
-            .chip {
-                padding: 8px 16px;
-                font-size: 13px;
-            }
+            body { padding: 30px 15px; }
+            h1 { font-size: 32px; }
+            .project-header { padding: 25px; }
+            .project-body { padding: 22px; }
+            .nav-chips { gap: 10px; }
+            .chip { padding: 8px 16px; font-size: 13px; }
         }
 
-        /* Smooth scroll behaviour */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        section {
-            scroll-margin-top: 20px;
-        }
+        html { scroll-behavior: smooth; }
+        section { scroll-margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -422,7 +318,6 @@
             <p class="intro-text">A collection of practical web projects—simple tools, functional apps, and reusable components. Each project focuses on solving real problems found in daily life across different areas: research, personal finance management, cybersecurity, branding strategy, and more.</p>
         </header>
 
-        <!-- Navigation Chips -->
         <nav class="nav-chips">
             <a href="#tools" class="chip tools">Tools</a>
             <a href="#apps" class="chip apps">Apps</a>
@@ -441,9 +336,7 @@
                         <p class="project-type">Utility Tool</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A clean, functional calculator for basic arithmetic operations. Simple interface with keyboard support for quick calculations.
-                        </p>
+                        <p class="project-description">A clean, functional calculator for basic arithmetic operations. Simple interface with keyboard support for quick calculations.</p>
                         <div class="project-tags">
                             <span class="tag">Math</span>
                             <span class="tag">Interactive</span>
@@ -459,9 +352,7 @@
                         <p class="project-type">Security Tool</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A straightforward password validation tool that checks strength in real-time and generates secure passwords. Includes instant feedback and clipboard integration for convenience.
-                        </p>
+                        <p class="project-description">A straightforward password validation tool that checks strength in real-time and generates secure passwords. Includes instant feedback and clipboard integration for convenience.</p>
                         <div class="project-tags">
                             <span class="tag">Security</span>
                             <span class="tag">Validation</span>
@@ -477,9 +368,7 @@
                         <p class="project-type">Analysis Tool</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A handy text analysis tool that extracts useful statistics, word frequencies, and patterns. Simple yet effective for getting quick insights from your content.
-                        </p>
+                        <p class="project-description">A handy text analysis tool that extracts useful statistics, word frequencies, and patterns. Simple yet effective for getting quick insights from your content.</p>
                         <div class="project-tags">
                             <span class="tag">Data Analysis</span>
                             <span class="tag">Statistics</span>
@@ -495,9 +384,7 @@
                         <p class="project-type">Conversion Tool</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A practical converter for common units including length, weight, temperature, and volume. Quick conversions for everyday needs.
-                        </p>
+                        <p class="project-description">A practical converter for common units including length, weight, temperature, and volume. Quick conversions for everyday needs.</p>
                         <div class="project-tags">
                             <span class="tag">Conversion</span>
                             <span class="tag">Math</span>
@@ -513,9 +400,7 @@
                         <p class="project-type">Developer Tool</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A simple tool for encoding and decoding URLs. Useful for developers working with web addresses and query strings.
-                        </p>
+                        <p class="project-description">A simple tool for encoding and decoding URLs. Useful for developers working with web addresses and query strings.</p>
                         <div class="project-tags">
                             <span class="tag">Encoding</span>
                             <span class="tag">Developer</span>
@@ -538,9 +423,7 @@
                         <p class="project-type">Web Application</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A practical citation generator that formats academic references in APA style. Makes the research process easier by automatically creating properly formatted citations for different source types.
-                        </p>
+                        <p class="project-description">A practical citation generator that formats academic references in APA style. Makes the research process easier by automatically creating properly formatted citations for different source types.</p>
                         <div class="project-tags">
                             <span class="tag">Academic</span>
                             <span class="tag">Citations</span>
@@ -556,9 +439,7 @@
                         <p class="project-type">Web Application</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A citation tool for generating Harvard-style references. Covers essential source formats including books, journals, and websites to help with academic writing.
-                        </p>
+                        <p class="project-description">A citation tool for generating Harvard-style references. Covers essential source formats including books, journals, and websites to help with academic writing.</p>
                         <div class="project-tags">
                             <span class="tag">Academic</span>
                             <span class="tag">Harvard Style</span>
@@ -574,9 +455,7 @@
                         <p class="project-type">Web Application</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A visual colour palette generator for designers and developers. Create, save, and export custom colour schemes with hex codes for your projects.
-                        </p>
+                        <p class="project-description">A visual colour palette generator for designers and developers. Create, save, and export custom colour schemes with hex codes for your projects.</p>
                         <div class="project-tags">
                             <span class="tag">Design</span>
                             <span class="tag">Colours</span>
@@ -592,9 +471,7 @@
                         <p class="project-type">Web Application</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A project management tool with drag-and-drop functionality for organizing tasks. Uses visual workflows to help with productivity and team collaboration.
-                        </p>
+                        <p class="project-description">A project management tool with drag-and-drop functionality for organizing tasks. Uses visual workflows to help with productivity and team collaboration.</p>
                         <div class="project-tags">
                             <span class="tag">Project Management</span>
                             <span class="tag">Drag & Drop</span>
@@ -610,9 +487,7 @@
                         <p class="project-type">Web Application</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A simple shopping list manager to organize your grocery needs. Add, edit, and check off items as you shop with a clean, mobile-friendly interface.
-                        </p>
+                        <p class="project-description">A simple shopping list manager to organize your grocery needs. Add, edit, and check off items as you shop with a clean, mobile-friendly interface.</p>
                         <div class="project-tags">
                             <span class="tag">Productivity</span>
                             <span class="tag">Lists</span>
@@ -635,9 +510,7 @@
                         <p class="project-type">Full Website</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A clean, professional corporate website showcasing digital services. Features responsive design, modern layouts, and organized content for business presentation.
-                        </p>
+                        <p class="project-description">A clean, professional corporate website showcasing digital services. Features responsive design, modern layouts, and organized content for business presentation.</p>
                         <div class="project-tags">
                             <span class="tag">Corporate</span>
                             <span class="tag">Responsive</span>
@@ -660,9 +533,7 @@
                         <p class="project-type">HTML/CSS Component</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            A clean, responsive profile card component with modern CSS techniques. Uses flexbox layouts and smooth transitions for a polished look in user interfaces.
-                        </p>
+                        <p class="project-description">A clean, responsive profile card component with modern CSS techniques. Uses flexbox layouts and smooth transitions for a polished look in user interfaces.</p>
                         <div class="project-tags">
                             <span class="tag">Responsive</span>
                             <span class="tag">Flexbox</span>
@@ -678,9 +549,7 @@
                         <p class="project-type">HTML/CSS/JS Component</p>
                     </div>
                     <div class="project-body">
-                        <p class="project-description">
-                            Card components with 3D hover effects and smooth animations. A fun showcase of CSS transforms and JavaScript interactivity for engaging user experiences.
-                        </p>
+                        <p class="project-description">Card components with 3D hover effects and smooth animations. A fun showcase of CSS transforms and JavaScript interactivity for engaging user experiences.</p>
                         <div class="project-tags">
                             <span class="tag">3D Effects</span>
                             <span class="tag">Animations</span>
@@ -689,6 +558,24 @@
                         </div>
                     </div>
                 </a>
+
+                <!-- ✅ NEW: Career Timeline -->
+                <a href="components/timeline/index.html" class="project-card components">
+                    <div class="project-header">
+                        <h3 class="project-name">Career Timeline</h3>
+                        <p class="project-type">HTML/CSS/JS Component</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">An interactive horizontal timeline to showcase career milestones. Click each stop to expand details, drag to scroll, and navigate with arrow buttons. Clean neutral aesthetic with smooth animations.</p>
+                        <div class="project-tags">
+                            <span class="tag">Timeline</span>
+                            <span class="tag">Interactive</span>
+                            <span class="tag">Animations</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </a>
+
             </div>
         </section>
 
