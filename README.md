@@ -1,6 +1,8 @@
 # Portfolio
 
-Code that works • Design that clicks
+**[→ View Live Portfolio](https://amerique82.github.io/Portfolio/)**
+
+Heyaa, here you can take a look to some of my work! 
 
 I like using my creativity to build things that actually help people out. And yeah, I want what I make to have personality and be a bit fun—why should tools be boring? 
 
@@ -14,10 +16,3 @@ Cisco badges:
 Cyber Security - https://www.credly.com/badges/070c3fc3-f4a7-43c2-bf17-caf2fc895081/public_url
 
 Linux Unhatched - https://www.credly.com/badges/7cdcb076-324c-4130-aed8-649cf0c17e26/public_url
-
-
----
-
-**[→ View Live Portfolio](https://amerique82.github.io/Portfolio/)**
-
-📬 [LinkedIn](https://linkedin.com/in/americabernal) · 💼 [Website](https://americabernal.com) · 🐙 [GitHub](https://github.com/Amerique82)
