@@ -1,70 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Document metadata -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>América Bernal - Profile Card</title>
     <style>
+        :root {
+            /* Palette (from provided swatches) */
+            --pink: #F249A6;
+            --mauve: #A576A6;
+            --sand: #F2BF5E;
+            --coral: #F26D3D;
+            --paper: #FFFFFF;
+            --mist: #F2F2F2;
+
+            /* Neutrals + UI */
+            --bg: var(--paper);
+            --surface: var(--paper);
+            --surface-solid: var(--paper);
+            --text: #151515;
+            --muted: #4b4b4b;
+            --line: rgba(21, 21, 21, 0.12);
+            --shadow: 0 18px 55px rgba(0, 0, 0, 0.14);
+            --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.10);
+
+            /* Accents */
+            --accent: var(--pink);
+            --accent-2: var(--coral);
+            --radius: 18px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        /* =========================================================
+           Page layout
+        ========================================================== */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+                "Apple Color Emoji", "Segoe UI Emoji";
+            color: var(--text);
+            background:
+                radial-gradient(900px 520px at 12% 12%, rgba(242, 73, 166, 0.18), transparent 60%),
+                radial-gradient(820px 520px at 88% 18%, rgba(242, 109, 61, 0.14), transparent 58%),
+                radial-gradient(980px 640px at 55% 95%, rgba(165, 118, 166, 0.16), transparent 62%),
+                var(--bg);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* =========================================================
+           Card container
+        ========================================================== */
         .profile-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 400px;
+            background: var(--surface);
+            border: 1px solid rgba(21, 21, 21, 0.08);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 420px;
             width: 100%;
             overflow: hidden;
         }
 
+        /* =========================================================
+           Header (name + title)
+        ========================================================== */
         .profile-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 40px 30px;
-            text-align: center;
-            color: white;
+            position: relative;
+            padding: 34px 30px 22px;
+            background:
+                radial-gradient(820px 160px at 18% 0%, rgba(255, 255, 255, 0.28), transparent 55%),
+                linear-gradient(135deg, var(--pink), var(--mauve));
+            color: #ffffff;
         }
 
         .profile-image {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            border: 5px solid white;
-            margin: 0 auto 20px;
-            background: #f0f0f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            color: #764ba2;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            margin: 0 auto 16px;
+            display: block;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.16);
+            box-shadow: var(--shadow-soft);
         }
 
         .profile-name {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-size: 26px;
+            font-weight: 750;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
         }
 
         .profile-title {
             font-size: 16px;
-            opacity: 0.9;
+            opacity: 0.92;
+            line-height: 1.35;
         }
 
+        /* =========================================================
+           Body (sections + actions)
+        ========================================================== */
         .profile-body {
-            padding: 30px;
+            padding: 22px 28px 28px;
+            background: var(--surface-solid);
         }
 
         .profile-section {
@@ -73,17 +122,17 @@
 
         .section-title {
             font-size: 14px;
-            font-weight: 600;
-            color: #667eea;
+            font-weight: 700;
+            color: #1b1b1b;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 1px;
             margin-bottom: 10px;
         }
 
         .section-content {
-            color: #555;
-            line-height: 1.6;
-            font-size: 15px;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 15.5px;
         }
 
         .skills-list {
@@ -93,73 +142,113 @@
         }
 
         .skill-tag {
-            background: #f0f0f0;
-            padding: 8px 16px;
-            border-radius: 20px;
+            background: var(--mist);
+            padding: 7px 12px;
+            border-radius: 999px;
             font-size: 13px;
-            color: #555;
-            border: 1px solid #e0e0e0;
+            color: #334155;
+            border: 1px solid rgba(21, 21, 21, 0.08);
         }
 
         .contact-links {
             display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 18px;
         }
 
         .contact-btn {
             flex: 1;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 12px 14px;
+            border-radius: 12px;
             text-align: center;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease,
+                color 160ms ease, border-color 160ms ease;
+            outline: none;
         }
 
         .btn-primary {
-            background: #667eea;
+            background: var(--accent);
             color: white;
+            box-shadow: 0 10px 22px rgba(242, 73, 166, 0.22);
         }
 
         .btn-primary:hover {
-            background: #5568d3;
             transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(242, 73, 166, 0.28);
         }
 
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #1b1b1b;
+            border: 1px solid rgba(21, 21, 21, 0.14);
         }
 
         .btn-secondary:hover {
-            background: #667eea;
-            color: white;
             transform: translateY(-2px);
+            border-color: rgba(21, 21, 21, 0.22);
+            box-shadow: 0 10px 22px rgba(2, 6, 23, 0.10);
+        }
+
+        .contact-btn:focus-visible {
+            box-shadow: 0 0 0 4px rgba(242, 191, 94, 0.55), 0 10px 22px rgba(0, 0, 0, 0.12);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .contact-btn {
+                transition: none;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .profile-body {
+                padding: 20px 20px 24px;
+            }
+
+            .profile-header {
+                padding: 30px 22px 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Profile card -->
     <div class="profile-card">
+        <!-- Header: identity -->
         <div class="profile-header">
-            <div class="profile-image">AB</div>
+            <!-- Profile image (WebP with PNG fallback) -->
+            <picture>
+                <source srcset="profile.webp" type="image/webp" />
+                <img
+                    class="profile-image"
+                    src="assets/profile.png"
+                    width="120"
+                    height="120"
+                    alt="Portrait of América Bernal"
+                    loading="eager"
+                    decoding="async"
+                />
+            </picture>
             <h1 class="profile-name">América Bernal</h1>
             <p class="profile-title">Digital Strategist | UX-driven Web Developer</p>
         </div>
-        
+
+        <!-- Body: content -->
         <div class="profile-body">
+            <!-- Section: About -->
             <div class="profile-section">
                 <h2 class="section-title">About</h2>
                 <p class="section-content">
-                    Building digital solutions that bridge strategic thinking with technical execution. 
+                    Building digital solutions that bridge strategic thinking with technical execution.
                     Currently developing coding fluency through MSc in Web Development.
                 </p>
             </div>
 
+            <!-- Section: Learning Focus -->
             <div class="profile-section">
                 <h2 class="section-title">Learning Focus</h2>
-                <div class="skills-list">
+                <div class="skills-list" aria-label="Skills">
                     <span class="skill-tag">HTML/CSS</span>
                     <span class="skill-tag">Python</span>
                     <span class="skill-tag">SQL</span>
@@ -168,9 +257,20 @@
                 </div>
             </div>
 
-            <div class="contact-links">
-                <a href="https://www.americabernal.com" target="_blank" class="contact-btn btn-primary">Portfolio</a>
-                <a href="https://www.linkedin.com/in/americabernal" target="_blank" class="contact-btn btn-secondary">LinkedIn</a>
+            <!-- Section: Primary actions -->
+            <div class="contact-links" aria-label="Links">
+                <a
+                    href="https://www.americabernal.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="contact-btn btn-primary"
+                >Portfolio</a>
+                <a
+                    href="https://www.linkedin.com/in/americabernal"
+                    target="_blank"
+                    rel="noreferrer"
+                    class="contact-btn btn-secondary"
+                >LinkedIn</a>
             </div>
         </div>
     </div>
