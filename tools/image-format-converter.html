@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Converter</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --p1: #F8B195;
+      --p2: #F67280;
+      --p3: #C06C84;
+      --p4: #6C5B7B;
+      --p5: #355C7D;
+      --white: #FFFFFF;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #ffffff;
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0 58px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .brandMark {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .brandDot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--p5);
+      color: var(--white);
+      padding: 6px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: start;
+      margin-top: 24px;
+      padding: 22px 0 30px;
+    }
+
+    .hero h1 {
+      font-size: 40px;
+      line-height: 1.07;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.55;
+      max-width: 62ch;
+    }
+
+    .hero p strong { color: var(--ink); }
+
+    .bullets {
+      margin-top: 18px;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .bullet {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .marker {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--p2);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
+
+    .heroCard {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .heroCardHeader {
+      background: var(--p5);
+      color: var(--white);
+      padding: 18px;
+    }
+
+    .heroCardHeader .title {
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 14px;
+    }
+
+    .heroCardHeader .small {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.92;
+      line-height: 1.35;
+    }
+
+    .heroCardBody {
+      padding: 16px 18px 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .statRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .statRow strong { color: var(--ink); }
+
+    .converter {
+      margin-top: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .converterHeader {
+      padding: 18px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .converterHeader h2 {
+      font-size: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .converterHeader .helper {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .converterBody { padding: 18px; display: grid; gap: 14px; }
+
+    .formatGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .formatGroup {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .formatGroupTitle {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .formatButtons { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .formatBtn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      padding: 9px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease, color 0.12s ease;
+      user-select: none;
+    }
+
+    .formatBtn:hover { transform: translateY(-1px); border-color: rgba(53, 92, 125, 0.35); }
+    .formatBtn.active { border-color: transparent; background: var(--p5); color: var(--white); }
+    .formatBtn.disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .upload-area {
+      border: 2px dashed rgba(53, 92, 125, 0.35);
+      border-radius: 16px;
+      padding: 22px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.12s ease, background 0.12s ease, transform 0.12s ease;
+      background: #ffffff;
+    }
+    .upload-area:hover { border-color: rgba(53, 92, 125, 0.65); background: rgba(248, 177, 149, 0.08); }
+    .upload-area.dragover { border-color: rgba(246, 114, 128, 0.8); background: rgba(246, 114, 128, 0.08); transform: scale(1.01); }
+
+    .upload-text {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .upload-hint { color: var(--muted); font-size: 12px; }
+
+    input[type="file"] { display: none; }
+
+    .preview-area { display: none; gap: 12px; }
+
+    .preview-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .preview-box img {
+      max-width: 100%;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .dimensions {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
+
+    .btn {
+      background: var(--p5);
+      color: var(--white);
+      border: none;
+      padding: 13px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.12s ease, filter 0.12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.02); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btnSuccess { background: var(--p2); color: var(--white); }
+
+    .msg {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.35;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--muted);
+    }
+    .msg.error {
+      border-color: rgba(246, 114, 128, 0.4);
+      background: rgba(246, 114, 128, 0.08);
+      color: #7f1d1d;
+    }
+    .msg.success {
+      border-color: rgba(53, 92, 125, 0.35);
+      background: rgba(53, 92, 125, 0.08);
+      color: var(--ink);
+    }
+
+    .footnote {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 34px; }
+      .formatGrid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="topbar">
+      <div class="brand">
+        <span class="brandMark" aria-hidden="true">
+          <span class="brandDot" style="background: var(--p5)"></span>
+          <span class="brandDot" style="background: var(--p4)"></span>
+          <span class="brandDot" style="background: var(--p3)"></span>
+          <span class="brandDot" style="background: var(--p2)"></span>
+          <span class="brandDot" style="background: var(--p1)"></span>
+        </span>
+        <span>Image Converter</span>
+      </div>
+      <div class="badge">JPG · PNG · WEBP · SVG</div>
+    </div>
+
+    <section class="hero">
+      <div>
+        <h1>Convert images between formats, fast and local.</h1>
+        <p>
+          Upload your file and choose exactly <strong>from which format</strong> to <strong>which format</strong> you want to convert.
+          White background, no gradients, no decorative elements.
+        </p>
+        <div class="bullets">
+          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>All format combinations between JPG, PNG, WEBP and SVG.</span></div>
+          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>One-click export (direct download).</span></div>
+          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>Dimensions preserved when the output format allows it.</span></div>
+        </div>
+      </div>
+
+      <aside class="heroCard" aria-label="Summary">
+        <div class="heroCardHeader">
+          <div class="title">In-browser conversion</div>
+          <div class="small">For JPG/PNG/WEBP → SVG we generate an SVG wrapper that embeds the image. SVG → raster is rendered into a canvas.</div>
+        </div>
+        <div class="heroCardBody">
+          <div class="statRow"><span>Input</span><strong id="statIn">—</strong></div>
+          <div class="statRow"><span>Output</span><strong id="statOut">—</strong></div>
+          <div class="statRow"><span>Status</span><strong id="statStatus">Ready</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="converter" aria-label="Converter">
+      <div class="converterHeader">
+        <h2>Select a conversion</h2>
+        <div class="helper">Pick “From”, then “To”, then upload your file.</div>
+      </div>
+
+      <div class="converterBody">
+        <div class="formatGrid">
+          <div class="formatGroup">
+            <div class="formatGroupTitle">From</div>
+            <div class="formatButtons" id="fromButtons"></div>
+          </div>
+          <div class="formatGroup">
+            <div class="formatGroupTitle">To</div>
+            <div class="formatButtons" id="toButtons"></div>
+          </div>
+        </div>
+
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-text" id="uploadText">Click or drag a file here</div>
+          <div class="upload-hint" id="uploadHint">Allowed file type depends on “From”.</div>
+          <input type="file" id="fileInput" />
+        </div>
+
+        <div class="preview-area" id="previewArea">
+          <div class="preview-box">
+            <img id="preview" alt="Vista previa" />
+            <div class="dimensions" id="dimensions"></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" id="convertBtn">Convert</button>
+            <button class="btn btnSuccess" id="downloadBtn" style="display:none;">Download</button>
+          </div>
+
+          <div class="msg success" id="successMsg"></div>
+          <div class="msg error" id="errorMsg"></div>
+        </div>
+
+        <div class="footnote">
+          Note: “SVG” here can be (1) a real vector SVG if you upload one as input, or (2) an SVG wrapper that embeds an image when converting from JPG/PNG/WEBP.
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const uploadArea = document.getElementById("uploadArea");
+    const fileInput = document.getElementById("fileInput");
+    const previewArea = document.getElementById("previewArea");
+    const preview = document.getElementById("preview");
+    const dimensions = document.getElementById("dimensions");
+    const convertBtn = document.getElementById("convertBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const successMsg = document.getElementById("successMsg");
+    const errorMsg = document.getElementById("errorMsg");
+    const uploadText = document.getElementById("uploadText");
+    const uploadHint = document.getElementById("uploadHint");
+
+    const statIn = document.getElementById("statIn");
+    const statOut = document.getElementById("statOut");
+    const statStatus = document.getElementById("statStatus");
+
+    const fromButtons = document.getElementById("fromButtons");
+    const toButtons = document.getElementById("toButtons");
+
+    let currentFile = null;
+    let outputBlob = null;
+    let outputExt = null;
+    let outputMime = null;
+
+    const FORMATS = [
+      { id: "jpg", label: "JPG", mimes: ["image/jpeg"] },
+      { id: "png", label: "PNG", mimes: ["image/png"] },
+      { id: "webp", label: "WEBP", mimes: ["image/webp"] },
+      { id: "svg", label: "SVG", mimes: ["image/svg+xml"] },
+    ];
+
+    const MIME_BY_FORMAT = {
+      jpg: "image/jpeg",
+      png: "image/png",
+      webp: "image/webp",
+      svg: "image/svg+xml",
+    };
+
+    let fromFormat = "jpg";
+    let toFormat = "svg";
+
+    function setStatus(text) {
+      statStatus.textContent = text;
+    }
+
+    function clearMessages() {
+      successMsg.style.display = "none";
+      successMsg.textContent = "";
+      errorMsg.style.display = "none";
+      errorMsg.textContent = "";
+    }
+
+    function showError(text) {
+      errorMsg.textContent = text;
+      errorMsg.style.display = "block";
+      successMsg.style.display = "none";
+    }
+
+    function showSuccess(text) {
+      successMsg.textContent = text;
+      successMsg.style.display = "block";
+      errorMsg.style.display = "none";
+    }
+
+    function renderFormatButtons(container, activeId, onClick) {
+      container.innerHTML = "";
+      for (const f of FORMATS) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "formatBtn" + (f.id === activeId ? " active" : "");
+        btn.textContent = f.label;
+        btn.addEventListener("click", () => onClick(f.id));
+        container.appendChild(btn);
+      }
+    }
+
+    function setActiveButtons() {
+      for (const btn of Array.from(fromButtons.querySelectorAll("button"))) {
+        btn.classList.toggle("active", btn.textContent.toLowerCase() === fromFormat);
+      }
+      for (const btn of Array.from(toButtons.querySelectorAll("button"))) {
+        btn.classList.toggle("active", btn.textContent.toLowerCase() === toFormat);
+      }
+    }
+
+    function updateDisabledPairs() {
+      const toBtns = Array.from(toButtons.querySelectorAll("button"));
+      for (const btn of toBtns) {
+        const id = btn.textContent.toLowerCase();
+        const disabled = id === fromFormat;
+        btn.classList.toggle("disabled", disabled);
+        btn.disabled = disabled;
+      }
+      const fromBtns = Array.from(fromButtons.querySelectorAll("button"));
+      for (const btn of fromBtns) {
+        const id = btn.textContent.toLowerCase();
+        const disabled = id === toFormat;
+        btn.classList.toggle("disabled", disabled);
+        btn.disabled = disabled;
+      }
+    }
+
+    function updateAcceptHint() {
+      const from = FORMATS.find((f) => f.id === fromFormat);
+      const exts = fromFormat === "jpg" ? ".jpg,.jpeg" : `.${fromFormat}`;
+      fileInput.accept = from.mimes.join(",");
+      uploadText.textContent = `Click or drag a ${from.label} file here`;
+      uploadHint.textContent = `Allowed: ${exts} (${from.mimes.join(", ")})`;
+      statIn.textContent = from.label;
+      statOut.textContent = FORMATS.find((f) => f.id === toFormat).label;
+    }
+
+    function resetOutput() {
+      outputBlob = null;
+      outputExt = null;
+      outputMime = null;
+      downloadBtn.style.display = "none";
+      convertBtn.disabled = false;
+      convertBtn.textContent = "Convertir";
+    }
+
+    function hardResetUI() {
+      currentFile = null;
+      previewArea.style.display = "none";
+      preview.removeAttribute("src");
+      dimensions.textContent = "";
+      resetOutput();
+      clearMessages();
+      setStatus("Ready");
+    }
+
+    function guessOutputExt(format) {
+      if (format === "jpg") return "jpg";
+      if (format === "png") return "png";
+      if (format === "webp") return "webp";
+      if (format === "svg") return "svg";
+      return "bin";
+    }
+
+    function sanitizeBaseName(name) {
+      return (
+        (name || "archivo")
+          .replace(/\.[^.]+$/, "")
+          .replace(/[^\w\-]+/g, "_")
+          .slice(0, 80) || "archivo"
+      );
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      const [header, base64] = dataUrl.split(",");
+      const match = /data:(.*?);base64/.exec(header);
+      const mime = match ? match[1] : "application/octet-stream";
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return new Blob([bytes], { type: mime });
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function getSvgSize(svgText) {
+      try {
+        const doc = new DOMParser().parseFromString(svgText, "image/svg+xml");
+        const svg = doc.documentElement;
+        if (!svg || svg.nodeName.toLowerCase() !== "svg") return { width: 1024, height: 1024 };
+
+        const wAttr = svg.getAttribute("width");
+        const hAttr = svg.getAttribute("height");
+
+        const parseLen = (v) => {
+          if (!v) return null;
+          const n = parseFloat(String(v).replace(/px$/i, "").trim());
+          return Number.isFinite(n) && n > 0 ? n : null;
+        };
+
+        const w = parseLen(wAttr);
+        const h = parseLen(hAttr);
+        if (w && h) return { width: w, height: h };
+
+        const vb = svg.getAttribute("viewBox");
+        if (vb) {
+          const parts = vb.trim().split(/[\s,]+/).map(Number);
+          if (parts.length === 4) {
+            const vw = parts[2];
+            const vh = parts[3];
+            if (Number.isFinite(vw) && Number.isFinite(vh) && vw > 0 && vh > 0) {
+              return { width: vw, height: vh };
+            }
+          }
+        }
+      } catch (_) {}
+      return { width: 1024, height: 1024 };
+    }
+
+    async function fileToDataURL(file) {
+      return await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onerror = () => reject(new Error("Could not read the file."));
+        r.onload = () => resolve(String(r.result));
+        r.readAsDataURL(file);
+      });
+    }
+
+    async function fileToText(file) {
+      return await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onerror = () => reject(new Error("Could not read the file."));
+        r.onload = () => resolve(String(r.result));
+        r.readAsText(file);
+      });
+    }
+
+    async function loadImageFromUrl(url) {
+      return await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error("Could not load the image for conversion."));
+        img.src = url;
+      });
+    }
+
+    async function rasterToRaster(file, targetFormat) {
+      const dataUrl = await fileToDataURL(file);
+      const img = await loadImageFromUrl(dataUrl);
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0);
+      const mime = MIME_BY_FORMAT[targetFormat];
+      const outUrl = canvas.toDataURL(mime, targetFormat === "jpg" ? 0.92 : undefined);
+      return {
+        blob: dataUrlToBlob(outUrl),
+        mime,
+        ext: guessOutputExt(targetFormat),
+        width: canvas.width,
+        height: canvas.height,
+      };
+    }
+
+    async function rasterToSvg(file) {
+      const dataUrl = await fileToDataURL(file);
+      const img = await loadImageFromUrl(dataUrl);
+      const width = img.naturalWidth || img.width;
+      const height = img.naturalHeight || img.height;
+
+      const svgContent =
+        `<?xml version="1.0" encoding="UTF-8"?>\n` +
+        `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">\n` +
+        `  <image width="${width}" height="${height}" href="${dataUrl}" />\n` +
+        `</svg>`;
+
+      return {
+        blob: new Blob([svgContent], { type: MIME_BY_FORMAT.svg }),
+        mime: MIME_BY_FORMAT.svg,
+        ext: "svg",
+        width,
+        height,
+      };
+    }
+
+    async function svgToRaster(file, targetFormat) {
+      const svgText = await fileToText(file);
+      const { width, height } = getSvgSize(svgText);
+      const svgBlob = new Blob([svgText], { type: MIME_BY_FORMAT.svg });
+      const url = URL.createObjectURL(svgBlob);
+      try {
+        const img = await loadImageFromUrl(url);
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        const mime = MIME_BY_FORMAT[targetFormat];
+        const outUrl = canvas.toDataURL(mime, targetFormat === "jpg" ? 0.92 : undefined);
+        return { blob: dataUrlToBlob(outUrl), mime, ext: guessOutputExt(targetFormat), width, height };
+      } finally {
+        URL.revokeObjectURL(url);
+      }
+    }
+
+    async function svgToSvg(file) {
+      const svgText = await fileToText(file);
+      const { width, height } = getSvgSize(svgText);
+      return { blob: new Blob([svgText], { type: MIME_BY_FORMAT.svg }), mime: MIME_BY_FORMAT.svg, ext: "svg", width, height };
+    }
+
+    async function convertFile(file, from, to) {
+      if (from === to) throw new Error("Choose an output format different from the input.");
+
+      if (from === "svg" && to === "svg") return await svgToSvg(file);
+      if (from === "svg" && (to === "jpg" || to === "png" || to === "webp")) return await svgToRaster(file, to);
+      if ((from === "jpg" || from === "png" || from === "webp") && to === "svg") return await rasterToSvg(file);
+      if ((from === "jpg" || from === "png" || from === "webp") && (to === "jpg" || to === "png" || to === "webp")) {
+        return await rasterToRaster(file, to);
+      }
+      throw new Error("Unsupported conversion pair.");
+    }
+
+    function ensureValidSelection() {
+      if (fromFormat === toFormat) {
+        const fallback = FORMATS.find((f) => f.id !== fromFormat)?.id || "png";
+        toFormat = fallback;
+      }
+      setActiveButtons();
+      updateDisabledPairs();
+      updateAcceptHint();
+    }
+
+    uploadArea.addEventListener("click", () => fileInput.click());
+
+    uploadArea.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      uploadArea.classList.add("dragover");
+    });
+
+    uploadArea.addEventListener("dragleave", () => {
+      uploadArea.classList.remove("dragover");
+    });
+
+    uploadArea.addEventListener("drop", (e) => {
+      e.preventDefault();
+      uploadArea.classList.remove("dragover");
+      const files = e.dataTransfer.files;
+      if (files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length > 0) handleFile(e.target.files[0]);
+    });
+
+    function handleFile(file) {
+      clearMessages();
+      resetOutput();
+
+      const allowedMime = MIME_BY_FORMAT[fromFormat];
+      const name = String(file.name || "").toLowerCase();
+      const extOk =
+        (fromFormat === "jpg" && (name.endsWith(".jpg") || name.endsWith(".jpeg"))) ||
+        (fromFormat === "png" && name.endsWith(".png")) ||
+        (fromFormat === "webp" && name.endsWith(".webp")) ||
+        (fromFormat === "svg" && name.endsWith(".svg"));
+
+      const isAllowedByMime =
+        file.type === allowedMime ||
+        (fromFormat === "jpg" && file.type === "image/jpeg") ||
+        (fromFormat === "svg" && file.type === "image/svg+xml");
+
+      const isAllowed = isAllowedByMime || (!file.type && extOk);
+      if (!isAllowed) {
+        showError(`Unsupported file type. Please choose a ${fromFormat.toUpperCase()} file.`);
+        setStatus("Error");
+        return;
+      }
+
+      currentFile = file;
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+        previewArea.style.display = "grid";
+
+        if (fromFormat === "svg") {
+          const textReader = new FileReader();
+          textReader.onload = () => {
+            const svgText = String(textReader.result || "");
+            const { width, height } = getSvgSize(svgText);
+            dimensions.textContent = `Dimensions: ${Math.round(width)} × ${Math.round(height)} px (estimated)`;
+          };
+          textReader.readAsText(file);
+        } else {
+          const img = new Image();
+          img.onload = () => {
+            const w = img.naturalWidth || img.width;
+            const h = img.naturalHeight || img.height;
+            dimensions.textContent = `Dimensions: ${w} × ${h} px`;
+          };
+          img.src = e.target.result;
+        }
+      };
+
+      reader.readAsDataURL(file);
+      setStatus("File loaded");
+    }
+
+    convertBtn.addEventListener("click", () => {
+      if (!currentFile) return;
+
+      convertBtn.disabled = true;
+      convertBtn.textContent = "Converting…";
+      clearMessages();
+      setStatus("Converting");
+
+      (async () => {
+        try {
+          const res = await convertFile(currentFile, fromFormat, toFormat);
+          outputBlob = res.blob;
+          outputExt = res.ext;
+          outputMime = res.mime;
+          downloadBtn.style.display = "block";
+          showSuccess(`Done: ${fromFormat.toUpperCase()} → ${toFormat.toUpperCase()} (${Math.round(res.width)} × ${Math.round(res.height)} px).`);
+          setStatus("Ready to download");
+        } catch (err) {
+          showError(err instanceof Error ? err.message : "Conversion failed.");
+          setStatus("Error");
+        } finally {
+          convertBtn.disabled = false;
+          convertBtn.textContent = "Convert";
+        }
+      })();
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      if (!outputBlob || !currentFile) return;
+      const base = sanitizeBaseName(currentFile.name);
+      const filename = `${base}.${outputExt || guessOutputExt(toFormat)}`;
+      downloadBlob(outputBlob, filename);
+    });
+
+    function init() {
+      renderFormatButtons(fromButtons, fromFormat, (id) => {
+        fromFormat = id;
+        ensureValidSelection();
+        hardResetUI();
+      });
+      renderFormatButtons(toButtons, toFormat, (id) => {
+        if (id === fromFormat) return;
+        toFormat = id;
+        ensureValidSelection();
+        hardResetUI();
+      });
+      ensureValidSelection();
+    }
+
+    init();
+  </script>
+</body>
+</html>
