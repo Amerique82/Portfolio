@@ -1,344 +1,337 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Image Converter</title>
+  <title>Grading System</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-      --p1: #F8B195;
-      --p2: #F67280;
-      --p3: #C06C84;
-      --p4: #6C5B7B;
-      --p5: #355C7D;
-      --white: #FFFFFF;
-      --ink: #0f172a;
-      --muted: #475569;
-      --border: #e2e8f0;
-      --surface: #ffffff;
-      --surface-2: #f8fafc;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    :root{
+      --ink:#0f172a;
+      --muted:#475569;
+      --border:#e2e8f0;
+      --surface:#ffffff;
+      --surface-2:#f8fafc;
+      --brand:#1e293b;
+      --accent:#355C7D;
+      --cta-yellow:#fde047;
+      --cta-yellow-ink:#1f2937;
+      --cta-pink:#ec4899;
+      --cta-pink-soft: rgba(236, 72, 153, 0.22);
+      --danger:#b91c1c;
+      --warn:#a16207;
+      --ok:#166534;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.10);
+      --radius: 16px;
     }
 
-    body {
+    body{
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background: #ffffff;
       color: var(--ink);
       min-height: 100vh;
     }
 
-    .page {
-      max-width: 1100px;
+    .page{
+      max-width: 980px;
       margin: 0 auto;
       padding: 28px 18px 60px;
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 0 58px;
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 14px 0 28px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 14px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
       font-weight: 900;
-      letter-spacing: -0.02em;
+      letter-spacing:-0.02em;
     }
 
-    .brandMark {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      flex: 0 0 auto;
-    }
-
-    .brandDot {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      flex: 0 0 auto;
-    }
-
-    .badge {
+    .badge{
       font-size: 12px;
       font-weight: 800;
-      background: var(--p5);
-      color: var(--white);
+      background: var(--brand);
+      color: #fff;
       padding: 6px 10px;
       border-radius: 999px;
       letter-spacing: 0.02em;
       white-space: nowrap;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 24px;
-      align-items: start;
-      margin-top: 24px;
-      padding: 22px 0 30px;
-    }
-
-    .hero h1 {
-      font-size: 40px;
-      line-height: 1.07;
-      letter-spacing: -0.03em;
-    }
-
-    .hero p {
-      margin-top: 12px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.55;
-      max-width: 62ch;
-    }
-
-    .hero p strong { color: var(--ink); }
-
-    .bullets {
+    .grid{
       margin-top: 18px;
-      display: grid;
-      gap: 10px;
-      color: var(--muted);
-      font-size: 14px;
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 18px;
+      align-items: start;
     }
 
-    .bullet {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-    }
-
-    .marker {
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--p2);
-      margin-top: 5px;
-      flex: 0 0 auto;
-    }
-
-    .heroCard {
+    .card{
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .heroCardHeader {
-      background: var(--p5);
-      color: var(--white);
-      padding: 18px;
+    .cardHeader{
+      padding: 16px 18px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
     }
 
-    .heroCardHeader .title {
-      font-weight: 900;
+    .cardHeader h2{
+      font-size: 15px;
       letter-spacing: -0.02em;
-      font-size: 14px;
     }
 
-    .heroCardHeader .small {
-      margin-top: 6px;
+    .cardBody{
+      padding: 18px;
+      display:grid;
+      gap: 14px;
+    }
+
+    .field label{
+      display:block;
       font-size: 12px;
-      opacity: 0.92;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .input, .num{
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      padding: 11px 12px;
+      border-radius: 14px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .input:focus, .num:focus{
+      border-color: rgba(53, 92, 125, 0.55);
+      box-shadow: 0 0 0 4px rgba(53, 92, 125, 0.12);
+    }
+
+    .hint{
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 12px;
       line-height: 1.35;
     }
 
-    .heroCardBody {
-      padding: 16px 18px 18px;
-      display: grid;
-      gap: 10px;
+    .row{
+      display:flex;
+      gap: 12px;
+      align-items: start;
     }
 
-    .statRow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
+    .row > *{ flex: 1 1 0; }
+    .row .small{ flex: 0 0 auto; }
 
-    .statRow strong { color: var(--ink); }
-
-    .converter {
-      margin-top: 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    .converterHeader {
-      padding: 18px;
-      background: var(--surface-2);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .converterHeader h2 {
-      font-size: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .converterHeader .helper {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .converterBody { padding: 18px; display: grid; gap: 14px; }
-
-    .formatGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
-    .formatGroup {
-      background: var(--surface-2);
+    .component{
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 12px;
-    }
-
-    .formatGroupTitle {
-      font-size: 12px;
-      font-weight: 900;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .formatButtons { display: flex; flex-wrap: wrap; gap: 8px; }
-
-    .formatBtn {
-      appearance: none;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--ink);
-      padding: 9px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease, color 0.12s ease;
-      user-select: none;
-    }
-
-    .formatBtn:hover { transform: translateY(-1px); border-color: rgba(53, 92, 125, 0.35); }
-    .formatBtn.active { border-color: transparent; background: var(--p5); color: var(--white); }
-    .formatBtn.disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-
-    .upload-area {
-      border: 2px dashed rgba(53, 92, 125, 0.35);
-      border-radius: 16px;
-      padding: 22px 16px;
-      text-align: center;
-      cursor: pointer;
-      transition: border-color 0.12s ease, background 0.12s ease, transform 0.12s ease;
-      background: #ffffff;
-    }
-    .upload-area:hover { border-color: rgba(53, 92, 125, 0.65); background: rgba(248, 177, 149, 0.08); }
-    .upload-area.dragover { border-color: rgba(246, 114, 128, 0.8); background: rgba(246, 114, 128, 0.08); transform: scale(1.01); }
-
-    .upload-text {
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: -0.01em;
-      margin-bottom: 6px;
-    }
-
-    .upload-hint { color: var(--muted); font-size: 12px; }
-
-    input[type="file"] { display: none; }
-
-    .preview-area { display: none; gap: 12px; }
-
-    .preview-box {
       background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
       padding: 14px;
+      display:grid;
+      gap: 12px;
     }
 
-    .preview-box img {
-      max-width: 100%;
-      border-radius: 8px;
-      display: block;
-      margin: 0 auto;
-      background: #fff;
+    .componentTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
     }
 
-    .dimensions {
+    .componentTitle{
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-size: 13px;
+    }
+
+    .linkBtn{
+      appearance:none;
+      border: none;
+      background: transparent;
+      color: var(--danger);
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 6px 8px;
+      border-radius: 10px;
+    }
+    .linkBtn:hover{ background: rgba(185, 28, 28, 0.08); }
+
+    .meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
       color: var(--muted);
       font-size: 12px;
-      text-align: center;
-      margin-top: 10px;
     }
 
-    .actions { display: grid; grid-template-columns: 1fr; gap: 10px; }
-
-    .btn {
-      background: var(--p5);
-      color: var(--white);
-      border: none;
-      padding: 13px 16px;
+    .btn{
+      appearance:none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      padding: 12px 14px;
       border-radius: 14px;
       font-size: 14px;
       font-weight: 900;
       letter-spacing: 0.02em;
       cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
       width: 100%;
-      transition: transform 0.12s ease, filter 0.12s ease;
     }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.02); }
-    .btn:active { transform: translateY(0); }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(53, 92, 125, 0.35); }
+    .btn:active{ transform: translateY(0); }
 
-    .btnSuccess { background: var(--p2); color: var(--white); }
+    .btnPrimary{
+      background: var(--brand);
+      color: #fff;
+      border-color: transparent;
+    }
 
-    .msg {
-      display: none;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 13px;
-      line-height: 1.35;
+    .btnCTA{
+      background: var(--cta-yellow);
+      color: var(--cta-yellow-ink);
+      border-color: rgba(31, 41, 55, 0.12);
+    }
+    .btnCTA:hover{
+      border-color: rgba(236, 72, 153, 0.55);
+      box-shadow: 0 0 0 4px var(--cta-pink-soft);
+    }
+    .btnCTA:focus{
+      outline: none;
+      border-color: rgba(236, 72, 153, 0.70);
+      box-shadow: 0 0 0 4px var(--cta-pink-soft);
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
       border: 1px solid var(--border);
-      background: var(--surface-2);
+      background: #fff;
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .kpi{
+      display:grid;
+      gap: 10px;
+    }
+
+    .kpiBox{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .kpiRow{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      font-size: 13px;
       color: var(--muted);
     }
-    .msg.error {
-      border-color: rgba(246, 114, 128, 0.4);
-      background: rgba(246, 114, 128, 0.08);
-      color: #7f1d1d;
+    .kpiRow strong{ color: var(--ink); }
+
+    .status{
+      margin-top: 8px;
+      font-size: 12px;
+      line-height: 1.35;
     }
-    .msg.success {
-      border-color: rgba(53, 92, 125, 0.35);
-      background: rgba(53, 92, 125, 0.08);
+    .status.danger{ color: var(--danger); }
+    .status.warn{ color: var(--warn); }
+    .status.ok{ color: var(--ok); }
+
+    .final{
+      text-align:center;
+      padding-top: 4px;
+    }
+
+    .finalLabel{
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .finalValue{
+      margin-top: 10px;
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 1000;
+      letter-spacing: -0.04em;
       color: var(--ink);
     }
 
-    .footnote {
-      margin-top: 14px;
+    .finalNote{
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .breakdown{
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      display:grid;
+      gap: 8px;
+    }
+
+    .bdRow{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .bdRow strong{ color: var(--ink); }
+    .bdName{ min-width: 0; }
+    .bdName span{ display:block; overflow:hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bdVal{ white-space: nowrap; color: var(--ink); font-weight: 900; }
+
+    .footnote{
+      margin-top: 12px;
       font-size: 12px;
       color: var(--muted);
       line-height: 1.45;
+      text-align:center;
     }
 
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero h1 { font-size: 34px; }
-      .formatGrid { grid-template-columns: 1fr; }
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+      .finalValue{ font-size: 46px; }
     }
   </style>
 </head>
@@ -346,536 +339,308 @@
   <div class="page">
     <div class="topbar">
       <div class="brand">
-        <span class="brandMark" aria-hidden="true">
-          <span class="brandDot" style="background: var(--p5)"></span>
-          <span class="brandDot" style="background: var(--p4)"></span>
-          <span class="brandDot" style="background: var(--p3)"></span>
-          <span class="brandDot" style="background: var(--p2)"></span>
-          <span class="brandDot" style="background: var(--p1)"></span>
-        </span>
-        <span>Image Converter</span>
+        <span aria-hidden="true" style="width:10px;height:10px;border-radius:999px;background:var(--accent);display:inline-block"></span>
+        <span>Grading System</span>
       </div>
-      <div class="badge">JPG · PNG · WEBP · SVG</div>
+      <div class="badge">Up to 3 components</div>
     </div>
 
-    <section class="hero">
-      <div>
-        <h1>Convert images between formats, fast and local.</h1>
-        <p>
-          Upload your file and choose exactly <strong>from which format</strong> to <strong>which format</strong> you want to convert.
-          White background, no gradients, no decorative elements.
-        </p>
-        <div class="bullets">
-          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>All format combinations between JPG, PNG, WEBP and SVG.</span></div>
-          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>One-click export (direct download).</span></div>
-          <div class="bullet"><span class="marker" aria-hidden="true"></span><span>Dimensions preserved when the output format allows it.</span></div>
+    <div class="grid">
+      <section class="card" aria-label="Inputs">
+        <div class="cardHeader">
+          <h2>Inputs</h2>
+          <span class="pill" id="countPill">1/3 components</span>
         </div>
-      </div>
+        <div class="cardBody">
+          <div class="field">
+            <label for="subjectName">Subject</label>
+            <input class="input" id="subjectName" type="text" maxlength="60" placeholder="e.g. Mathematics, Physics" />
+            <div class="hint">Optional. Used as the title in the summary.</div>
+          </div>
 
-      <aside class="heroCard" aria-label="Summary">
-        <div class="heroCardHeader">
-          <div class="title">In-browser conversion</div>
-          <div class="small">For JPG/PNG/WEBP → SVG we generate an SVG wrapper that embeds the image. SVG → raster is rendered into a canvas.</div>
+          <div class="field">
+            <label>Components</label>
+            <div id="components"></div>
+            <button class="btn btnCTA" id="addBtn" type="button">Add component</button>
+            <div class="hint">Weights and grades are out of 100. Total weight can be less than, equal to, or greater than 100.</div>
+          </div>
         </div>
-        <div class="heroCardBody">
-          <div class="statRow"><span>Input</span><strong id="statIn">—</strong></div>
-          <div class="statRow"><span>Output</span><strong id="statOut">—</strong></div>
-          <div class="statRow"><span>Status</span><strong id="statStatus">Ready</strong></div>
+      </section>
+
+      <aside class="card" aria-label="Result">
+        <div class="cardHeader">
+          <h2 id="summaryTitle">Summary</h2>
+          <span class="pill" id="weightPill">Weight: 0%</span>
+        </div>
+        <div class="cardBody">
+          <div class="kpi">
+            <div class="kpiBox">
+              <div class="kpiRow">
+                <span>Total weight used</span>
+                <strong id="totalWeight">0.0%</strong>
+              </div>
+              <div class="status" id="weightStatus" style="display:none;"></div>
+            </div>
+
+            <div class="kpiBox">
+              <div class="final">
+                <div class="finalLabel">Final grade</div>
+                <div class="finalValue" id="finalGrade">—</div>
+                <div class="finalNote" id="finalNote">Fill at least one weight and one grade to calculate.</div>
+              </div>
+            </div>
+
+            <div class="kpiBox" id="breakdownBox" style="display:none;">
+              <div class="meta">
+                <span style="font-weight:900; letter-spacing:-0.02em; color: var(--ink);">Breakdown</span>
+                <span id="weightedSumMeta">Weighted sum: 0.00</span>
+              </div>
+              <div class="breakdown" id="breakdown"></div>
+            </div>
+          </div>
+
+          <div class="footnote">
+            Formula: Σ(weight × grade) / total weight × 100
+          </div>
         </div>
       </aside>
-    </section>
-
-    <section class="converter" aria-label="Converter">
-      <div class="converterHeader">
-        <h2>Select a conversion</h2>
-        <div class="helper">Pick “From”, then “To”, then upload your file.</div>
-      </div>
-
-      <div class="converterBody">
-        <div class="formatGrid">
-          <div class="formatGroup">
-            <div class="formatGroupTitle">From</div>
-            <div class="formatButtons" id="fromButtons"></div>
-          </div>
-          <div class="formatGroup">
-            <div class="formatGroupTitle">To</div>
-            <div class="formatButtons" id="toButtons"></div>
-          </div>
-        </div>
-
-        <div class="upload-area" id="uploadArea">
-          <div class="upload-text" id="uploadText">Click or drag a file here</div>
-          <div class="upload-hint" id="uploadHint">Allowed file type depends on “From”.</div>
-          <input type="file" id="fileInput" />
-        </div>
-
-        <div class="preview-area" id="previewArea">
-          <div class="preview-box">
-            <img id="preview" alt="Vista previa" />
-            <div class="dimensions" id="dimensions"></div>
-          </div>
-
-          <div class="actions">
-            <button class="btn" id="convertBtn">Convert</button>
-            <button class="btn btnSuccess" id="downloadBtn" style="display:none;">Download</button>
-          </div>
-
-          <div class="msg success" id="successMsg"></div>
-          <div class="msg error" id="errorMsg"></div>
-        </div>
-
-        <div class="footnote">
-          Note: “SVG” here can be (1) a real vector SVG if you upload one as input, or (2) an SVG wrapper that embeds an image when converting from JPG/PNG/WEBP.
-        </div>
-      </div>
-    </section>
+    </div>
   </div>
 
+  <template id="componentTpl">
+    <div class="component">
+      <div class="componentTop">
+        <div class="componentTitle"></div>
+        <button class="linkBtn removeBtn" type="button">Remove</button>
+      </div>
+      <div class="field">
+        <label>Name</label>
+        <input class="input nameInput" type="text" maxlength="40" placeholder="e.g. Quiz, Homework, Final" />
+        <div class="meta">
+          <span class="hint" style="margin:0;">Max 40 characters.</span>
+          <span class="count"></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Weight (%)</label>
+          <input class="num weightInput" type="number" inputmode="decimal" min="0" max="100" placeholder="0" />
+        </div>
+        <div class="field">
+          <label>Grade</label>
+          <input class="num gradeInput" type="number" inputmode="decimal" min="0" max="100" placeholder="0" />
+        </div>
+      </div>
+    </div>
+  </template>
+
   <script>
-    const uploadArea = document.getElementById("uploadArea");
-    const fileInput = document.getElementById("fileInput");
-    const previewArea = document.getElementById("previewArea");
-    const preview = document.getElementById("preview");
-    const dimensions = document.getElementById("dimensions");
-    const convertBtn = document.getElementById("convertBtn");
-    const downloadBtn = document.getElementById("downloadBtn");
-    const successMsg = document.getElementById("successMsg");
-    const errorMsg = document.getElementById("errorMsg");
-    const uploadText = document.getElementById("uploadText");
-    const uploadHint = document.getElementById("uploadHint");
+    const MAX_COMPONENTS = 3;
 
-    const statIn = document.getElementById("statIn");
-    const statOut = document.getElementById("statOut");
-    const statStatus = document.getElementById("statStatus");
-
-    const fromButtons = document.getElementById("fromButtons");
-    const toButtons = document.getElementById("toButtons");
-
-    let currentFile = null;
-    let outputBlob = null;
-    let outputExt = null;
-    let outputMime = null;
-
-    const FORMATS = [
-      { id: "jpg", label: "JPG", mimes: ["image/jpeg"] },
-      { id: "png", label: "PNG", mimes: ["image/png"] },
-      { id: "webp", label: "WEBP", mimes: ["image/webp"] },
-      { id: "svg", label: "SVG", mimes: ["image/svg+xml"] },
-    ];
-
-    const MIME_BY_FORMAT = {
-      jpg: "image/jpeg",
-      png: "image/png",
-      webp: "image/webp",
-      svg: "image/svg+xml",
+    const els = {
+      subjectName: document.getElementById("subjectName"),
+      summaryTitle: document.getElementById("summaryTitle"),
+      components: document.getElementById("components"),
+      addBtn: document.getElementById("addBtn"),
+      componentTpl: document.getElementById("componentTpl"),
+      countPill: document.getElementById("countPill"),
+      weightPill: document.getElementById("weightPill"),
+      totalWeight: document.getElementById("totalWeight"),
+      weightStatus: document.getElementById("weightStatus"),
+      finalGrade: document.getElementById("finalGrade"),
+      finalNote: document.getElementById("finalNote"),
+      breakdownBox: document.getElementById("breakdownBox"),
+      breakdown: document.getElementById("breakdown"),
+      weightedSumMeta: document.getElementById("weightedSumMeta"),
     };
 
-    let fromFormat = "jpg";
-    let toFormat = "svg";
+    /** @type {{id:string, name:string, weight:string, grade:string}[]} */
+    let state = [
+      { id: String(Date.now()), name: "", weight: "", grade: "" }
+    ];
 
-    function setStatus(text) {
-      statStatus.textContent = text;
+    function clampNumberString(raw, min, max) {
+      if (raw === "") return "";
+      const n = Number(raw);
+      if (!Number.isFinite(n)) return "";
+      return String(Math.min(max, Math.max(min, n)));
     }
 
-    function clearMessages() {
-      successMsg.style.display = "none";
-      successMsg.textContent = "";
-      errorMsg.style.display = "none";
-      errorMsg.textContent = "";
+    function toNumberOrZero(raw) {
+      const n = Number(raw);
+      return Number.isFinite(n) ? n : 0;
     }
 
-    function showError(text) {
-      errorMsg.textContent = text;
-      errorMsg.style.display = "block";
-      successMsg.style.display = "none";
+    function canCalculate() {
+      return state.some((c) => c.weight !== "" && c.grade !== "");
     }
 
-    function showSuccess(text) {
-      successMsg.textContent = text;
-      successMsg.style.display = "block";
-      errorMsg.style.display = "none";
+    function compute() {
+      const totalWeight = state.reduce((sum, c) => sum + toNumberOrZero(c.weight), 0);
+      const weightedSum = state.reduce((sum, c) => {
+        const w = toNumberOrZero(c.weight);
+        const g = toNumberOrZero(c.grade);
+        return sum + (w * g / 100);
+      }, 0);
+      const finalGrade = totalWeight > 0 ? (weightedSum / totalWeight) * 100 : 0;
+      return { totalWeight, weightedSum, finalGrade };
     }
 
-    function renderFormatButtons(container, activeId, onClick) {
-      container.innerHTML = "";
-      for (const f of FORMATS) {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "formatBtn" + (f.id === activeId ? " active" : "");
-        btn.textContent = f.label;
-        btn.addEventListener("click", () => onClick(f.id));
-        container.appendChild(btn);
-      }
+    function setText(el, text) {
+      el.textContent = text;
     }
 
-    function setActiveButtons() {
-      for (const btn of Array.from(fromButtons.querySelectorAll("button"))) {
-        btn.classList.toggle("active", btn.textContent.toLowerCase() === fromFormat);
-      }
-      for (const btn of Array.from(toButtons.querySelectorAll("button"))) {
-        btn.classList.toggle("active", btn.textContent.toLowerCase() === toFormat);
-      }
+    function updateSummaryTitle() {
+      const name = els.subjectName.value.trim();
+      setText(els.summaryTitle, name ? name : "Summary");
     }
 
-    function updateDisabledPairs() {
-      const toBtns = Array.from(toButtons.querySelectorAll("button"));
-      for (const btn of toBtns) {
-        const id = btn.textContent.toLowerCase();
-        const disabled = id === fromFormat;
-        btn.classList.toggle("disabled", disabled);
-        btn.disabled = disabled;
-      }
-      const fromBtns = Array.from(fromButtons.querySelectorAll("button"));
-      for (const btn of fromBtns) {
-        const id = btn.textContent.toLowerCase();
-        const disabled = id === toFormat;
-        btn.classList.toggle("disabled", disabled);
-        btn.disabled = disabled;
-      }
-    }
+    function render() {
+      els.components.innerHTML = "";
+      const frag = document.createDocumentFragment();
 
-    function updateAcceptHint() {
-      const from = FORMATS.find((f) => f.id === fromFormat);
-      const exts = fromFormat === "jpg" ? ".jpg,.jpeg" : `.${fromFormat}`;
-      fileInput.accept = from.mimes.join(",");
-      uploadText.textContent = `Click or drag a ${from.label} file here`;
-      uploadHint.textContent = `Allowed: ${exts} (${from.mimes.join(", ")})`;
-      statIn.textContent = from.label;
-      statOut.textContent = FORMATS.find((f) => f.id === toFormat).label;
-    }
+      state.forEach((c, idx) => {
+        const node = els.componentTpl.content.firstElementChild.cloneNode(true);
+        node.dataset.id = c.id;
+        node.querySelector(".componentTitle").textContent = `Component ${idx + 1}`;
 
-    function resetOutput() {
-      outputBlob = null;
-      outputExt = null;
-      outputMime = null;
-      downloadBtn.style.display = "none";
-      convertBtn.disabled = false;
-      convertBtn.textContent = "Convertir";
-    }
+        const removeBtn = node.querySelector(".removeBtn");
+        removeBtn.style.display = state.length > 1 ? "inline-flex" : "none";
+        removeBtn.addEventListener("click", () => {
+          if (state.length <= 1) return;
+          state = state.filter((x) => x.id !== c.id);
+          render();
+          updateResults();
+        });
 
-    function hardResetUI() {
-      currentFile = null;
-      previewArea.style.display = "none";
-      preview.removeAttribute("src");
-      dimensions.textContent = "";
-      resetOutput();
-      clearMessages();
-      setStatus("Ready");
-    }
+        const nameInput = node.querySelector(".nameInput");
+        const countEl = node.querySelector(".count");
+        nameInput.value = c.name;
+        countEl.textContent = `${(c.name || "").length}/40`;
+        nameInput.addEventListener("input", (e) => {
+          const v = String(e.target.value || "").slice(0, 40);
+          state = state.map((x) => (x.id === c.id ? { ...x, name: v } : x));
+          countEl.textContent = `${v.length}/40`;
+          updateResults();
+        });
 
-    function guessOutputExt(format) {
-      if (format === "jpg") return "jpg";
-      if (format === "png") return "png";
-      if (format === "webp") return "webp";
-      if (format === "svg") return "svg";
-      return "bin";
-    }
+        const weightInput = node.querySelector(".weightInput");
+        weightInput.value = c.weight;
+        weightInput.addEventListener("input", (e) => {
+          const v = clampNumberString(String(e.target.value ?? ""), 0, 100);
+          state = state.map((x) => (x.id === c.id ? { ...x, weight: v } : x));
+          updateResults();
+        });
 
-    function sanitizeBaseName(name) {
-      return (
-        (name || "archivo")
-          .replace(/\.[^.]+$/, "")
-          .replace(/[^\w\-]+/g, "_")
-          .slice(0, 80) || "archivo"
-      );
-    }
+        const gradeInput = node.querySelector(".gradeInput");
+        gradeInput.value = c.grade;
+        gradeInput.addEventListener("input", (e) => {
+          const v = clampNumberString(String(e.target.value ?? ""), 0, 100);
+          state = state.map((x) => (x.id === c.id ? { ...x, grade: v } : x));
+          updateResults();
+        });
 
-    function dataUrlToBlob(dataUrl) {
-      const [header, base64] = dataUrl.split(",");
-      const match = /data:(.*?);base64/.exec(header);
-      const mime = match ? match[1] : "application/octet-stream";
-      const binary = atob(base64);
-      const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-      return new Blob([bytes], { type: mime });
-    }
-
-    function downloadBlob(blob, filename) {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function getSvgSize(svgText) {
-      try {
-        const doc = new DOMParser().parseFromString(svgText, "image/svg+xml");
-        const svg = doc.documentElement;
-        if (!svg || svg.nodeName.toLowerCase() !== "svg") return { width: 1024, height: 1024 };
-
-        const wAttr = svg.getAttribute("width");
-        const hAttr = svg.getAttribute("height");
-
-        const parseLen = (v) => {
-          if (!v) return null;
-          const n = parseFloat(String(v).replace(/px$/i, "").trim());
-          return Number.isFinite(n) && n > 0 ? n : null;
-        };
-
-        const w = parseLen(wAttr);
-        const h = parseLen(hAttr);
-        if (w && h) return { width: w, height: h };
-
-        const vb = svg.getAttribute("viewBox");
-        if (vb) {
-          const parts = vb.trim().split(/[\s,]+/).map(Number);
-          if (parts.length === 4) {
-            const vw = parts[2];
-            const vh = parts[3];
-            if (Number.isFinite(vw) && Number.isFinite(vh) && vw > 0 && vh > 0) {
-              return { width: vw, height: vh };
-            }
-          }
-        }
-      } catch (_) {}
-      return { width: 1024, height: 1024 };
-    }
-
-    async function fileToDataURL(file) {
-      return await new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onerror = () => reject(new Error("Could not read the file."));
-        r.onload = () => resolve(String(r.result));
-        r.readAsDataURL(file);
+        frag.appendChild(node);
       });
+
+      els.components.appendChild(frag);
+
+      els.countPill.textContent = `${state.length}/${MAX_COMPONENTS} components`;
+      els.addBtn.style.display = state.length < MAX_COMPONENTS ? "block" : "none";
     }
 
-    async function fileToText(file) {
-      return await new Promise((resolve, reject) => {
-        const r = new FileReader();
-        r.onerror = () => reject(new Error("Could not read the file."));
-        r.onload = () => resolve(String(r.result));
-        r.readAsText(file);
-      });
-    }
+    function updateResults() {
+      updateSummaryTitle();
+      const { totalWeight, weightedSum, finalGrade } = compute();
 
-    async function loadImageFromUrl(url) {
-      return await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error("Could not load the image for conversion."));
-        img.src = url;
-      });
-    }
+      els.totalWeight.textContent = `${totalWeight.toFixed(1)}%`;
+      els.weightPill.textContent = `Weight: ${totalWeight.toFixed(1)}%`;
 
-    async function rasterToRaster(file, targetFormat) {
-      const dataUrl = await fileToDataURL(file);
-      const img = await loadImageFromUrl(dataUrl);
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth || img.width;
-      canvas.height = img.naturalHeight || img.height;
-      const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      const mime = MIME_BY_FORMAT[targetFormat];
-      const outUrl = canvas.toDataURL(mime, targetFormat === "jpg" ? 0.92 : undefined);
-      return {
-        blob: dataUrlToBlob(outUrl),
-        mime,
-        ext: guessOutputExt(targetFormat),
-        width: canvas.width,
-        height: canvas.height,
-      };
-    }
-
-    async function rasterToSvg(file) {
-      const dataUrl = await fileToDataURL(file);
-      const img = await loadImageFromUrl(dataUrl);
-      const width = img.naturalWidth || img.width;
-      const height = img.naturalHeight || img.height;
-
-      const svgContent =
-        `<?xml version="1.0" encoding="UTF-8"?>\n` +
-        `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">\n` +
-        `  <image width="${width}" height="${height}" href="${dataUrl}" />\n` +
-        `</svg>`;
-
-      return {
-        blob: new Blob([svgContent], { type: MIME_BY_FORMAT.svg }),
-        mime: MIME_BY_FORMAT.svg,
-        ext: "svg",
-        width,
-        height,
-      };
-    }
-
-    async function svgToRaster(file, targetFormat) {
-      const svgText = await fileToText(file);
-      const { width, height } = getSvgSize(svgText);
-      const svgBlob = new Blob([svgText], { type: MIME_BY_FORMAT.svg });
-      const url = URL.createObjectURL(svgBlob);
-      try {
-        const img = await loadImageFromUrl(url);
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0, width, height);
-        const mime = MIME_BY_FORMAT[targetFormat];
-        const outUrl = canvas.toDataURL(mime, targetFormat === "jpg" ? 0.92 : undefined);
-        return { blob: dataUrlToBlob(outUrl), mime, ext: guessOutputExt(targetFormat), width, height };
-      } finally {
-        URL.revokeObjectURL(url);
+      if (totalWeight > 100) {
+        els.weightStatus.style.display = "block";
+        els.weightStatus.className = "status danger";
+        els.weightStatus.textContent = "Total weight exceeds 100%.";
+      } else if (totalWeight > 0 && totalWeight < 100) {
+        els.weightStatus.style.display = "block";
+        els.weightStatus.className = "status warn";
+        els.weightStatus.textContent = `You are only using ${totalWeight.toFixed(1)}% of the total weight.`;
+      } else {
+        els.weightStatus.style.display = "none";
+        els.weightStatus.textContent = "";
       }
-    }
 
-    async function svgToSvg(file) {
-      const svgText = await fileToText(file);
-      const { width, height } = getSvgSize(svgText);
-      return { blob: new Blob([svgText], { type: MIME_BY_FORMAT.svg }), mime: MIME_BY_FORMAT.svg, ext: "svg", width, height };
-    }
-
-    async function convertFile(file, from, to) {
-      if (from === to) throw new Error("Choose an output format different from the input.");
-
-      if (from === "svg" && to === "svg") return await svgToSvg(file);
-      if (from === "svg" && (to === "jpg" || to === "png" || to === "webp")) return await svgToRaster(file, to);
-      if ((from === "jpg" || from === "png" || from === "webp") && to === "svg") return await rasterToSvg(file);
-      if ((from === "jpg" || from === "png" || from === "webp") && (to === "jpg" || to === "png" || to === "webp")) {
-        return await rasterToRaster(file, to);
-      }
-      throw new Error("Unsupported conversion pair.");
-    }
-
-    function ensureValidSelection() {
-      if (fromFormat === toFormat) {
-        const fallback = FORMATS.find((f) => f.id !== fromFormat)?.id || "png";
-        toFormat = fallback;
-      }
-      setActiveButtons();
-      updateDisabledPairs();
-      updateAcceptHint();
-    }
-
-    uploadArea.addEventListener("click", () => fileInput.click());
-
-    uploadArea.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      uploadArea.classList.add("dragover");
-    });
-
-    uploadArea.addEventListener("dragleave", () => {
-      uploadArea.classList.remove("dragover");
-    });
-
-    uploadArea.addEventListener("drop", (e) => {
-      e.preventDefault();
-      uploadArea.classList.remove("dragover");
-      const files = e.dataTransfer.files;
-      if (files.length > 0) handleFile(files[0]);
-    });
-
-    fileInput.addEventListener("change", (e) => {
-      if (e.target.files.length > 0) handleFile(e.target.files[0]);
-    });
-
-    function handleFile(file) {
-      clearMessages();
-      resetOutput();
-
-      const allowedMime = MIME_BY_FORMAT[fromFormat];
-      const name = String(file.name || "").toLowerCase();
-      const extOk =
-        (fromFormat === "jpg" && (name.endsWith(".jpg") || name.endsWith(".jpeg"))) ||
-        (fromFormat === "png" && name.endsWith(".png")) ||
-        (fromFormat === "webp" && name.endsWith(".webp")) ||
-        (fromFormat === "svg" && name.endsWith(".svg"));
-
-      const isAllowedByMime =
-        file.type === allowedMime ||
-        (fromFormat === "jpg" && file.type === "image/jpeg") ||
-        (fromFormat === "svg" && file.type === "image/svg+xml");
-
-      const isAllowed = isAllowedByMime || (!file.type && extOk);
-      if (!isAllowed) {
-        showError(`Unsupported file type. Please choose a ${fromFormat.toUpperCase()} file.`);
-        setStatus("Error");
+      const okToCalc = canCalculate();
+      if (!okToCalc) {
+        els.finalGrade.textContent = "—";
+        els.finalNote.textContent = "Fill at least one weight and one grade to calculate.";
+        els.breakdownBox.style.display = "none";
         return;
       }
 
-      currentFile = file;
-      const reader = new FileReader();
+      els.finalGrade.textContent = finalGrade.toFixed(1);
+      els.finalNote.textContent = "Calculated from the completed components.";
 
-      reader.onload = (e) => {
-        preview.src = e.target.result;
-        previewArea.style.display = "grid";
+      const rows = [];
+      for (let i = 0; i < state.length; i++) {
+        const c = state[i];
+        if (c.weight === "" || c.grade === "") continue;
+        const w = toNumberOrZero(c.weight);
+        const g = toNumberOrZero(c.grade);
+        const contribution = (w * g) / 100;
+        const label = (c.name || "").trim() || `Component ${i + 1}`;
+        rows.push({ label, g, w, contribution });
+      }
 
-        if (fromFormat === "svg") {
-          const textReader = new FileReader();
-          textReader.onload = () => {
-            const svgText = String(textReader.result || "");
-            const { width, height } = getSvgSize(svgText);
-            dimensions.textContent = `Dimensions: ${Math.round(width)} × ${Math.round(height)} px (estimated)`;
-          };
-          textReader.readAsText(file);
-        } else {
-          const img = new Image();
-          img.onload = () => {
-            const w = img.naturalWidth || img.width;
-            const h = img.naturalHeight || img.height;
-            dimensions.textContent = `Dimensions: ${w} × ${h} px`;
-          };
-          img.src = e.target.result;
-        }
-      };
+      if (rows.length === 0) {
+        els.breakdownBox.style.display = "none";
+        return;
+      }
 
-      reader.readAsDataURL(file);
-      setStatus("File loaded");
+      els.breakdown.innerHTML = "";
+      for (const r of rows) {
+        const div = document.createElement("div");
+        div.className = "bdRow";
+
+        const name = document.createElement("div");
+        name.className = "bdName";
+        const span = document.createElement("span");
+        span.textContent = r.label;
+        name.appendChild(span);
+
+        const val = document.createElement("div");
+        val.className = "bdVal";
+        val.textContent = `${r.g} × ${r.w}% = ${r.contribution.toFixed(2)}`;
+
+        div.appendChild(name);
+        div.appendChild(val);
+        els.breakdown.appendChild(div);
+      }
+
+      els.weightedSumMeta.textContent = `Weighted sum: ${weightedSum.toFixed(2)}`;
+      els.breakdownBox.style.display = "block";
     }
 
-    convertBtn.addEventListener("click", () => {
-      if (!currentFile) return;
-
-      convertBtn.disabled = true;
-      convertBtn.textContent = "Converting…";
-      clearMessages();
-      setStatus("Converting");
-
-      (async () => {
-        try {
-          const res = await convertFile(currentFile, fromFormat, toFormat);
-          outputBlob = res.blob;
-          outputExt = res.ext;
-          outputMime = res.mime;
-          downloadBtn.style.display = "block";
-          showSuccess(`Done: ${fromFormat.toUpperCase()} → ${toFormat.toUpperCase()} (${Math.round(res.width)} × ${Math.round(res.height)} px).`);
-          setStatus("Ready to download");
-        } catch (err) {
-          showError(err instanceof Error ? err.message : "Conversion failed.");
-          setStatus("Error");
-        } finally {
-          convertBtn.disabled = false;
-          convertBtn.textContent = "Convert";
-        }
-      })();
+    els.addBtn.addEventListener("click", () => {
+      if (state.length >= MAX_COMPONENTS) return;
+      state = [
+        ...state,
+        { id: String(Date.now() + Math.random()), name: "", weight: "", grade: "" }
+      ];
+      render();
+      updateResults();
     });
 
-    downloadBtn.addEventListener("click", () => {
-      if (!outputBlob || !currentFile) return;
-      const base = sanitizeBaseName(currentFile.name);
-      const filename = `${base}.${outputExt || guessOutputExt(toFormat)}`;
-      downloadBlob(outputBlob, filename);
+    els.subjectName.addEventListener("input", () => {
+      updateSummaryTitle();
     });
 
     function init() {
-      renderFormatButtons(fromButtons, fromFormat, (id) => {
-        fromFormat = id;
-        ensureValidSelection();
-        hardResetUI();
-      });
-      renderFormatButtons(toButtons, toFormat, (id) => {
-        if (id === fromFormat) return;
-        toFormat = id;
-        ensureValidSelection();
-        hardResetUI();
-      });
-      ensureValidSelection();
+      render();
+      updateResults();
     }
 
     init();
   </script>
 </body>
 </html>
+
