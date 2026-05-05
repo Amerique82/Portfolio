@@ -1,298 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retro Calc 1104</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap');
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-        }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        .calculator {
-            background: #2d3748;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            width: 320px;
-            margin-bottom: 30px;
-        }
+  /* PAGE */
+  body {
+    min-height: 100vh;
+    background: #f0ede8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+  }
 
-        .display {
-            background: #1a202c;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: right;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-        }
+  .page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 440px;
+  }
 
-        .display-previous {
-            color: #a0aec0;
-            font-size: 14px;
-            min-height: 20px;
-            margin-bottom: 5px;
-        }
+  /* PROJECT HEADER */
+  .project-header {
+    text-align: center;
+    width: 100%;
+  }
 
-        .display-current {
-            color: #fff;
-            font-size: 32px;
-            font-weight: 300;
-            word-wrap: break-word;
-            word-break: break-all;
-        }
+  .project-tag {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: #2A2BAF;
+    border: 1px solid #2A2BAF;
+    padding: 0.3rem 1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
 
-        .buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-        }
+  .project-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    color: #2A2BAF;
+    text-shadow: 3px 3px 0 #1CC5B8;
+  }
 
-        button {
-            border: none;
-            border-radius: 10px;
-            font-size: 20px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-weight: 500;
-        }
+  .project-purpose {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    color: #444;
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+    border-left: 2px solid #FF3D9A;
+    padding-left: 1rem;
+    text-align: left;
+  }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
+  /* CALCULATOR BODY */
+  .calc-body {
+    width: 100%;
+    max-width: 340px;
+    background: #2A2BAF;
+    border-radius: 14px 14px 20px 20px;
+    padding: 1.5rem 1.5rem 2rem;
+    box-shadow:
+      0 0 0 3px #1A1B8A,
+      0 0 0 5px #3D3EC5,
+      0 20px 40px rgba(42, 43, 175, 0.25),
+      inset 0 1px 0 rgba(255,255,255,0.15);
+    position: relative;
+  }
 
-        button:active {
-            transform: translateY(0);
-        }
+  /* SCREWS */
+  .calc-body::before,
+  .calc-body::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1A1B8A;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    top: 12px;
+  }
+  .calc-body::before { left: 14px; }
+  .calc-body::after { right: 14px; }
 
-        .btn-number, .btn-decimal {
-            background: #4a5568;
-            color: #fff;
-        }
+  /* BRANDING */
+  .calc-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    padding: 0 2px;
+  }
 
-        .btn-operator {
-            background: #ed8936;
-            color: #fff;
-        }
+  .brand-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: rgba(100, 180, 255, 0.7);
+    text-transform: uppercase;
+  }
 
-        .btn-clear {
-            background: #fc8181;
-            color: #fff;
-        }
+  .model-num {
+    font-family: 'VT323', monospace;
+    font-size: 2.4rem;
+    color: rgba(100, 180, 255, 0.5);
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
 
-        .btn-equals {
-            background: #48bb78;
-            color: #fff;
-            grid-column: span 2;
-        }
+  /* LCD DISPLAY */
+  .display-outer {
+    background: #1A1B8A;
+    border-radius: 6px;
+    padding: 6px;
+    margin-bottom: 1.2rem;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+  }
 
-        .btn-zero {
-            grid-column: span 2;
-        }
+  .display-inner {
+    background: #b8d4a8;
+    border-radius: 3px;
+    padding: 0.6rem 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    min-height: 62px;
+    justify-content: flex-end;
+    position: relative;
+    box-shadow:
+      inset 0 2px 4px rgba(0,0,0,0.2),
+      inset 0 0 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
 
-        footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-            max-width: 320px;
-        }
+  .display-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0,0,0,0.03) 3px,
+      rgba(0,0,0,0.03) 4px
+    );
+  }
 
-        .copyright {
-            margin-bottom: 12px;
-            font-weight: 300;
-        }
+  .display-expr {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(40, 80, 30, 0.6);
+    letter-spacing: 0.05em;
+    min-height: 14px;
+  }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+  .display-value {
+    font-family: 'VT323', monospace;
+    font-size: 2.6rem;
+    color: #2a4a20;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+  }
 
-        .footer-links a {
-            color: #fbd38d;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-weight: 400;
-        }
+  .display-m {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(40, 80, 30, 0.7);
+  }
 
-        .footer-links a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px rgba(251, 211, 141, 0.5);
-        }
-    </style>
+  /* BUTTON GRID */
+  .btn-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+
+  .key {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    padding: 0;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform 0.08s, box-shadow 0.08s;
+    user-select: none;
+  }
+
+  .key:active { transform: translateY(2px); }
+
+  /* FUNCTION KEYS */
+  .key-fn {
+    background: #1CC5B8;
+    color: #fff;
+    box-shadow: 0 4px 0 #0A8C82, 0 5px 6px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+  }
+  .key-fn:hover { background: #22DDD0; }
+  .key-fn:active { box-shadow: 0 1px 0 #0A8C82, 0 2px 3px rgba(0,0,0,0.3); }
+
+  /* NUMBER KEYS */
+  .key-num {
+    background: #F5D800;
+    color: #1a6000;
+    box-shadow: 0 4px 0 #B5A000, 0 5px 6px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .key-num:hover { background: #FFE033; }
+  .key-num:active { box-shadow: 0 1px 0 #B5A000, 0 2px 3px rgba(0,0,0,0.3); }
+
+  /* ON/C KEY */
+  .key-on {
+    background: #FF3D9A;
+    color: #fff;
+    box-shadow: 0 4px 0 #C0006A, 0 5px 6px rgba(0,0,0,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    font-size: 0.6rem;
+  }
+  .key-on:hover { background: #FF5CAF; }
+  .key-on:active { box-shadow: 0 1px 0 #C0006A, 0 2px 3px rgba(0,0,0,0.3); }
+
+  /* EQUALS KEY */
+  .key-eq {
+    background: #1CC5B8;
+    color: #fff;
+    box-shadow: 0 4px 0 #0A8C82, 0 5px 6px rgba(0,0,0,0.3);
+    grid-row: span 2;
+    height: auto;
+    font-size: 1.2rem;
+  }
+  .key-eq:hover { background: #22DDD0; }
+  .key-eq:active { box-shadow: 0 1px 0 #0A8C82, 0 2px 3px rgba(0,0,0,0.3); }
+
+  .key-sym { font-size: 0.9rem; font-weight: 400; }
+
+  /* FOOTER */
+  .calc-footer {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .footer-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    color: #aaa;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+</style>
 </head>
 <body>
-    <div class="calculator">
-        <div class="display">
-            <div class="display-previous" id="previousOperand"></div>
-            <div class="display-current" id="currentOperand">0</div>
-        </div>
-        <div class="buttons">
-            <button class="btn-clear" onclick="calculator.clear()">C</button>
-            <button class="btn-operator" onclick="calculator.delete()">←</button>
-            <button class="btn-operator" onclick="calculator.chooseOperation('÷')">÷</button>
-            <button class="btn-operator" onclick="calculator.chooseOperation('×')">×</button>
-            
-            <button class="btn-number" onclick="calculator.appendNumber('7')">7</button>
-            <button class="btn-number" onclick="calculator.appendNumber('8')">8</button>
-            <button class="btn-number" onclick="calculator.appendNumber('9')">9</button>
-            <button class="btn-operator" onclick="calculator.chooseOperation('-')">−</button>
-            
-            <button class="btn-number" onclick="calculator.appendNumber('4')">4</button>
-            <button class="btn-number" onclick="calculator.appendNumber('5')">5</button>
-            <button class="btn-number" onclick="calculator.appendNumber('6')">6</button>
-            <button class="btn-operator" onclick="calculator.chooseOperation('+')">+</button>
-            
-            <button class="btn-number" onclick="calculator.appendNumber('1')">1</button>
-            <button class="btn-number" onclick="calculator.appendNumber('2')">2</button>
-            <button class="btn-number" onclick="calculator.appendNumber('3')">3</button>
-            <button class="btn-equals" onclick="calculator.compute()">=</button>
-            
-            <button class="btn-number btn-zero" onclick="calculator.appendNumber('0')">0</button>
-            <button class="btn-decimal" onclick="calculator.appendNumber('.')">.</button>
-        </div>
+<div class="page-wrapper">
+
+  <!-- PROJECT HEADER -->
+  <header class="project-header">
+    <div class="project-tag">// Project 001</div>
+    <h1 class="project-title">Retro Calc</h1>
+    <p class="project-purpose">
+      A browser-based calculator inspired by the Texas Instruments TI-1104.<br>
+      Built to explore retro UI design — where form follows nostalgia and every key press feels like 1984.
+    </p>
+  </header>
+
+  <!-- CALCULATOR -->
+  <div class="calc-body">
+
+    <!-- BRANDING -->
+    <div class="calc-brand">
+      <span class="brand-name">Texas Instruments</span>
+      <span class="model-num">1104</span>
     </div>
 
-    <footer>
-        <div class="copyright">
-            © 2025 Simple Calculator | Created by América Bernal
-        </div>
-        <div class="footer-links">
-            <a href="https://amerique82.github.io/Portfolio/" target="_blank">← Back to Portfolio</a>
-            <a href="https://github.com/amerique82" target="_blank">GitHub</a>
-        </div>
-    </footer>
+    <!-- LCD DISPLAY -->
+    <div class="display-outer">
+      <div class="display-inner">
+        <span class="display-m" id="mem-indicator"></span>
+        <span class="display-expr" id="expr"></span>
+        <span class="display-value" id="display">0</span>
+      </div>
+    </div>
 
-    <script>
-        class Calculator {
-            constructor(previousOperandElement, currentOperandElement) {
-                this.previousOperandElement = previousOperandElement;
-                this.currentOperandElement = currentOperandElement;
-                this.clear();
-            }
+    <!-- BUTTON GRID -->
+    <div class="btn-grid">
 
-            clear() {
-                this.currentOperand = '0';
-                this.previousOperand = '';
-                this.operation = undefined;
-            }
+      <!-- FUNCTION ROW -->
+      <button class="key key-fn" onclick="calcOff()">OFF</button>
+      <button class="key key-fn key-sym" onclick="calcSqrt()">&#8730;</button>
+      <button class="key key-fn key-sym" onclick="calcPct()">%</button>
+      <button class="key key-fn key-sym" onclick="setOp('+')">+</button>
 
-            delete() {
-                if (this.currentOperand === '0') return;
-                this.currentOperand = this.currentOperand.toString().slice(0, -1);
-                if (this.currentOperand === '') this.currentOperand = '0';
-            }
+      <!-- MEMORY ROW -->
+      <button class="key key-fn" onclick="mrc()">MRC</button>
+      <button class="key key-fn" onclick="mMinus()">M&minus;</button>
+      <button class="key key-fn" onclick="mPlus()">M+</button>
+      <button class="key key-fn key-sym" onclick="setOp('*')">&times;</button>
 
-            appendNumber(number) {
-                if (number === '.' && this.currentOperand.includes('.')) return;
-                if (this.currentOperand === '0' && number !== '.') {
-                    this.currentOperand = number;
-                } else {
-                    this.currentOperand = this.currentOperand.toString() + number.toString();
-                }
-            }
+      <!-- NUMBER ROWS -->
+      <button class="key key-num" onclick="input('7')">7</button>
+      <button class="key key-num" onclick="input('8')">8</button>
+      <button class="key key-num" onclick="input('9')">9</button>
+      <button class="key key-fn key-sym" onclick="setOp('-')">&minus;</button>
 
-            chooseOperation(operation) {
-                if (this.currentOperand === '') return;
-                if (this.previousOperand !== '') {
-                    this.compute();
-                }
-                this.operation = operation;
-                this.previousOperand = this.currentOperand + ' ' + operation;
-                this.currentOperand = '0';
-            }
+      <button class="key key-num" onclick="input('4')">4</button>
+      <button class="key key-num" onclick="input('5')">5</button>
+      <button class="key key-num" onclick="input('6')">6</button>
+      <button class="key key-fn key-sym" onclick="setOp('+')">+</button>
 
-            compute() {
-                let computation;
-                const prev = parseFloat(this.previousOperand);
-                const current = parseFloat(this.currentOperand);
-                if (isNaN(prev) || isNaN(current)) return;
-                
-                switch (this.operation) {
-                    case '+':
-                        computation = prev + current;
-                        break;
-                    case '-':
-                        computation = prev - current;
-                        break;
-                    case '×':
-                        computation = prev * current;
-                        break;
-                    case '÷':
-                        computation = prev / current;
-                        break;
-                    default:
-                        return;
-                }
-                
-                this.currentOperand = computation.toString();
-                this.operation = undefined;
-                this.previousOperand = '';
-            }
+      <button class="key key-num" onclick="input('1')">1</button>
+      <button class="key key-num" onclick="input('2')">2</button>
+      <button class="key key-num" onclick="input('3')">3</button>
+      <button class="key key-eq key-sym" onclick="calcResult()">=</button>
 
-            updateDisplay() {
-                this.currentOperandElement.textContent = this.currentOperand;
-                this.previousOperandElement.textContent = this.previousOperand;
-            }
-        }
+      <!-- BOTTOM ROW -->
+      <button class="key key-on" onclick="calcOn()">ON/C</button>
+      <button class="key key-num" onclick="input('0')">0</button>
+      <button class="key key-num key-sym" onclick="inputDot()">.</button>
 
-        const calculator = new Calculator(
-            document.getElementById('previousOperand'),
-            document.getElementById('currentOperand')
-        );
+    </div>
+  </div>
 
-        calculator.updateDisplay();
+  <!-- FOOTER -->
+  <footer class="calc-footer">
+    <p class="footer-text">Retro Calc &mdash; UI Design Concept &mdash; 2026</p>
+  </footer>
 
-        // Update display after each operation
-        const originalClear = calculator.clear.bind(calculator);
-        const originalDelete = calculator.delete.bind(calculator);
-        const originalAppendNumber = calculator.appendNumber.bind(calculator);
-        const originalChooseOperation = calculator.chooseOperation.bind(calculator);
-        const originalCompute = calculator.compute.bind(calculator);
+</div>
 
-        calculator.clear = function() {
-            originalClear();
-            this.updateDisplay();
-        };
+<script>
+  // STATE
+  let current = '0';
+  let prev = null;
+  let op = null;
+  let resetNext = false;
+  let memory = 0;
+  let memActive = false;
 
-        calculator.delete = function() {
-            originalDelete();
-            this.updateDisplay();
-        };
+  const disp = document.getElementById('display');
+  const expr = document.getElementById('expr');
+  const memInd = document.getElementById('mem-indicator');
 
-        calculator.appendNumber = function(number) {
-            originalAppendNumber(number);
-            this.updateDisplay();
-        };
+  // updateDisplay
+  function updateDisplay(val) {
+    let s = String(val);
+    if (s.length > 10) s = parseFloat(parseFloat(s).toPrecision(8)).toString();
+    disp.textContent = s;
+  }
 
-        calculator.chooseOperation = function(operation) {
-            originalChooseOperation(operation);
-            this.updateDisplay();
-        };
+  // input
+  function input(digit) {
+    if (resetNext) { current = digit; resetNext = false; }
+    else { current = current === '0' ? digit : current + digit; }
+    if (current.length > 10) return;
+    updateDisplay(current);
+  }
 
-        calculator.compute = function() {
-            originalCompute();
-            this.updateDisplay();
-        };
-    </script>
+  // inputDot
+  function inputDot() {
+    if (resetNext) { current = '0.'; resetNext = false; updateDisplay(current); return; }
+    if (!current.includes('.')) { current += '.'; updateDisplay(current); }
+  }
+
+  // setOp
+  function setOp(o) {
+    if (op && !resetNext) calcResult();
+    prev = parseFloat(current);
+    op = o;
+    expr.textContent = prev + ' ' + (o === '*' ? '×' : o);
+    resetNext = true;
+  }
+
+  // calcResult
+  function calcResult() {
+    if (op === null || prev === null) return;
+    let a = prev, b = parseFloat(current), result;
+    if (op === '+') result = a + b;
+    else if (op === '-') result = a - b;
+    else if (op === '*') result = a * b;
+    else if (op === '/') result = b !== 0 ? a / b : 'ERR';
+    expr.textContent = a + ' ' + (op === '*' ? '×' : op) + ' ' + b + ' =';
+    current = String(result);
+    updateDisplay(result);
+    op = null; prev = null; resetNext = true;
+  }
+
+  // calcSqrt
+  function calcSqrt() {
+    let v = Math.sqrt(parseFloat(current));
+    expr.textContent = '√' + current + ' =';
+    current = String(v);
+    updateDisplay(v);
+    resetNext = true;
+  }
+
+  // calcPct
+  function calcPct() {
+    let v = parseFloat(current) / 100;
+    expr.textContent = current + '% =';
+    current = String(v);
+    updateDisplay(v);
+    resetNext = true;
+  }
+
+  // calcOn
+  function calcOn() {
+    current = '0'; prev = null; op = null; resetNext = false;
+    expr.textContent = '';
+    updateDisplay('0');
+  }
+
+  // calcOff
+  function calcOff() {
+    current = '0'; prev = null; op = null; resetNext = false;
+    expr.textContent = '';
+    disp.textContent = '';
+  }
+
+  // mPlus
+  function mPlus() {
+    memory += parseFloat(current);
+    memActive = true;
+    memInd.textContent = 'M';
+    resetNext = true;
+  }
+
+  // mMinus
+  function mMinus() {
+    memory -= parseFloat(current);
+    memActive = memory !== 0;
+    memInd.textContent = memActive ? 'M' : '';
+    resetNext = true;
+  }
+
+  // mrc
+  function mrc() {
+    if (memActive) {
+      current = String(memory);
+      updateDisplay(memory);
+      resetNext = true;
+    } else {
+      memory = 0;
+      memInd.textContent = '';
+    }
+  }
+
+  // keyboardSupport
+  document.addEventListener('keydown', e => {
+    if (e.key >= '0' && e.key <= '9') input(e.key);
+    else if (e.key === '.') inputDot();
+    else if (e.key === '+') setOp('+');
+    else if (e.key === '-') setOp('-');
+    else if (e.key === '*') setOp('*');
+    else if (e.key === '/') { e.preventDefault(); setOp('/'); }
+    else if (e.key === 'Enter' || e.key === '=') calcResult();
+    else if (e.key === 'Escape') calcOn();
+    else if (e.key === 'Backspace') {
+      if (current.length > 1) current = current.slice(0, -1);
+      else current = '0';
+      updateDisplay(current);
+    }
+  });
+</script>
 </body>
 </html>
