@@ -9,10 +9,39 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
+  /* CSS CUSTOM PROPERTIES — THEME TOKENS */
+  :root {
+    --body-bg:        #2A2BAF;
+    --body-border:    #1A1B8A;
+    --body-rim:       #3D3EC5;
+    --body-shadow:    rgba(42, 43, 175, 0.25);
+    --screw-color:    #1A1B8A;
+    --brand-color:    rgba(100, 180, 255, 0.7);
+    --model-color:    rgba(100, 180, 255, 0.5);
+    --display-frame:  #1A1B8A;
+    --fn-bg:          #1CC5B8;
+    --fn-shadow:      #0A8C82;
+    --fn-hover:       #22DDD0;
+    --num-bg:         #F5D800;
+    --num-shadow:     #B5A000;
+    --num-hover:      #FFE033;
+    --num-color:      #1a6000;
+    --on-bg:          #FF3D9A;
+    --on-shadow:      #C0006A;
+    --on-hover:       #FF5CAF;
+    --page-bg:        #f0ede8;
+    --header-color:   #2A2BAF;
+    --header-shadow:  #1CC5B8;
+    --tag-color:      #2A2BAF;
+    --purpose-border: #FF3D9A;
+    --purpose-color:  #444;
+    --footer-color:   #aaa;
+  }
+
   /* PAGE */
   body {
     min-height: 100vh;
-    background: #f0ede8;
+    background: var(--page-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,13 +49,14 @@
     padding: 2rem 1rem;
     font-family: 'Orbitron', sans-serif;
     overflow-x: hidden;
+    transition: background 0.4s;
   }
 
   .page-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2.5rem;
+    gap: 2rem;
     width: 100%;
     max-width: 440px;
   }
@@ -42,11 +72,12 @@
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.3em;
-    color: #2A2BAF;
-    border: 1px solid #2A2BAF;
+    color: var(--tag-color);
+    border: 1px solid var(--tag-color);
     padding: 0.3rem 1rem;
     margin-bottom: 1rem;
     text-transform: uppercase;
+    transition: color 0.4s, border-color 0.4s;
   }
 
   .project-title {
@@ -57,36 +88,102 @@
     text-transform: uppercase;
     line-height: 1;
     margin-bottom: 0.75rem;
-    color: #2A2BAF;
-    text-shadow: 3px 3px 0 #1CC5B8;
+    color: var(--header-color);
+    text-shadow: 3px 3px 0 var(--header-shadow);
+    transition: color 0.4s, text-shadow 0.4s;
   }
 
   .project-purpose {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.78rem;
-    color: #444;
+    color: var(--purpose-color);
     letter-spacing: 0.08em;
     line-height: 1.7;
     max-width: 380px;
     margin: 0 auto;
-    border-left: 2px solid #FF3D9A;
+    border-left: 2px solid var(--purpose-border);
     padding-left: 1rem;
     text-align: left;
+    transition: border-color 0.4s, color 0.4s;
+  }
+
+  /* THEME SWITCHER */
+  .theme-switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .theme-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--purpose-color);
+    transition: color 0.4s;
+  }
+
+  .theme-swatches {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+  }
+
+  .swatch:hover { transform: scale(1.15); }
+
+  .swatch.active {
+    border-color: #333;
+    transform: scale(1.2);
+  }
+
+  .swatch-blue   { background: #2A2BAF; }
+  .swatch-pink   { background: #D4279A; }
+  .swatch-gray   { background: #6b6b6b; }
+  .swatch-white  { background: #f0f0f0; border: 3px solid #ccc; }
+  .swatch-yellow { background: #F5C500; }
+
+  .swatch-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.5rem;
+    color: var(--purpose-color);
+    text-align: center;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+    transition: color 0.4s;
+  }
+
+  .swatch-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   /* CALCULATOR BODY */
   .calc-body {
     width: 100%;
     max-width: 340px;
-    background: #2A2BAF;
+    background: var(--body-bg);
     border-radius: 14px 14px 20px 20px;
     padding: 1.5rem 1.5rem 2rem;
     box-shadow:
-      0 0 0 3px #1A1B8A,
-      0 0 0 5px #3D3EC5,
-      0 20px 40px rgba(42, 43, 175, 0.25),
+      0 0 0 3px var(--body-border),
+      0 0 0 5px var(--body-rim),
+      0 20px 40px var(--body-shadow),
       inset 0 1px 0 rgba(255,255,255,0.15);
     position: relative;
+    transition: background 0.4s, box-shadow 0.4s;
   }
 
   /* SCREWS */
@@ -97,9 +194,10 @@
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: #1A1B8A;
+    background: var(--screw-color);
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
     top: 12px;
+    transition: background 0.4s;
   }
   .calc-body::before { left: 14px; }
   .calc-body::after { right: 14px; }
@@ -117,25 +215,28 @@
     font-family: 'Orbitron', sans-serif;
     font-size: 0.5rem;
     letter-spacing: 0.15em;
-    color: rgba(100, 180, 255, 0.7);
+    color: var(--brand-color);
     text-transform: uppercase;
+    transition: color 0.4s;
   }
 
   .model-num {
     font-family: 'VT323', monospace;
     font-size: 2.4rem;
-    color: rgba(100, 180, 255, 0.5);
+    color: var(--model-color);
     line-height: 1;
     letter-spacing: 0.05em;
+    transition: color 0.4s;
   }
 
   /* LCD DISPLAY */
   .display-outer {
-    background: #1A1B8A;
+    background: var(--display-frame);
     border-radius: 6px;
     padding: 6px;
     margin-bottom: 1.2rem;
     box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    transition: background 0.4s;
   }
 
   .display-inner {
@@ -148,9 +249,7 @@
     min-height: 62px;
     justify-content: flex-end;
     position: relative;
-    box-shadow:
-      inset 0 2px 4px rgba(0,0,0,0.2),
-      inset 0 0 12px rgba(0,0,0,0.1);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), inset 0 0 12px rgba(0,0,0,0.1);
     overflow: hidden;
   }
 
@@ -159,11 +258,8 @@
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0,0,0,0.03) 3px,
-      rgba(0,0,0,0.03) 4px
+      0deg, transparent, transparent 3px,
+      rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px
     );
   }
 
@@ -214,7 +310,7 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    transition: transform 0.08s, box-shadow 0.08s;
+    transition: transform 0.08s, box-shadow 0.08s, background 0.4s;
     user-select: none;
   }
 
@@ -222,61 +318,60 @@
 
   /* FUNCTION KEYS */
   .key-fn {
-    background: #1CC5B8;
+    background: var(--fn-bg);
     color: #fff;
-    box-shadow: 0 4px 0 #0A8C82, 0 5px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 0 var(--fn-shadow), 0 5px 6px rgba(0,0,0,0.3);
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
   }
-  .key-fn:hover { background: #22DDD0; }
-  .key-fn:active { box-shadow: 0 1px 0 #0A8C82, 0 2px 3px rgba(0,0,0,0.3); }
+  .key-fn:hover { background: var(--fn-hover); }
+  .key-fn:active { box-shadow: 0 1px 0 var(--fn-shadow), 0 2px 3px rgba(0,0,0,0.3); }
 
   /* NUMBER KEYS */
   .key-num {
-    background: #F5D800;
-    color: #1a6000;
-    box-shadow: 0 4px 0 #B5A000, 0 5px 6px rgba(0,0,0,0.3);
+    background: var(--num-bg);
+    color: var(--num-color);
+    box-shadow: 0 4px 0 var(--num-shadow), 0 5px 6px rgba(0,0,0,0.3);
     text-shadow: 0 1px 0 rgba(255,255,255,0.3);
   }
-  .key-num:hover { background: #FFE033; }
-  .key-num:active { box-shadow: 0 1px 0 #B5A000, 0 2px 3px rgba(0,0,0,0.3); }
+  .key-num:hover { background: var(--num-hover); }
+  .key-num:active { box-shadow: 0 1px 0 var(--num-shadow), 0 2px 3px rgba(0,0,0,0.3); }
 
   /* ON/C KEY */
   .key-on {
-    background: #FF3D9A;
+    background: var(--on-bg);
     color: #fff;
-    box-shadow: 0 4px 0 #C0006A, 0 5px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 0 var(--on-shadow), 0 5px 6px rgba(0,0,0,0.3);
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     font-size: 0.6rem;
   }
-  .key-on:hover { background: #FF5CAF; }
-  .key-on:active { box-shadow: 0 1px 0 #C0006A, 0 2px 3px rgba(0,0,0,0.3); }
+  .key-on:hover { background: var(--on-hover); }
+  .key-on:active { box-shadow: 0 1px 0 var(--on-shadow), 0 2px 3px rgba(0,0,0,0.3); }
 
   /* EQUALS KEY */
   .key-eq {
-    background: #1CC5B8;
+    background: var(--fn-bg);
     color: #fff;
-    box-shadow: 0 4px 0 #0A8C82, 0 5px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 0 var(--fn-shadow), 0 5px 6px rgba(0,0,0,0.3);
     grid-row: span 2;
     height: auto;
     font-size: 1.2rem;
+    transition: background 0.4s, box-shadow 0.4s;
   }
-  .key-eq:hover { background: #22DDD0; }
-  .key-eq:active { box-shadow: 0 1px 0 #0A8C82, 0 2px 3px rgba(0,0,0,0.3); }
+  .key-eq:hover { background: var(--fn-hover); }
+  .key-eq:active { box-shadow: 0 1px 0 var(--fn-shadow), 0 2px 3px rgba(0,0,0,0.3); }
 
   .key-sym { font-size: 0.9rem; font-weight: 400; }
 
   /* FOOTER */
-  .calc-footer {
-    text-align: center;
-    margin-top: 1rem;
-  }
+  .calc-footer { text-align: center; margin-top: 0.5rem; }
 
   .footer-text {
     font-family: 'Share Tech Mono', monospace;
     font-size: 0.6rem;
-    color: #aaa;
+    color: var(--footer-color);
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    transition: color 0.4s;
   }
 </style>
 </head>
@@ -292,6 +387,39 @@
       Built to explore retro UI design — where form follows nostalgia and every key press feels like 1984.
     </p>
   </header>
+
+  <!-- THEME SWITCHER -->
+  <div class="theme-switcher">
+    <span class="theme-label">// change colors</span>
+    <div class="theme-swatches">
+
+      <div class="swatch-wrap">
+        <div class="swatch swatch-blue active" onclick="setTheme('blue', this)" title="Blue"></div>
+        <span class="swatch-label">Blue</span>
+      </div>
+
+      <div class="swatch-wrap">
+        <div class="swatch swatch-pink" onclick="setTheme('pink', this)" title="Pink"></div>
+        <span class="swatch-label">Pink</span>
+      </div>
+
+      <div class="swatch-wrap">
+        <div class="swatch swatch-gray" onclick="setTheme('gray', this)" title="Gray"></div>
+        <span class="swatch-label">Gray</span>
+      </div>
+
+      <div class="swatch-wrap">
+        <div class="swatch swatch-white" onclick="setTheme('white', this)" title="White"></div>
+        <span class="swatch-label">White</span>
+      </div>
+
+      <div class="swatch-wrap">
+        <div class="swatch swatch-yellow" onclick="setTheme('yellow', this)" title="Yellow"></div>
+        <span class="swatch-label">Yellow</span>
+      </div>
+
+    </div>
+  </div>
 
   <!-- CALCULATOR -->
   <div class="calc-body">
@@ -318,7 +446,7 @@
       <button class="key key-fn" onclick="calcOff()">OFF</button>
       <button class="key key-fn key-sym" onclick="calcSqrt()">&#8730;</button>
       <button class="key key-fn key-sym" onclick="calcPct()">%</button>
-      <button class="key key-fn key-sym" onclick="setOp('+')">+</button>
+      <button class="key key-fn key-sym" onclick="setOp('/')">&#247;</button>
 
       <!-- MEMORY ROW -->
       <button class="key key-fn" onclick="mrc()">MRC</button>
@@ -358,16 +486,164 @@
 </div>
 
 <script>
+  // THEMES
+  const themes = {
+    blue: {
+      '--body-bg':        '#2A2BAF',
+      '--body-border':    '#1A1B8A',
+      '--body-rim':       '#3D3EC5',
+      '--body-shadow':    'rgba(42,43,175,0.25)',
+      '--screw-color':    '#1A1B8A',
+      '--brand-color':    'rgba(100,180,255,0.7)',
+      '--model-color':    'rgba(100,180,255,0.5)',
+      '--display-frame':  '#1A1B8A',
+      '--fn-bg':          '#1CC5B8',
+      '--fn-shadow':      '#0A8C82',
+      '--fn-hover':       '#22DDD0',
+      '--num-bg':         '#F5D800',
+      '--num-shadow':     '#B5A000',
+      '--num-hover':      '#FFE033',
+      '--num-color':      '#1a6000',
+      '--on-bg':          '#FF3D9A',
+      '--on-shadow':      '#C0006A',
+      '--on-hover':       '#FF5CAF',
+      '--page-bg':        '#f0ede8',
+      '--header-color':   '#2A2BAF',
+      '--header-shadow':  '#1CC5B8',
+      '--tag-color':      '#2A2BAF',
+      '--purpose-border': '#FF3D9A',
+      '--purpose-color':  '#444',
+      '--footer-color':   '#aaa',
+    },
+    pink: {
+      '--body-bg':        '#D4279A',
+      '--body-border':    '#A01B78',
+      '--body-rim':       '#E040B0',
+      '--body-shadow':    'rgba(212,39,154,0.25)',
+      '--screw-color':    '#A01B78',
+      '--brand-color':    'rgba(255,255,255,0.8)',
+      '--model-color':    'rgba(255,255,255,0.7)',
+      '--display-frame':  '#A01B78',
+      '--fn-bg':          '#00897B',
+      '--fn-shadow':      '#00574B',
+      '--fn-hover':       '#00A693',
+      '--num-bg':         '#3949AB',
+      '--num-shadow':     '#253282',
+      '--num-hover':      '#4B5CC4',
+      '--num-color':      '#ffffff',
+      '--on-bg':          '#F5D800',
+      '--on-shadow':      '#B5A000',
+      '--on-hover':       '#FFE033',
+      '--page-bg':        '#f0ede8',
+      '--header-color':   '#D4279A',
+      '--header-shadow':  '#00897B',
+      '--tag-color':      '#D4279A',
+      '--purpose-border': '#D4279A',
+      '--purpose-color':  '#444',
+      '--footer-color':   '#aaa',
+    },
+    gray: {
+      '--body-bg':        '#5E5E5E',
+      '--body-border':    '#3a3a3a',
+      '--body-rim':       '#747474',
+      '--body-shadow':    'rgba(0,0,0,0.2)',
+      '--screw-color':    '#3a3a3a',
+      '--brand-color':    'rgba(240,160,160,0.8)',
+      '--model-color':    'rgba(240,160,160,0.6)',
+      '--display-frame':  '#3a3a3a',
+      '--fn-bg':          '#5E5E5E',
+      '--fn-shadow':      '#2e2e2e',
+      '--fn-hover':       '#707070',
+      '--num-bg':         '#F4A0A0',
+      '--num-shadow':     '#D07070',
+      '--num-hover':      '#FBB8B8',
+      '--num-color':      '#5E1010',
+      '--on-bg':          '#009688',
+      '--on-shadow':      '#00574B',
+      '--on-hover':       '#00A696',
+      '--page-bg':        '#f0ede8',
+      '--header-color':   '#5E5E5E',
+      '--header-shadow':  '#F4A0A0',
+      '--tag-color':      '#5E5E5E',
+      '--purpose-border': '#F4A0A0',
+      '--purpose-color':  '#444',
+      '--footer-color':   '#aaa',
+    },
+    white: {
+      '--body-bg':        '#EDECEA',
+      '--body-border':    '#c5c3c0',
+      '--body-rim':       '#f5f4f2',
+      '--body-shadow':    'rgba(0,0,0,0.12)',
+      '--screw-color':    '#c5c3c0',
+      '--brand-color':    'rgba(41,182,246,0.8)',
+      '--model-color':    'rgba(41,182,246,0.7)',
+      '--display-frame':  '#c5c3c0',
+      '--fn-bg':          '#29B6F6',
+      '--fn-shadow':      '#0077B8',
+      '--fn-hover':       '#4FC3F7',
+      '--num-bg':         '#81C784',
+      '--num-shadow':     '#4D8C51',
+      '--num-hover':      '#A5D6A7',
+      '--num-color':      '#1B4D1D',
+      '--on-bg':          '#EF5350',
+      '--on-shadow':      '#B71C1C',
+      '--on-hover':       '#FF7675',
+      '--page-bg':        '#f0ede8',
+      '--header-color':   '#29B6F6',
+      '--header-shadow':  '#81C784',
+      '--tag-color':      '#29B6F6',
+      '--purpose-border': '#EF5350',
+      '--purpose-color':  '#444',
+      '--footer-color':   '#aaa',
+    },
+    yellow: {
+      '--body-bg':        '#F5C500',
+      '--body-border':    '#C49A00',
+      '--body-rim':       '#FFD740',
+      '--body-shadow':    'rgba(245,197,0,0.3)',
+      '--screw-color':    '#C49A00',
+      '--brand-color':    'rgba(80,40,0,0.7)',
+      '--model-color':    'rgba(80,40,0,0.55)',
+      '--display-frame':  '#C49A00',
+      '--fn-bg':          '#FF6D00',
+      '--fn-shadow':      '#C24E00',
+      '--fn-hover':       '#FF8C2A',
+      '--num-bg':         '#FFFFFF',
+      '--num-shadow':     '#D0CDCA',
+      '--num-hover':      '#F5F5F5',
+      '--num-color':      '#8B4513',
+      '--on-bg':          '#E53935',
+      '--on-shadow':      '#B71C1C',
+      '--on-hover':       '#FF5252',
+      '--page-bg':        '#f0ede8',
+      '--header-color':   '#C49A00',
+      '--header-shadow':  '#FF6D00',
+      '--tag-color':      '#C49A00',
+      '--purpose-border': '#FF6D00',
+      '--purpose-color':  '#444',
+      '--footer-color':   '#aaa',
+    },
+  };
+
+  // setTheme
+  function setTheme(name, el) {
+    const root = document.documentElement;
+    const t = themes[name];
+    for (const [k, v] of Object.entries(t)) root.style.setProperty(k, v);
+    document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+  }
+
   // STATE
-  let current = '0';
-  let prev = null;
-  let op = null;
+  let current   = '0';
+  let prev      = null;
+  let op        = null;
   let resetNext = false;
-  let memory = 0;
+  let memory    = 0;
   let memActive = false;
 
-  const disp = document.getElementById('display');
-  const expr = document.getElementById('expr');
+  const disp   = document.getElementById('display');
+  const expr   = document.getElementById('expr');
   const memInd = document.getElementById('mem-indicator');
 
   // updateDisplay
@@ -395,8 +671,8 @@
   function setOp(o) {
     if (op && !resetNext) calcResult();
     prev = parseFloat(current);
-    op = o;
-    expr.textContent = prev + ' ' + (o === '*' ? '×' : o);
+    op   = o;
+    expr.textContent = prev + ' ' + (o === '*' ? '×' : o === '/' ? '÷' : o);
     resetNext = true;
   }
 
@@ -404,11 +680,11 @@
   function calcResult() {
     if (op === null || prev === null) return;
     let a = prev, b = parseFloat(current), result;
-    if (op === '+') result = a + b;
+    if      (op === '+') result = a + b;
     else if (op === '-') result = a - b;
     else if (op === '*') result = a * b;
     else if (op === '/') result = b !== 0 ? a / b : 'ERR';
-    expr.textContent = a + ' ' + (op === '*' ? '×' : op) + ' ' + b + ' =';
+    expr.textContent = a + ' ' + (op === '*' ? '×' : op === '/' ? '÷' : op) + ' ' + b + ' =';
     current = String(result);
     updateDisplay(result);
     op = null; prev = null; resetNext = true;
@@ -476,14 +752,14 @@
 
   // keyboardSupport
   document.addEventListener('keydown', e => {
-    if (e.key >= '0' && e.key <= '9') input(e.key);
-    else if (e.key === '.') inputDot();
-    else if (e.key === '+') setOp('+');
-    else if (e.key === '-') setOp('-');
-    else if (e.key === '*') setOp('*');
-    else if (e.key === '/') { e.preventDefault(); setOp('/'); }
+    if      (e.key >= '0' && e.key <= '9') input(e.key);
+    else if (e.key === '.')                 inputDot();
+    else if (e.key === '+')                 setOp('+');
+    else if (e.key === '-')                 setOp('-');
+    else if (e.key === '*')                 setOp('*');
+    else if (e.key === '/')                 { e.preventDefault(); setOp('/'); }
     else if (e.key === 'Enter' || e.key === '=') calcResult();
-    else if (e.key === 'Escape') calcOn();
+    else if (e.key === 'Escape')            calcOn();
     else if (e.key === 'Backspace') {
       if (current.length > 1) current = current.slice(0, -1);
       else current = '0';
