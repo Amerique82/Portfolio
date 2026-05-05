@@ -1,509 +1,635 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Encoder/Decoder</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL Encoder / Decoder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+    :root{
+      --pink: #ED4D8B;
+      --rose: #F3A8BB;
+      --cream: #FCF1F0;
+      --peach: #F8BF80;
 
-        .container {
-            background: white;
-            border-radius: 24px;
-            padding: 48px;
-            max-width: 900px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-2: #fff7f7;
+      --ink: #111827;
+      --muted: #6b7280;
+      --border: rgba(17, 24, 39, 0.12);
+      --focus: rgba(237, 77, 139, 0.25);
+      --shadow: 0 18px 45px rgba(17, 24, 39, 0.10);
+    }
 
-        .header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
 
-        .icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
+    .page{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 18px 64px;
+    }
 
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin: 0;
-        }
+    .top{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0 64px;
+    }
 
-        .subtitle {
-            color: #6b7280;
-            font-size: 16px;
-            margin-top: 4px;
-        }
+    .intro{
+      margin: 0 0 18px;
+      max-width: none;
+    }
 
-        .mode-selector {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 32px;
-            background: #f3f4f6;
-            padding: 6px;
-            border-radius: 12px;
-        }
+    .intro h1{
+      font-size: 28px;
+      font-weight: 950;
+      letter-spacing: -0.03em;
+      line-height: 1.08;
+    }
 
-        .mode-btn {
-            flex: 1;
-            padding: 12px 24px;
-            border: none;
-            background: transparent;
-            color: #6b7280;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .intro p{
+      margin-top: 10px;
+      color: rgba(17, 24, 39, 0.76);
+      font-size: 14px;
+      line-height: 1.55;
+    }
 
-        .mode-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
+    .intro p strong{ color: rgba(17, 24, 39, 0.90); }
 
-        .input-group {
-            margin-bottom: 24px;
-        }
+    .introList{
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
+      color: rgba(17, 24, 39, 0.78);
+      font-size: 13px;
+      line-height: 1.45;
+    }
 
-        .input-label {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #374151;
-        }
+    .introItem{
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
 
-        .char-count {
-            color: #9ca3af;
-            font-weight: 400;
-        }
+    .introDot{
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--pink);
+      box-shadow: 0 0 0 6px rgba(237, 77, 139, 0.10);
+      margin-top: 5px;
+      flex: 0 0 auto;
+    }
 
-        textarea {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: 'Consolas', 'Monaco', monospace;
-            resize: vertical;
-            min-height: 120px;
-            transition: all 0.3s ease;
-            background: #f9fafb;
-        }
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-        }
+    .mark{
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 10px 22px rgba(17, 24, 39, 0.08);
+    }
 
-        .info-box {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 24px;
-        }
+    .markDot{
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: var(--pink);
+      box-shadow: 0 0 0 6px rgba(237, 77, 139, 0.10);
+    }
 
-        .info-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            color: #92400e;
-            margin-bottom: 8px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .titleWrap .h1{
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
 
-        .info-text {
-            color: #78350f;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+    .titleWrap .sub{
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
 
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-        }
+    .pill{
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      color: rgba(17, 24, 39, 0.85);
+      white-space: nowrap;
+    }
 
-        .btn {
-            flex: 1;
-            padding: 16px 32px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+    .card{
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
+    .cardHead{
+      padding: 16px 18px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        }
+    .cardHead h2{
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
 
-        .btn-secondary {
-            background: #f3f4f6;
-            color: #374151;
-        }
+    .helper{
+      color: var(--muted);
+      font-size: 12px;
+    }
 
-        .btn-secondary:hover {
-            background: #e5e7eb;
-        }
+    .cardBody{
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
 
-        .btn:active {
-            transform: translateY(0);
-        }
+    .segmented{
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 6px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
 
-        .examples {
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 24px;
-        }
+    .segBtn{
+      appearance: none;
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      color: rgba(17, 24, 39, 0.70);
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+    }
 
-        .examples-title {
-            font-weight: 700;
-            color: #374151;
-            margin-bottom: 12px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    .segBtn[aria-pressed="true"]{
+      background: var(--pink);
+      color: #fff;
+      border-color: rgba(17, 24, 39, 0.10);
+      box-shadow: 0 10px 18px rgba(237, 77, 139, 0.20);
+    }
 
-        .example {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-        }
+    .segBtn:active{ transform: translateY(1px); }
 
-        .example:hover {
-            border-color: #667eea;
-            transform: translateX(4px);
-        }
+    .grid2{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
 
-        .example:last-child {
-            margin-bottom: 0;
-        }
+    .field{
+      display: grid;
+      gap: 10px;
+    }
 
-        .example-label {
-            color: #6b7280;
-            font-size: 13px;
-            font-weight: 500;
-        }
+    .labelRow{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
 
-        .example-value {
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 12px;
-            color: #667eea;
-            background: #ede9fe;
-            padding: 4px 8px;
-            border-radius: 6px;
-        }
+    label{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(17, 24, 39, 0.70);
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 32px;
-            color: #9ca3af;
-            font-size: 14px;
-        }
+    .count{
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-        .footer-signature {
-            margin-bottom: 16px;
-        }
+    textarea{
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: rgba(17, 24, 39, 0.92);
+      transition: box-shadow 0.12s ease, border-color 0.12s ease;
+    }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
+    textarea:focus{
+      outline: none;
+      border-color: rgba(237, 77, 139, 0.45);
+      box-shadow: 0 0 0 4px var(--focus);
+    }
 
-        .footer a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
+    textarea[readonly]{
+      background: rgba(252, 241, 240, 0.55);
+    }
 
-        .footer a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
+    .note{
+      border: 1px solid rgba(248, 191, 128, 0.45);
+      background: rgba(248, 191, 128, 0.18);
+      border-radius: 14px;
+      padding: 14px 14px;
+      color: rgba(17, 24, 39, 0.86);
+      display: grid;
+      gap: 6px;
+    }
 
-        @media (max-width: 640px) {
-            .container {
-                padding: 32px 24px;
-            }
+    .noteTitle{
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(17, 24, 39, 0.74);
+    }
 
-            h1 {
-                font-size: 24px;
-            }
+    .noteText{
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(17, 24, 39, 0.78);
+    }
 
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
+    .actions{
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 10px;
+    }
 
-        .copied-notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #10b981;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s;
-            opacity: 0;
-            pointer-events: none;
-        }
+    button.btn{
+      appearance: none;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: rgba(17, 24, 39, 0.85);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 900;
+      cursor: pointer;
+      transition: transform 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+      user-select: none;
+    }
 
-        .copied-notification.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
+    button.btn:hover{ transform: translateY(-1px); border-color: rgba(17, 24, 39, 0.18); }
+    button.btn:active{ transform: translateY(0); }
 
-        @keyframes slideIn {
-            from {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
+    .btnPrimary{
+      background: var(--pink);
+      color: #fff;
+      border-color: rgba(17, 24, 39, 0.10);
+      box-shadow: 0 12px 22px rgba(237, 77, 139, 0.22);
+    }
 
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(400px);
-                opacity: 0;
-            }
-        }
-    </style>
+    .btnPrimary:hover{ border-color: rgba(237, 77, 139, 0.55); }
+
+    .btnSoft{
+      background: rgba(252, 241, 240, 0.75);
+    }
+
+    .statusRow{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 2px;
+    }
+
+    .status{
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .status strong{ color: rgba(17, 24, 39, 0.86); }
+
+    .toast{
+      position: fixed;
+      right: 16px;
+      top: 16px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(17, 24, 39, 0.92);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.01em;
+      box-shadow: 0 16px 30px rgba(17, 24, 39, 0.20);
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+
+    .toast.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .footer a{
+      color: rgba(237, 77, 139, 0.95);
+      text-decoration: none;
+      font-weight: 900;
+    }
+    .footer a:hover{ text-decoration: underline; }
+
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+      .actions{ grid-template-columns: 1fr; }
+      .pill{ display: none; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <div class="icon">🔗</div>
-            <div>
-                <h1>URL Encoder/Decoder</h1>
-                <p class="subtitle">Transform URLs in seconds</p>
-            </div>
+  <main class="page">
+    <header class="top">
+      <div class="brand">
+        <div class="mark" aria-hidden="true"><span class="markDot"></span></div>
+        <div class="titleWrap">
+          <div class="h1">URL Encoder / Decoder</div>
+          <div class="sub">Encode and decode text for safe, predictable URLs.</div>
+        </div>
+      </div>
+      <div class="pill">Tech Tool · URL Utilities</div>
+    </header>
+
+    <section class="intro" aria-label="About this tool">
+      <h1>Make URLs safe to share and paste</h1>
+      <p>
+        Use this tool whenever you need to put text inside a URL (query strings, redirects, tracking params, etc.).
+        For example, when you want to track link clicks (UTM parameters) and need the values to be URL-safe.
+        Switch between <strong>Encode</strong> and <strong>Decode</strong> depending on what you’re working with.
+      </p>
+      <div class="introList" role="list">
+        <div class="introItem" role="listitem">
+          <span class="introDot" aria-hidden="true"></span>
+          <span><strong>Encode</strong>: turns spaces and special characters into a URL-safe form (e.g. <code>hello world</code> → <code>hello%20world</code>).</span>
+        </div>
+        <div class="introItem" role="listitem">
+          <span class="introDot" aria-hidden="true"></span>
+          <span><strong>Decode</strong>: turns percent-encoded text back into readable text (e.g. <code>hello%20world</code> → <code>hello world</code>).</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-label="Tool">
+      <div class="cardHead">
+        <h2>Mode</h2>
+        <div class="helper" id="helperText">Turn special characters into a URL-safe format.</div>
+      </div>
+      <div class="cardBody">
+        <div class="segmented" role="group" aria-label="Mode selector">
+          <button class="segBtn" id="encodeBtn" type="button" aria-pressed="true">Encode</button>
+          <button class="segBtn" id="decodeBtn" type="button" aria-pressed="false">Decode</button>
         </div>
 
-        <div class="mode-selector">
-            <button class="mode-btn active" id="encodeBtn" onclick="switchMode('encode')">
-                Encode
-            </button>
-            <button class="mode-btn" id="decodeBtn" onclick="switchMode('decode')">
-                Decode
-            </button>
+        <div class="grid2">
+          <div class="field">
+            <div class="labelRow">
+              <label for="input" id="inputLabel">Text to encode</label>
+              <div class="count" id="inputCount">0</div>
+            </div>
+            <textarea id="input" placeholder="Paste or type here…" spellcheck="false"></textarea>
+          </div>
+
+          <div class="field">
+            <div class="labelRow">
+              <label for="output" id="outputLabel">Result</label>
+              <div class="count" id="outputCount">0</div>
+            </div>
+            <textarea id="output" placeholder="Your result will appear here…" readonly></textarea>
+          </div>
         </div>
 
-        <div class="input-group">
-            <div class="input-label">
-                <span id="inputLabel">Enter text to encode</span>
-                <span class="char-count" id="inputCount">0 characters</span>
-            </div>
-            <textarea id="input" placeholder="Type or paste your text here..." oninput="processInput()"></textarea>
+        <div class="note" aria-live="polite">
+          <div class="noteTitle" id="noteTitle">Note</div>
+          <div class="noteText" id="noteText">
+            Spaces become <strong>%20</strong>, <strong>&amp;</strong> becomes <strong>%26</strong>, and so on.
+          </div>
         </div>
 
-        <div class="input-group">
-            <div class="input-label">
-                <span id="outputLabel">Encoded result</span>
-                <span class="char-count" id="outputCount">0 characters</span>
-            </div>
-            <textarea id="output" placeholder="Your result will appear here..." readonly></textarea>
+        <div class="actions" aria-label="Actions">
+          <button class="btn btnPrimary" id="copyBtn" type="button">Copy result</button>
+          <button class="btn btnSoft" id="swapBtn" type="button">Swap</button>
+          <button class="btn btnSoft" id="clearBtn" type="button">Clear</button>
         </div>
 
-        <div class="info-box">
-            <div class="info-title">
-                💡 How it works
-            </div>
-            <div class="info-text" id="infoText">
-                URL encoding converts special characters into a format that can be transmitted over the internet. Spaces become %20, & becomes %26, and so on.
-            </div>
+        <div class="statusRow">
+          <div class="status" id="statusText"><strong>Ready.</strong></div>
+          <div class="status">Tip: paste with <strong>Ctrl/Cmd + V</strong> and copy in one click.</div>
         </div>
 
-        <div class="action-buttons">
-            <button class="btn btn-primary" onclick="copyToClipboard()">
-                📋 Copy Result
-            </button>
-            <button class="btn btn-secondary" onclick="clearAll()">
-                🗑️ Clear All
-            </button>
-            <button class="btn btn-secondary" onclick="swapInputOutput()">
-                🔄 Swap
-            </button>
-        </div>
+        <footer class="footer">
+          <div>© 2026 · URL Encoder / Decoder · América Bernal</div>
+          <div>
+            <a href="https://amerique82.github.io/Portfolio/" target="_blank" rel="noreferrer">Back to portfolio</a>
+            <span aria-hidden="true"> · </span>
+            <a href="https://github.com/amerique82" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
 
-        <div class="examples">
-            <div class="examples-title">📝 Try these examples</div>
-            <div class="example" onclick="loadExample('https://example.com/search?q=hello world&lang=en')">
-                <span class="example-label">URL with parameters</span>
-                <span class="example-value">Click to try</span>
-            </div>
-            <div class="example" onclick="loadExample('user@email.com')">
-                <span class="example-label">Email address</span>
-                <span class="example-value">Click to try</span>
-            </div>
-            <div class="example" onclick="loadExample('Hello, World! #123')">
-                <span class="example-label">Text with special chars</span>
-                <span class="example-value">Click to try</span>
-            </div>
-        </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-        <div class="footer">
-            <div class="footer-signature">
-                © 2025 URL Encoder/Decoder | Created by América Bernal
-            </div>
-            <div class="footer-links">
-                <a href="https://amerique82.github.io/Portfolio/" target="_blank">← Back to Portfolio</a>
-                <a href="https://github.com/amerique82" target="_blank">GitHub</a>
-            </div>
-        </div>
-    </div>
+  <script>
+    const el = {
+      encodeBtn: document.getElementById("encodeBtn"),
+      decodeBtn: document.getElementById("decodeBtn"),
+      input: document.getElementById("input"),
+      output: document.getElementById("output"),
+      inputLabel: document.getElementById("inputLabel"),
+      outputLabel: document.getElementById("outputLabel"),
+      helperText: document.getElementById("helperText"),
+      noteText: document.getElementById("noteText"),
+      inputCount: document.getElementById("inputCount"),
+      outputCount: document.getElementById("outputCount"),
+      copyBtn: document.getElementById("copyBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      swapBtn: document.getElementById("swapBtn"),
+      statusText: document.getElementById("statusText"),
+      toast: document.getElementById("toast"),
+    };
 
-    <div class="copied-notification" id="copiedNotification">
-        ✓ Copied to clipboard!
-    </div>
+    let mode = "encode";
+    let toastTimer = null;
 
-    <script>
-        let currentMode = 'encode';
+    function setMode(nextMode){
+      mode = nextMode;
+      const isEncode = mode === "encode";
+      el.encodeBtn.setAttribute("aria-pressed", String(isEncode));
+      el.decodeBtn.setAttribute("aria-pressed", String(!isEncode));
 
-        function switchMode(mode) {
-            currentMode = mode;
-            
-            // Update button states
-            document.getElementById('encodeBtn').classList.toggle('active', mode === 'encode');
-            document.getElementById('decodeBtn').classList.toggle('active', mode === 'decode');
-            
-            // Update labels
-            if (mode === 'encode') {
-                document.getElementById('inputLabel').textContent = 'Enter text to encode';
-                document.getElementById('outputLabel').textContent = 'Encoded result';
-                document.getElementById('infoText').textContent = 'URL encoding converts special characters into a format that can be transmitted over the internet. Spaces become %20, & becomes %26, and so on.';
-            } else {
-                document.getElementById('inputLabel').textContent = 'Enter URL to decode';
-                document.getElementById('outputLabel').textContent = 'Decoded result';
-                document.getElementById('infoText').textContent = 'URL decoding converts percent-encoded characters back to their original form. %20 becomes a space, %26 becomes &, and so on.';
-            }
-            
-            // Re-process current input
-            processInput();
+      el.inputLabel.textContent = isEncode ? "Text to encode" : "Text to decode";
+      el.outputLabel.textContent = isEncode ? "Encoded result" : "Decoded result";
+
+      el.helperText.textContent = isEncode
+        ? "Turn special characters into a URL-safe format."
+        : "Turn percent-encoded characters (e.g. %20) back into their original form.";
+
+      el.noteText.innerHTML = isEncode
+        ? 'Spaces become <strong>%20</strong>, <strong>&amp;</strong> becomes <strong>%26</strong>, and so on.'
+        : '<strong>%20</strong> becomes a space again, <strong>%26</strong> becomes <strong>&amp;</strong> again, and so on.';
+
+      process();
+    }
+
+    function safeDecode(text){
+      try {
+        return { ok: true, value: decodeURIComponent(text) };
+      } catch {
+        return { ok: false, value: "" };
+      }
+    }
+
+    function setStatus(message, strong = "Ready."){
+      el.statusText.innerHTML = `<strong>${strong}</strong> ${message || ""}`.trim();
+    }
+
+    function process(){
+      const input = el.input.value || "";
+      el.inputCount.textContent = String(input.length);
+
+      if (!input){
+        el.output.value = "";
+        el.outputCount.textContent = "0";
+        setStatus("", "Ready.");
+        return;
+      }
+
+      if (mode === "encode"){
+        el.output.value = encodeURIComponent(input);
+        el.outputCount.textContent = String(el.output.value.length);
+        setStatus("Encoded.", "OK.");
+        return;
+      }
+
+      const res = safeDecode(input);
+      if (!res.ok){
+        el.output.value = "Invalid input for decoding.";
+        el.outputCount.textContent = String(el.output.value.length);
+        setStatus("Make sure % sequences are well-formed (for example %2F).", "Error.");
+        return;
+      }
+
+      el.output.value = res.value;
+      el.outputCount.textContent = String(el.output.value.length);
+      setStatus("Decoded.", "OK.");
+    }
+
+    function showToast(text){
+      if (toastTimer) window.clearTimeout(toastTimer);
+      el.toast.textContent = text;
+      el.toast.classList.add("show");
+      toastTimer = window.setTimeout(() => el.toast.classList.remove("show"), 1600);
+    }
+
+    async function copyResult(){
+      const text = el.output.value || "";
+      if (!text){
+        showToast("Nothing to copy.");
+        return;
+      }
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+          showToast("Copied.");
+          return;
         }
+      } catch {}
 
-        function processInput() {
-            const input = document.getElementById('input').value;
-            const output = document.getElementById('output');
-            
-            // Update character counts
-            document.getElementById('inputCount').textContent = `${input.length} characters`;
-            
-            try {
-                if (currentMode === 'encode') {
-                    output.value = encodeURIComponent(input);
-                } else {
-                    output.value = decodeURIComponent(input);
-                }
-            } catch (e) {
-                output.value = 'Error: Invalid input for decoding';
-            }
-            
-            document.getElementById('outputCount').textContent = `${output.value.length} characters`;
-        }
+      const tmp = document.createElement("textarea");
+      tmp.value = text;
+      tmp.setAttribute("readonly", "");
+      tmp.style.position = "fixed";
+      tmp.style.left = "-9999px";
+      document.body.appendChild(tmp);
+      tmp.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(tmp);
+      showToast(ok ? "Copied." : "Could not copy.");
+    }
 
-        function copyToClipboard() {
-            const output = document.getElementById('output');
-            output.select();
-            document.execCommand('copy');
-            
-            // Show notification
-            const notification = document.getElementById('copiedNotification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
+    function clearAll(){
+      el.input.value = "";
+      el.output.value = "";
+      el.inputCount.textContent = "0";
+      el.outputCount.textContent = "0";
+      setStatus("", "Ready.");
+      el.input.focus();
+    }
 
-        function clearAll() {
-            document.getElementById('input').value = '';
-            document.getElementById('output').value = '';
-            document.getElementById('inputCount').textContent = '0 characters';
-            document.getElementById('outputCount').textContent = '0 characters';
-        }
+    function swap(){
+      const a = el.input.value;
+      const b = el.output.value;
+      el.input.value = b;
+      el.output.value = a;
+      el.inputCount.textContent = String(el.input.value.length);
+      el.outputCount.textContent = String(el.output.value.length);
+      setStatus("Swapped.", "OK.");
+    }
 
-        function swapInputOutput() {
-            const input = document.getElementById('input');
-            const output = document.getElementById('output');
-            
-            const temp = input.value;
-            input.value = output.value;
-            
-            // Switch mode
-            switchMode(currentMode === 'encode' ? 'decode' : 'encode');
-        }
+    el.encodeBtn.addEventListener("click", () => setMode("encode"));
+    el.decodeBtn.addEventListener("click", () => setMode("decode"));
+    el.input.addEventListener("input", process);
+    el.copyBtn.addEventListener("click", copyResult);
+    el.clearBtn.addEventListener("click", clearAll);
+    el.swapBtn.addEventListener("click", swap);
 
-        function loadExample(text) {
-            document.getElementById('input').value = text;
-            processInput();
-        }
-    </script>
+    setMode("encode");
+  </script>
 </body>
 </html>
+
