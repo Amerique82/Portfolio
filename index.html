@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>América BH - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>América Bernal - Profile Card</title>
     <style>
         * {
             margin: 0;
@@ -13,580 +12,167 @@
         }
 
         body {
-            font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #fafafa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            color: #2d3748;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(90deg, #f44496 0%, #f44496 35%, #f85a8d 45%, #fb7a79 55%, #fd9961 65%, #f17c36 75%, #f17c36 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .subtitle {
-            font-size: 20px;
-            color: #523752;
-            font-weight: 400;
-            letter-spacing: 0.5px;
-            margin-bottom: 20px;
-        }
-
-        .intro-text {
-            font-size: 17px;
-            color: #523752;
-            font-weight: 300;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            opacity: 0.85;
-        }
-
-        .nav-chips {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-            padding: 20px 0;
+            align-items: center;
+            padding: 20px;
         }
 
-        .chip {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
             color: white;
-            padding: 12px 28px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3);
         }
 
-        .chip:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5);
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid white;
+            margin: 0 auto 20px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #764ba2;
         }
 
-        .chip.tools { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
-        .chip.tools:hover { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
-        .chip.apps { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.4); }
-        .chip.apps:hover { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.6); }
-        .chip.websites { background: linear-gradient(135deg, #f44496 0%, #f17c36 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
-        .chip.websites:hover { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
-        .chip.components { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.3); }
-        .chip.components:hover { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.5); }
+        .profile-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
 
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
+        .profile-title {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .profile-body {
+            padding: 30px;
+        }
+
+        .profile-section {
+            margin-bottom: 25px;
         }
 
         .section-title {
-            color: #523752;
-            font-size: 28px;
-            margin-bottom: 15px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            position: relative;
-            padding-bottom: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
         }
 
-        .section-description {
-            color: #523752;
-            font-size: 16px;
-            margin-bottom: 30px;
-            font-weight: 400;
-            opacity: 0.8;
-            font-style: italic;
+        .section-content {
+            color: #555;
+            line-height: 1.6;
+            font-size: 15px;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            border-radius: 2px;
-        }
-
-        .section-title.tools::after { background: #f44496; }
-        .section-title.apps::after { background: #f17c36; }
-        .section-title.websites::after { background: #f44496; }
-        .section-title.components::after { background: #f17c36; }
-
-        .project-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: inherit;
+        .skills-list {
             display: flex;
-            flex-direction: column;
-            height: 100%;
-            border: 2px solid #f7fafc;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
-            border-color: #e2e8f0;
-        }
-
-        .project-header {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            padding: 30px;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tools .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
-        .apps .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
-        .websites .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
-        .components .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
-
-        .project-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .project-name {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .project-type {
+        .skill-tag {
+            background: #f0f0f0;
+            padding: 8px 16px;
+            border-radius: 20px;
             font-size: 13px;
-            opacity: 0.95;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
+            color: #555;
+            border: 1px solid #e0e0e0;
         }
 
-        .project-body {
-            padding: 28px;
-            flex-grow: 1;
+        .contact-links {
             display: flex;
-            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
         }
 
-        .project-description {
-            color: #523752;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            flex-grow: 1;
-            font-size: 15px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        .tag {
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            padding: 7px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #523752;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-        }
-
-        .tag:hover {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            color: white;
-            transform: scale(1.05);
-            border-color: transparent;
-        }
-
-        footer {
+        .contact-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
             text-align: center;
-            color: #523752;
-            margin-top: 80px;
-            padding-top: 40px;
-            border-top: 2px solid #e2e8f0;
-        }
-
-        .footer-content {
-            font-size: 15px;
-            margin-bottom: 20px;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 35px;
-            flex-wrap: wrap;
-        }
-
-        .footer-link {
-            color: #f44496;
             text-decoration: none;
             font-weight: 600;
-            font-size: 16px;
             transition: all 0.3s ease;
-            position: relative;
-            padding: 5px 0;
         }
 
-        .footer-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            transition: width 0.3s ease;
+        .btn-primary {
+            background: #667eea;
+            color: white;
         }
 
-        .footer-link:hover::after { width: 100%; }
-        .footer-link:hover { color: #f17c36; }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 36px; }
-            .subtitle { font-size: 18px; }
-            .section-title { font-size: 24px; }
-            .projects-grid { grid-template-columns: 1fr; gap: 25px; }
-            .nav-chips { gap: 12px; }
-            .chip { padding: 10px 20px; font-size: 14px; }
-            .footer-links { gap: 25px; }
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
         }
 
-        @media (max-width: 480px) {
-            body { padding: 30px 15px; }
-            h1 { font-size: 32px; }
-            .project-header { padding: 25px; }
-            .project-body { padding: 22px; }
-            .nav-chips { gap: 10px; }
-            .chip { padding: 8px 16px; font-size: 13px; }
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
         }
 
-        html { scroll-behavior: smooth; }
-        section { scroll-margin-top: 20px; }
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>AMÉRICA BERNAL</h1>
-            <p class="subtitle">Digital Product Designer</p>
-            <p class="intro-text">A collection of practical web projects—simple tools, functional apps, and reusable components. Each project focuses on solving real problems found in daily life across different areas: research, personal finance management, cybersecurity, branding strategy, and more.</p>
-        </header>
-
-        <nav class="nav-chips">
-            <a href="#tools" class="chip tools">Tools</a>
-            <a href="#apps" class="chip apps">Apps</a>
-            <a href="#websites" class="chip websites">Websites</a>
-            <a href="#components" class="chip components">Components</a>
-        </nav>
-
-        <!-- Tools Section -->
-        <section id="tools">
-            <h2 class="section-title tools">Tools</h2>
-            <p class="section-description">Quick utilities designed for a single purpose.</p>
-            <div class="projects-grid">
-                <a href="tools/calculator.html" class="project-card tools">
-                    <div class="project-header">
-                        <h3 class="project-name">Calculator</h3>
-                        <p class="project-type">Utility Tool</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A clean, functional calculator for basic arithmetic operations. Simple interface with keyboard support for quick calculations.</p>
-                        <div class="project-tags">
-                            <span class="tag">Math</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">Keyboard Support</span>
-                            <span class="tag">Responsive</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="tools/password-strength-checker.html" class="project-card tools">
-                    <div class="project-header">
-                        <h3 class="project-name">Password Strength Checker</h3>
-                        <p class="project-type">Security Tool</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A straightforward password validation tool that checks strength in real-time and generates secure passwords. Includes instant feedback and clipboard integration for convenience.</p>
-                        <div class="project-tags">
-                            <span class="tag">Security</span>
-                            <span class="tag">Validation</span>
-                            <span class="tag">Real-time</span>
-                            <span class="tag">Interactive</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="tools/text-analyzer.html" class="project-card tools">
-                    <div class="project-header">
-                        <h3 class="project-name">Text Analyzer</h3>
-                        <p class="project-type">Analysis Tool</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A handy text analysis tool that extracts useful statistics, word frequencies, and patterns. Simple yet effective for getting quick insights from your content.</p>
-                        <div class="project-tags">
-                            <span class="tag">Data Analysis</span>
-                            <span class="tag">Statistics</span>
-                            <span class="tag">Regex</span>
-                            <span class="tag">Insights</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="tools/unit_converter.html" class="project-card tools">
-                    <div class="project-header">
-                        <h3 class="project-name">Unit Converter</h3>
-                        <p class="project-type">Conversion Tool</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A practical converter for common units including length, weight, temperature, and volume. Quick conversions for everyday needs.</p>
-                        <div class="project-tags">
-                            <span class="tag">Conversion</span>
-                            <span class="tag">Math</span>
-                            <span class="tag">Utility</span>
-                            <span class="tag">Practical</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="tools/url_encoder_decoder.html" class="project-card tools">
-                    <div class="project-header">
-                        <h3 class="project-name">URL Encoder/Decoder</h3>
-                        <p class="project-type">Developer Tool</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A simple tool for encoding and decoding URLs. Useful for developers working with web addresses and query strings.</p>
-                        <div class="project-tags">
-                            <span class="tag">Encoding</span>
-                            <span class="tag">Developer</span>
-                            <span class="tag">URLs</span>
-                            <span class="tag">Utility</span>
-                        </div>
-                    </div>
-                </a>
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-image">AB</div>
+            <h1 class="profile-name">América Bernal</h1>
+            <p class="profile-title">Digital Strategist | UX-driven Web Developer</p>
+        </div>
+        
+        <div class="profile-body">
+            <div class="profile-section">
+                <h2 class="section-title">About</h2>
+                <p class="section-content">
+                    Building digital solutions that bridge strategic thinking with technical execution. 
+                    Currently developing coding fluency through MSc in Web Development.
+                </p>
             </div>
-        </section>
 
-        <!-- Apps Section -->
-        <section id="apps">
-            <h2 class="section-title apps">Apps</h2>
-            <p class="section-description">Full applications with multiple screens and features.</p>
-            <div class="projects-grid">
-                <a href="apps/apa-generator.html" class="project-card apps">
-                    <div class="project-header">
-                        <h3 class="project-name">APA Generator</h3>
-                        <p class="project-type">Web Application</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A practical citation generator that formats academic references in APA style. Makes the research process easier by automatically creating properly formatted citations for different source types.</p>
-                        <div class="project-tags">
-                            <span class="tag">Academic</span>
-                            <span class="tag">Citations</span>
-                            <span class="tag">Automation</span>
-                            <span class="tag">Productivity</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="apps/harvard_referencing.html" class="project-card apps">
-                    <div class="project-header">
-                        <h3 class="project-name">Harvard Referencing</h3>
-                        <p class="project-type">Web Application</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A citation tool for generating Harvard-style references. Covers essential source formats including books, journals, and websites to help with academic writing.</p>
-                        <div class="project-tags">
-                            <span class="tag">Academic</span>
-                            <span class="tag">Harvard Style</span>
-                            <span class="tag">Citations</span>
-                            <span class="tag">Research</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="apps/color_palette_picker.html" class="project-card apps">
-                    <div class="project-header">
-                        <h3 class="project-name">Colour Palette Picker</h3>
-                        <p class="project-type">Web Application</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A visual colour palette generator for designers and developers. Create, save, and export custom colour schemes with hex codes for your projects.</p>
-                        <div class="project-tags">
-                            <span class="tag">Design</span>
-                            <span class="tag">Colours</span>
-                            <span class="tag">Generator</span>
-                            <span class="tag">Creative</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="apps/kanban-board.html" class="project-card apps">
-                    <div class="project-header">
-                        <h3 class="project-name">Kanban Board</h3>
-                        <p class="project-type">Web Application</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A project management tool with drag-and-drop functionality for organizing tasks. Uses visual workflows to help with productivity and team collaboration.</p>
-                        <div class="project-tags">
-                            <span class="tag">Project Management</span>
-                            <span class="tag">Drag & Drop</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">Workflow</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="apps/shopping_list.html" class="project-card apps">
-                    <div class="project-header">
-                        <h3 class="project-name">Shopping List</h3>
-                        <p class="project-type">Web Application</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A simple shopping list manager to organize your grocery needs. Add, edit, and check off items as you shop with a clean, mobile-friendly interface.</p>
-                        <div class="project-tags">
-                            <span class="tag">Productivity</span>
-                            <span class="tag">Lists</span>
-                            <span class="tag">Mobile-Friendly</span>
-                            <span class="tag">Practical</span>
-                        </div>
-                    </div>
-                </a>
+            <div class="profile-section">
+                <h2 class="section-title">Learning Focus</h2>
+                <div class="skills-list">
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">UX Design</span>
+                    <span class="skill-tag">Product Strategy</span>
+                </div>
             </div>
-        </section>
 
-        <!-- Websites Section -->
-        <section id="websites">
-            <h2 class="section-title websites">Websites</h2>
-            <p class="section-description">Complete multi-page sites with navigation and structure.</p>
-            <div class="projects-grid">
-                <a href="websites/digital-solutions-website.html" class="project-card websites">
-                    <div class="project-header">
-                        <h3 class="project-name">Digital Solutions</h3>
-                        <p class="project-type">Full Website</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A clean, professional corporate website showcasing digital services. Features responsive design, modern layouts, and organized content for business presentation.</p>
-                        <div class="project-tags">
-                            <span class="tag">Corporate</span>
-                            <span class="tag">Responsive</span>
-                            <span class="tag">Accessible</span>
-                            <span class="tag">Full-site</span>
-                        </div>
-                    </div>
-                </a>
+            <div class="contact-links">
+                <a href="https://www.americabernal.com" target="_blank" class="contact-btn btn-primary">Portfolio</a>
+                <a href="https://www.linkedin.com/in/americabernal" target="_blank" class="contact-btn btn-secondary">LinkedIn</a>
             </div>
-        </section>
-
-        <!-- Components Section -->
-        <section id="components">
-            <h2 class="section-title components">Components</h2>
-            <p class="section-description">Reusable UI elements ready to implement in websites.</p>
-            <div class="projects-grid">
-                <a href="components/profile-card.html" class="project-card components">
-                    <div class="project-header">
-                        <h3 class="project-name">Profile Card</h3>
-                        <p class="project-type">HTML/CSS Component</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A clean, responsive profile card component with modern CSS techniques. Uses flexbox layouts and smooth transitions for a polished look in user interfaces.</p>
-                        <div class="project-tags">
-                            <span class="tag">Responsive</span>
-                            <span class="tag">Flexbox</span>
-                            <span class="tag">Gradients</span>
-                            <span class="tag">Modern CSS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <a href="components/interactive-cards.html" class="project-card components">
-                    <div class="project-header">
-                        <h3 class="project-name">Interactive Cards</h3>
-                        <p class="project-type">HTML/CSS/JS Component</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">Card components with 3D hover effects and smooth animations. A fun showcase of CSS transforms and JavaScript interactivity for engaging user experiences.</p>
-                        <div class="project-tags">
-                            <span class="tag">3D Effects</span>
-                            <span class="tag">Animations</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- NEW: Career Timeline -->
-                <a href="components/time-line.html" class="project-card components">
-                    <div class="project-header">
-                        <h3 class="project-name">Career Timeline</h3>
-                        <p class="project-type">HTML/CSS/JS Component</p>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">An interactive horizontal timeline to showcase career milestones. Click each stop to expand details, drag to scroll, and navigate with arrow buttons. Clean neutral aesthetic with smooth animations.</p>
-                        <div class="project-tags">
-                            <span class="tag">Timeline</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">Animations</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
-
-            </div>
-        </section>
-
-        <footer>
-            <p class="footer-content">&copy; 2025 América Bernal | MSc Web Development Journey</p>
-            <div class="footer-links">
-                <a href="https://github.com/Amerique82" class="footer-link">GitHub</a>
-                <a href="https://www.linkedin.com/in/americabernal" class="footer-link">LinkedIn</a>
-                <a href="https://www.americabernal.com" class="footer-link">Portfolio</a>
-            </div>
-        </footer>
+        </div>
     </div>
 </body>
 </html>
