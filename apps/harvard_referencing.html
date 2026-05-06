@@ -40,7 +40,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 repeating-linear-gradient(
                     0deg,
                     transparent,
@@ -402,10 +402,14 @@
         }
 
         .check-icon::after {
-            content: '✓';
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
+            content: '';
+            display: block;
+            width: 10px;
+            height: 18px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+            margin-bottom: 4px;
         }
 
         .output-header h3 {
@@ -570,25 +574,25 @@
         </header>
 
         <div class="info-banner">
-            <h3>📚 About Harvard Referencing (Cite Them Right)</h3>
+            <h3>About Harvard Referencing (Cite Them Right)</h3>
             <p>This tool generates citations in Harvard format following Cite Them Right guidelines (11th edition), the standard adopted by British universities such as Oxford, Cambridge, UCL, and Roehampton. The Harvard system uses author-date citations in text and a complete reference list at the end.</p>
         </div>
 
         <div class="generator-card">
             <div class="section-title">Select source type</div>
-            
+
             <div class="source-selector">
                 <button class="source-btn active" data-source="book">
-                    <span>📖 Book</span>
+                    <span>Book</span>
                 </button>
                 <button class="source-btn" data-source="journal">
-                    <span>📄 Journal Article</span>
+                    <span>Journal Article</span>
                 </button>
                 <button class="source-btn" data-source="website">
-                    <span>🌐 Website</span>
+                    <span>Website</span>
                 </button>
                 <button class="source-btn" data-source="chapter">
-                    <span>📑 Book Chapter</span>
+                    <span>Book Chapter</span>
                 </button>
             </div>
 
@@ -798,33 +802,30 @@
 
         <footer>
             <p>Based on <a href="https://www.citethemrightonline.com/" target="_blank">Cite Them Right</a> (11th edition) · Harvard Referencing Style</p>
-            <p style="margin-top: 10px; font-size: 12px;">Designed with ♥ for academic students</p>
-            
+            <p style="margin-top: 10px; font-size: 12px;">Designed for academic students</p>
+
             <div class="footer-divider"></div>
-            
+
             <p class="copyright">© 2025 Harvard Citation Generator | Created by América Bernal</p>
-            
+
             <div class="footer-links">
-                <a href="https://amerique82.github.io/Portfolio/" class="footer-link">← Back to Portfolio</a>
+                <a href="https://amerique82.github.io/Portfolio/" class="footer-link">Back to Portfolio</a>
                 <a href="https://github.com/amerique82" target="_blank" class="footer-link">GitHub</a>
             </div>
         </footer>
     </div>
 
     <script>
-        // Source button switching
         const sourceButtons = document.querySelectorAll('.source-btn');
         const formSections = document.querySelectorAll('.form-section');
 
         sourceButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const source = button.dataset.source;
-                
-                // Update active button
+
                 sourceButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                
-                // Show corresponding form
+
                 formSections.forEach(form => {
                     form.classList.remove('active');
                     if (form.id === `${source}-form`) {
@@ -832,7 +833,6 @@
                     }
                 });
 
-                // Hide output
                 document.getElementById('output').classList.remove('active');
             });
         });
@@ -840,7 +840,7 @@
         function formatAccessDate(dateString) {
             const date = new Date(dateString);
             const day = date.getDate();
-            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
                           'July', 'August', 'September', 'October', 'November', 'December'];
             const month = months[date.getMonth()];
             const year = date.getFullYear();
@@ -891,7 +891,7 @@
                 citation += `(${issue})`;
             }
             citation += `, pp. ${pages}.`;
-            
+
             if (doi) {
                 citation += ` doi: ${doi}`;
             }
@@ -913,7 +913,7 @@
             }
 
             const formattedDate = formatAccessDate(accessDate);
-            
+
             let citation = '';
             if (surname && initial) {
                 citation = `${surname}, ${initial} (${year}) <span class="italic">${title}</span>. Available at: ${url} (Accessed: ${formattedDate}).`;
@@ -949,8 +949,7 @@
         function displayCitation(citation) {
             document.getElementById('citation-text').innerHTML = citation;
             document.getElementById('output').classList.add('active');
-            
-            // Scroll to output
+
             document.getElementById('output').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
@@ -959,9 +958,9 @@
             navigator.clipboard.writeText(citationText).then(() => {
                 const btn = document.querySelector('.copy-btn');
                 const originalText = btn.textContent;
-                btn.textContent = '✓ Copied';
+                btn.textContent = 'Copied';
                 btn.classList.add('copied');
-                
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.classList.remove('copied');
