@@ -45,7 +45,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 14px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: -0.02em;
         }
 
         h1 {
@@ -82,9 +85,12 @@
         }
 
         .upload-icon {
-            font-size: 48px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #adb5bd;
             margin-bottom: 20px;
-            opacity: 0.5;
         }
 
         .upload-text {
@@ -312,7 +318,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="icon">🎨</div>
+            <div class="icon">CPP</div>
             <div>
                 <h1>Colour Palette Picker</h1>
                 <p class="subtitle">Extract beautiful colours from any image</p>
@@ -320,7 +326,7 @@
         </div>
 
         <div class="upload-section" id="uploadSection">
-            <div class="upload-icon">📸</div>
+            <div class="upload-icon">Image</div>
             <div class="upload-text">Click to upload or drag & drop</div>
             <div class="upload-subtext">JPG, PNG, GIF up to 10MB</div>
             <input type="file" id="fileInput" accept="image/*">
@@ -328,18 +334,16 @@
 
         <div class="preview-section" id="previewSection">
             <img id="imagePreview" class="image-preview" alt="Preview">
-            
+
             <div class="palette-grid" id="paletteGrid"></div>
 
-            <button class="generate-btn" id="generateBtn">
-                <span>✨</span>
-                <span>Extract Colour Palette</span>
+            <button class="generate-btn" id="generateBtn" type="button">
+                Extract Colour Palette
             </button>
         </div>
 
         <div class="fun-fact">
             <div class="fun-fact-header">
-                <span>🎨</span>
                 <span>Fun Fact</span>
             </div>
             <div class="fun-fact-text">
@@ -349,36 +353,36 @@
 
         <div class="tips-section">
             <div class="tip-card">
-                <div class="tip-title">→ High-Quality Images</div>
+                <div class="tip-title">High-Quality Images</div>
                 <div class="tip-text">Use vibrant, well-lit photos for best results</div>
             </div>
             <div class="tip-card">
-                <div class="tip-title">→ Click to Copy</div>
+                <div class="tip-title">Click to Copy</div>
                 <div class="tip-text">Click any colour card to copy its HEX code</div>
             </div>
             <div class="tip-card">
-                <div class="tip-title">→ Multiple Palettes</div>
+                <div class="tip-title">Multiple Palettes</div>
                 <div class="tip-text">Extract different palettes from various images</div>
             </div>
         </div>
 
         <div class="footer">
             <div class="footer-copyright">
-                © 2025 Colour Palette Picker | Created with 💜 by <strong>América Bernal</strong>
+                © 2026 Colour Palette Picker | Created by <strong>América Bernal</strong>
             </div>
             <div class="footer-links">
                 <a href="https://amerique82.github.io/Portfolio/" class="footer-link portfolio">
-                    ← Back to Portfolio
+                    Back to Portfolio
                 </a>
-                <a href="https://github.com/amerique82" class="footer-link" target="_blank">
-                    GitHub →
+                <a href="https://github.com/amerique82" class="footer-link" target="_blank" rel="noopener noreferrer">
+                    GitHub
                 </a>
             </div>
         </div>
     </div>
 
     <div class="copied-notification" id="copiedNotification">
-        Colour copied to clipboard! ✓
+        Colour copied to clipboard.
     </div>
 
     <canvas id="canvas"></canvas>
@@ -396,17 +400,16 @@
 
         let currentImage = null;
 
-        // Upload section click
+        const defaultGenerateLabel = 'Extract Colour Palette';
+
         uploadSection.addEventListener('click', () => {
             fileInput.click();
         });
 
-        // File input change
         fileInput.addEventListener('change', (e) => {
             handleFile(e.target.files[0]);
         });
 
-        // Drag and drop
         uploadSection.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadSection.classList.add('dragover');
@@ -445,19 +448,17 @@
             if (!currentImage) return;
 
             generateBtn.disabled = true;
-            generateBtn.innerHTML = '<span>⏳</span><span>Extracting colours...</span>';
+            generateBtn.textContent = 'Extracting colours...';
 
-            // Small delay for UI feedback
             setTimeout(() => {
                 const colours = extractColours(currentImage, 6);
                 displayPalette(colours);
                 generateBtn.disabled = false;
-                generateBtn.innerHTML = '<span>✨</span><span>Extract Colour Palette</span>';
+                generateBtn.textContent = defaultGenerateLabel;
             }, 300);
         });
 
         function extractColours(image, numColours) {
-            // Set canvas size to a reasonable dimension for processing
             const maxSize = 200;
             const scale = Math.min(maxSize / image.width, maxSize / image.height);
             canvas.width = image.width * scale;
@@ -467,7 +468,6 @@
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const pixels = imageData.data;
 
-            // Sample pixels (every 10th pixel for performance)
             const colours = [];
             for (let i = 0; i < pixels.length; i += 40) {
                 const r = pixels[i];
@@ -475,30 +475,25 @@
                 const b = pixels[i + 2];
                 const a = pixels[i + 3];
 
-                // Skip transparent or very dark/light pixels
                 if (a > 200 && r + g + b > 50 && r + g + b < 720) {
                     colours.push([r, g, b]);
                 }
             }
 
-            // Use k-means clustering to find dominant colours
             return kMeansClustering(colours, numColours);
         }
 
         function kMeansClustering(colours, k) {
             if (colours.length === 0) return [];
 
-            // Initialize centroids randomly
             let centroids = [];
             for (let i = 0; i < k; i++) {
                 centroids.push(colours[Math.floor(Math.random() * colours.length)].slice());
             }
 
-            // Iterate to find best centroids
             for (let iteration = 0; iteration < 10; iteration++) {
                 const clusters = Array.from({ length: k }, () => []);
 
-                // Assign each colour to nearest centroid
                 colours.forEach(colour => {
                     let minDist = Infinity;
                     let clusterIndex = 0;
@@ -514,10 +509,9 @@
                     clusters[clusterIndex].push(colour);
                 });
 
-                // Recalculate centroids
                 centroids = clusters.map(cluster => {
                     if (cluster.length === 0) return centroids[0];
-                    
+
                     const sum = cluster.reduce((acc, colour) => {
                         return [acc[0] + colour[0], acc[1] + colour[1], acc[2] + colour[2]];
                     }, [0, 0, 0]);
