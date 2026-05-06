@@ -6,11 +6,7 @@
     <title>América BH - Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,9 +20,9 @@
             margin: 0 auto;
         }
 
+        /* ── HEADER ── */
         header {
             text-align: center;
-            color: #2d3748;
             margin-bottom: 40px;
         }
 
@@ -59,6 +55,7 @@
             opacity: 0.85;
         }
 
+        /* ── NAV CHIPS ── */
         .nav-chips {
             display: flex;
             justify-content: center;
@@ -69,7 +66,6 @@
         }
 
         .chip {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
             color: white;
             padding: 12px 28px;
             border-radius: 25px;
@@ -79,31 +75,20 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3);
         }
 
-        .chip:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5);
-        }
+        .chip:hover { transform: translateY(-3px); }
 
-        .chip.tools       { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
-        .chip.tools:hover { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
+        .chip.tools      { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); box-shadow: 0 4px 15px rgba(244,68,150,0.3); }
+        .chip.apps       { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241,124,54,0.4); }
+        .chip.websites   { background: linear-gradient(135deg, #f44496 0%, #f17c36 100%); box-shadow: 0 4px 15px rgba(244,68,150,0.3); }
+        .chip.components { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241,124,54,0.3); }
 
-        .chip.apps        { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.4); }
-        .chip.apps:hover  { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.6); }
-
-        .chip.websites        { background: linear-gradient(135deg, #f44496 0%, #f17c36 100%); box-shadow: 0 4px 15px rgba(244, 68, 150, 0.3); }
-        .chip.websites:hover  { box-shadow: 0 8px 25px rgba(244, 68, 150, 0.5); }
-
-        .chip.components        { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); box-shadow: 0 4px 15px rgba(241, 124, 54, 0.3); }
-        .chip.components:hover  { box-shadow: 0 8px 25px rgba(241, 124, 54, 0.5); }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
+        /* ── SECTIONS ── */
+        section {
+            display: block;
+            width: 100%;
+            margin-bottom: 70px;
         }
 
         .section-title {
@@ -117,6 +102,24 @@
             padding-bottom: 15px;
         }
 
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        /* Pink sections (Tools & Websites) */
+        #tools   .section-title::after { background: #f44496; }
+        #websites .section-title::after { background: #f44496; }
+
+        /* Orange sections (Apps & Components) */
+        #apps        .section-title::after { background: #f17c36; }
+        #components  .section-title::after { background: #f17c36; }
+
         .section-description {
             color: #523752;
             font-size: 16px;
@@ -126,65 +129,56 @@
             font-style: italic;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
-            border-radius: 2px;
+        /* ── GRID ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
 
-        .section-title.tools::after      { background: #f44496; }
-        .section-title.apps::after       { background: #f17c36; }
-        .section-title.websites::after   { background: #f44496; }
-        .section-title.components::after { background: #f17c36; }
-
+        /* ── CARDS ── */
         .project-card {
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             color: inherit;
             display: flex;
             flex-direction: column;
-            height: 100%;
             border: 2px solid #f7fafc;
         }
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
             border-color: #e2e8f0;
         }
 
         .project-header {
-            background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
             padding: 30px;
             color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .tools    .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
-        .apps     .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
-        .websites .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
-        .components .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
-
         .project-header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; right: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             pointer-events: none;
         }
+
+        /* Pink card headers (Tools & Websites) */
+        #tools      .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
+        #websites   .project-header { background: linear-gradient(135deg, #f44496 0%, #ff6b9d 100%); }
+
+        /* Orange card headers (Apps & Components) */
+        #apps        .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
+        #components  .project-header { background: linear-gradient(135deg, #f17c36 0%, #ff9656 100%); }
 
         .project-name {
             font-size: 24px;
@@ -216,6 +210,7 @@
             line-height: 1.7;
             margin-bottom: 20px;
             font-size: 15px;
+            flex-grow: 1;
         }
 
         .project-tags {
@@ -234,8 +229,8 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
         }
 
         .tag:hover {
@@ -245,10 +240,11 @@
             border-color: transparent;
         }
 
+        /* ── FOOTER ── */
         footer {
             text-align: center;
             color: #523752;
-            margin-top: 80px;
+            margin-top: 40px;
             padding-top: 40px;
             border-top: 2px solid #e2e8f0;
         }
@@ -278,10 +274,8 @@
         .footer-link::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
             background: linear-gradient(135deg, #f44496 0%, #f17c36 100%);
             transition: width 0.3s ease;
         }
@@ -289,23 +283,21 @@
         .footer-link:hover::after { width: 100%; }
         .footer-link:hover { color: #f17c36; }
 
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
-            h1                  { font-size: 36px; }
-            .subtitle           { font-size: 18px; }
-            .section-title      { font-size: 24px; }
-            .projects-grid      { grid-template-columns: 1fr; gap: 25px; }
-            .nav-chips          { gap: 12px; }
-            .chip               { padding: 10px 20px; font-size: 14px; }
-            .footer-links       { gap: 25px; }
+            h1 { font-size: 36px; }
+            .subtitle { font-size: 18px; }
+            .section-title { font-size: 24px; }
+            .projects-grid { grid-template-columns: 1fr; gap: 25px; }
+            .nav-chips { gap: 12px; }
+            .chip { padding: 10px 20px; font-size: 14px; }
         }
 
         @media (max-width: 480px) {
-            body                { padding: 30px 15px; }
-            h1                  { font-size: 32px; }
-            .project-header     { padding: 25px; }
-            .project-body       { padding: 22px; }
-            .nav-chips          { gap: 10px; }
-            .chip               { padding: 8px 16px; font-size: 13px; }
+            body { padding: 30px 15px; }
+            h1 { font-size: 32px; }
+            .project-header { padding: 25px; }
+            .project-body { padding: 22px; }
         }
 
         html { scroll-behavior: smooth; }
@@ -313,286 +305,292 @@
     </style>
 </head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <header>
-            <h1>América BH</h1>
-            <p class="subtitle">Digital Strategist · UX-driven Web Developer</p>
-            <p class="intro-text">Building digital solutions that bridge strategic thinking with technical execution. Currently developing coding fluency through an MSc in Web Development.</p>
-        </header>
+    <!-- HEADER -->
+    <header>
+        <h1>América BH</h1>
+        <p class="subtitle">Digital Strategist · UX-driven Web Developer</p>
+        <p class="intro-text">Building digital solutions that bridge strategic thinking with technical execution. Currently developing coding fluency through an MSc in Web Development.</p>
+    </header>
 
-        <nav class="nav-chips">
-            <a href="#tools"      class="chip tools">Tools</a>
-            <a href="#apps"       class="chip apps">Apps</a>
-            <a href="#websites"   class="chip websites">Websites</a>
-            <a href="#components" class="chip components">Components</a>
-        </nav>
+    <!-- NAV CHIPS -->
+    <nav class="nav-chips">
+        <a href="#tools"      class="chip tools">Tools</a>
+        <a href="#apps"       class="chip apps">Apps</a>
+        <a href="#websites"   class="chip websites">Websites</a>
+        <a href="#components" class="chip components">Components</a>
+    </nav>
 
-        <!-- ── TOOLS ───────────────────────────────────────────── -->
-        <section id="tools" class="tools">
-            <h2 class="section-title tools">Tools</h2>
-            <p class="section-description">Utility tools and mini-apps built to solve real problems.</p>
-            <div class="projects-grid">
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- TOOLS — PINK                                        -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="tools">
+        <h2 class="section-title">Tools</h2>
+        <p class="section-description">Utility tools and mini-apps built to solve real problems.</p>
+        <div class="projects-grid">
 
-                   <a href="tools/image-format-converter.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Image Format Converter</div>
-                        <div class="project-type">HTML/CSS/JS Tool</div>
+            <a href="tools/image-format-converter.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Image Format Converter</div>
+                    <div class="project-type">HTML/CSS/JS Tool</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">Convert images between formats — PNG, JPG, WebP and more — directly in the browser. No uploads, no server, no waiting. Fast and privacy-friendly.</p>
+                    <div class="project-tags">
+                        <span class="tag">Images</span>
+                        <span class="tag">Converter</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">Convert images between formats — PNG, JPG, WebP and more — directly in the browser. No uploads, no server, no waiting. Fast and privacy-friendly.</p>
-                        <div class="project-tags">
-                            <span class="tag">Images</span>
-                            <span class="tag">Converter</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
-            
+                </div>
+            </a>
 
-              <a href="tools/url_encoder_decoder.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">URL Encoder / Decoder</div>
-                        <div class="project-type">HTML/CSS/JS Tool</div>
+            <a href="tools/url_encoder_decoder.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">URL Encoder / Decoder</div>
+                    <div class="project-type">HTML/CSS/JS Tool</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A simple tool to encode and decode URLs instantly. Useful for developers handling query strings, API requests, and special characters in web addresses.</p>
+                    <div class="project-tags">
+                        <span class="tag">Dev Tool</span>
+                        <span class="tag">Utility</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A simple tool to encode and decode URLs instantly. Useful for developers handling query strings, API requests, and special characters in web addresses.</p>
-                        <div class="project-tags">
-                            <span class="tag">Dev Tool</span>
-                            <span class="tag">Utility</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
+            <a href="tools/calculator.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Calculator</div>
+                    <div class="project-type">HTML/CSS/JS Tool</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A clean, functional calculator for everyday arithmetic. Built with a focus on usability and a minimal interface that works seamlessly across devices.</p>
+                    <div class="project-tags">
+                        <span class="tag">Math</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Utility</span>
+                    </div>
+                </div>
+            </a>
 
-                   
-                <a href="tools/calculator.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Calculator</div>
-                        <div class="project-type">HTML/CSS/JS Tool</div>
+            <a href="tools/grading_system.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Grading System</div>
+                    <div class="project-type">HTML/CSS/JS Tool</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A grade calculator that computes weighted scores and letter grades. A practical academic tool for students tracking their performance across modules.</p>
+                    <div class="project-tags">
+                        <span class="tag">Academic</span>
+                        <span class="tag">Calculator</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A clean, functional calculator for everyday arithmetic. Built with a focus on usability and a minimal interface that works seamlessly across devices.</p>
-                        <div class="project-tags">
-                            <span class="tag">Math</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Utility</span>
-                        </div>
-                    </div>
-                </a>
-                
-                <a href="tools/grading_system.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Grading System</div>
-                        <div class="project-type">HTML/CSS/JS Tool</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A grade calculator that computes weighted scores and letter grades. A practical academic tool for students tracking their performance across modules.</p>
-                        <div class="project-tags">
-                            <span class="tag">Academic</span>
-                            <span class="tag">Calculator</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="tools/password-strength-checker.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Password Strength Checker</div>
-                        <div class="project-type">HTML/CSS/JS Tool</div>
+            <a href="tools/password-strength-checker.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Password Strength Checker</div>
+                    <div class="project-type">HTML/CSS/JS Tool</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A real-time tool that evaluates password strength based on length, complexity, and character variety. Gives instant visual feedback to encourage better security habits.</p>
+                    <div class="project-tags">
+                        <span class="tag">Security</span>
+                        <span class="tag">Real-time</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A real-time tool that evaluates password strength based on length, complexity, and character variety. Gives instant visual feedback to encourage better security habits.</p>
-                        <div class="project-tags">
-                            <span class="tag">Security</span>
-                            <span class="tag">Real-time</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- APPS — ORANGE                                       -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="apps">
+        <h2 class="section-title">Apps</h2>
+        <p class="section-description">Interactive applications and full experiences.</p>
+        <div class="projects-grid">
+
+            <a href="apps/apa-generator.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">APA Generator</div>
+                    <div class="project-type">HTML/CSS/JS App</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A citation generator that formats references in APA style automatically. Simplifies academic writing by producing ready-to-use citations from user inputs.</p>
+                    <div class="project-tags">
+                        <span class="tag">Academic</span>
+                        <span class="tag">Generator</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                </a>
+                </div>
+            </a>
 
-            
-
-
-            </div>
-        </section>
-
-        <!-- ── APPS ────────────────────────────────────────────── -->
-        <section id="apps" class="apps">
-            <h2 class="section-title apps">Apps</h2>
-            <p class="section-description">Interactive applications and full experiences.</p>
-            <div class="projects-grid">
-
-                <a href="apps/apa-generator.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">APA Generator</div>
-                        <div class="project-type">HTML/CSS/JS App</div>
+            <a href="apps/color_palette_picker.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Colour Palette Picker</div>
+                    <div class="project-type">HTML/CSS/JS App</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">An interactive tool for exploring and building colour palettes. Pick, preview, and export colours for use in your design and development projects.</p>
+                    <div class="project-tags">
+                        <span class="tag">Design</span>
+                        <span class="tag">Colour</span>
+                        <span class="tag">Interactive</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A citation generator that formats references in APA style automatically. Simplifies academic writing by producing ready-to-use citations from user inputs.</p>
-                        <div class="project-tags">
-                            <span class="tag">Academic</span>
-                            <span class="tag">Generator</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="apps/color_palette_picker.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Colour Palette Picker</div>
-                        <div class="project-type">HTML/CSS/JS App</div>
+            <a href="apps/harvard_referencing.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Harvard Referencing</div>
+                    <div class="project-type">HTML/CSS/JS App</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A referencing tool that generates Harvard-style citations from structured inputs. A practical companion for students and researchers managing bibliographies.</p>
+                    <div class="project-tags">
+                        <span class="tag">Academic</span>
+                        <span class="tag">Generator</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">An interactive tool for exploring and building colour palettes. Pick, preview, and export colours for use in your design and development projects.</p>
-                        <div class="project-tags">
-                            <span class="tag">Design</span>
-                            <span class="tag">Colour</span>
-                            <span class="tag">Interactive</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="apps/harvard_referencing.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Harvard Referencing</div>
-                        <div class="project-type">HTML/CSS/JS App</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">A referencing tool that generates Harvard-style citations from structured inputs. A practical companion for students and researchers managing bibliographies.</p>
-                        <div class="project-tags">
-                            <span class="tag">Academic</span>
-                            <span class="tag">Generator</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
+        </div>
+    </section>
 
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- WEBSITES — PINK                                     -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="websites">
+        <h2 class="section-title">Websites</h2>
+        <p class="section-description">Full websites — corporate, responsive, accessible.</p>
+        <div class="projects-grid">
 
-
-        <!-- ── WEBSITES ─────────────────────────────────────────── -->
-        <section id="websites" class="websites">
-            <h2 class="section-title websites">Websites</h2>
-            <p class="section-description">Full websites — corporate, responsive, accessible.</p>
-            <div class="projects-grid">
-
-                <a href="websites/digital-solutions-website.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Digital Solutions</div>
-                        <div class="project-type">Full Website</div>
+            <a href="websites/digital-solutions-website.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Digital Solutions</div>
+                    <div class="project-type">Full Website</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A complete corporate website for a digital solutions agency. Showcases services, case studies, and contact — built with clean layout, responsive design, and accessible markup.</p>
+                    <div class="project-tags">
+                        <span class="tag">Corporate</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Accessible</span>
+                        <span class="tag">Full-site</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A complete corporate website for a digital solutions agency. Showcases services, case studies, and contact — built with clean layout, responsive design, and accessible markup.</p>
-                        <div class="project-tags">
-                            <span class="tag">Corporate</span>
-                            <span class="tag">Responsive</span>
-                            <span class="tag">Accessible</span>
-                            <span class="tag">Full-site</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="websites/italian-ecommerce.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Caffè Italiano</div>
-                        <div class="project-type">E-commerce Website</div>
+            <a href="websites/italian-ecommerce.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Caffè Italiano</div>
+                    <div class="project-type">E-commerce Website</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A single-page e-commerce site for an Italian café selling artisan products — gelato, coffee beans, fresh pasta, and more. Features a product grid, cart interactions, and a warm Italian aesthetic.</p>
+                    <div class="project-tags">
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Italian</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A single-page e-commerce site for an Italian café selling artisan products — gelato, coffee beans, fresh pasta, and more. Features a product grid, cart interactions, and a warm Italian aesthetic.</p>
-                        <div class="project-tags">
-                            <span class="tag">E-commerce</span>
-                            <span class="tag">Responsive</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Italian</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ── COMPONENTS ───────────────────────────────────────── -->
-        <section id="components" class="components">
-            <h2 class="section-title components">Components</h2>
-            <p class="section-description">Reusable UI elements ready to implement in websites.</p>
-            <div class="projects-grid">
+    <!-- ═══════════════════════════════════════════════════ -->
+    <!-- COMPONENTS — ORANGE                                 -->
+    <!-- ═══════════════════════════════════════════════════ -->
+    <section id="components">
+        <h2 class="section-title">Components</h2>
+        <p class="section-description">Reusable UI elements ready to implement in websites.</p>
+        <div class="projects-grid">
 
-                <a href="components/coming-soon.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Coming Soon Page</div>
-                        <div class="project-type">HTML/CSS Component</div>
+            <a href="components/coming-soon.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Coming Soon Page</div>
+                    <div class="project-type">HTML/CSS Component</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A polished coming soon / launch page component with countdown or placeholder layout. Clean, responsive, and ready to customise for any upcoming project.</p>
+                    <div class="project-tags">
+                        <span class="tag">Landing Page</span>
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Modern CSS</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A polished coming soon / launch page component with countdown or placeholder layout. Clean, responsive, and ready to customise for any upcoming project.</p>
-                        <div class="project-tags">
-                            <span class="tag">Landing Page</span>
-                            <span class="tag">Responsive</span>
-                            <span class="tag">Modern CSS</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="components/profile-card.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Profile Card</div>
-                        <div class="project-type">HTML/CSS Component</div>
+            <a href="components/profile-card.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Profile Card</div>
+                    <div class="project-type">HTML/CSS Component</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">A clean, responsive profile card component with modern CSS techniques. Uses flexbox layouts and smooth transitions for a polished look in user interfaces.</p>
+                    <div class="project-tags">
+                        <span class="tag">Responsive</span>
+                        <span class="tag">Flexbox</span>
+                        <span class="tag">Gradients</span>
+                        <span class="tag">Modern CSS</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">A clean, responsive profile card component with modern CSS techniques. Uses flexbox layouts and smooth transitions for a polished look in user interfaces.</p>
-                        <div class="project-tags">
-                            <span class="tag">Responsive</span>
-                            <span class="tag">Flexbox</span>
-                            <span class="tag">Gradients</span>
-                            <span class="tag">Modern CSS</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="components/interactive-cards.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Interactive Cards</div>
-                        <div class="project-type">HTML/CSS/JS Component</div>
+            <a href="components/interactive-cards.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Interactive Cards</div>
+                    <div class="project-type">HTML/CSS/JS Component</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">Card components with 3D hover effects and smooth animations. A fun showcase of CSS transforms and JavaScript interactivity for engaging user experiences.</p>
+                    <div class="project-tags">
+                        <span class="tag">3D Effects</span>
+                        <span class="tag">Animations</span>
+                        <span class="tag">Interactive</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <div class="project-body">
-                        <p class="project-description">Card components with 3D hover effects and smooth animations. A fun showcase of CSS transforms and JavaScript interactivity for engaging user experiences.</p>
-                        <div class="project-tags">
-                            <span class="tag">3D Effects</span>
-                            <span class="tag">Animations</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
+                </div>
+            </a>
+
+            <a href="components/timeline-career.html" class="project-card">
+                <div class="project-header">
+                    <div class="project-name">Career Timeline</div>
+                    <div class="project-type">HTML/CSS/JS Component</div>
+                </div>
+                <div class="project-body">
+                    <p class="project-description">An interactive horizontal timeline to showcase career milestones. Click each stop to expand details, drag to scroll, and navigate with arrow buttons. Clean neutral aesthetic with smooth animations.</p>
+                    <div class="project-tags">
+                        <span class="tag">Timeline</span>
+                        <span class="tag">Interactive</span>
+                        <span class="tag">Animations</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                </a>
+                </div>
+            </a>
 
-                <a href="components/timeline-career.html" class="project-card">
-                    <div class="project-header">
-                        <div class="project-name">Career Timeline</div>
-                        <div class="project-type">HTML/CSS/JS Component</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-description">An interactive horizontal timeline to showcase career milestones. Click each stop to expand details, drag to scroll, and navigate with arrow buttons. Clean neutral aesthetic with smooth animations.</p>
-                        <div class="project-tags">
-                            <span class="tag">Timeline</span>
-                            <span class="tag">Interactive</span>
-                            <span class="tag">Animations</span>
-                            <span class="tag">JavaScript</span>
-                        </div>
-                    </div>
-                </a>
+        </div>
+    </section>
 
-            </div>
-        </section>
+    <!-- FOOTER -->
+    <footer>
+        <p class="footer-content">Built with curiosity and caffeine · América Bernal 2025</p>
+        <div class="footer-links">
+            <a href="https://www.americabernal.com" target="_blank" class="footer-link">Portfolio</a>
+            <a href="https://www.linkedin.com/in/americabernal" target="_blank" class="footer-link">LinkedIn</a>
+            <a href="https://github.com/amerique82" target="_blank" class="footer-link">GitHub</a>
+        </div>
+    </footer>
 
-        <footer>
-            <p class="footer-content">Built with curiosity and caffeine · América Bernal 2025</p>
-            <div class="footer-links">
-                <a href="https://www.americabernal.com" target="_blank" class="footer-link">Portfolio</a>
-                <a href="https://www.linkedin.com/in/americabernal" target="_blank" class="footer-link">LinkedIn</a>
-                <a href="https://github.com/amerique82" target="_blank" class="footer-link">GitHub</a>
-            </div>
-        </footer>
-
-    </div>
+</div>
 </body>
 </html>
