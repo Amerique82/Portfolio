@@ -52,7 +52,6 @@
             }
         }
 
-        /* Header */
         header {
             text-align: center;
             padding: 60px 20px 40px;
@@ -63,6 +62,16 @@
             display: inline-block;
             margin-bottom: 20px;
             animation: slideDown 0.6s ease-out;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--primary);
+            border: 2px solid var(--accent);
+            padding: 10px 18px;
+            border-radius: 8px;
+            background: var(--bg-white);
         }
 
         @keyframes slideDown {
@@ -110,7 +119,6 @@
             }
         }
 
-        /* Main Card */
         .main-card {
             background: var(--bg-white);
             border-radius: 20px;
@@ -132,7 +140,6 @@
             }
         }
 
-        /* Source Type Selector */
         .source-selector {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -183,13 +190,6 @@
             box-shadow: 0 8px 25px var(--shadow-heavy);
         }
 
-        .source-btn-icon {
-            display: block;
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        /* Form Styling */
         .form-section {
             margin-bottom: 35px;
         }
@@ -259,7 +259,6 @@
             color: #B8B8B8;
         }
 
-        /* Generate Button */
         .generate-btn {
             width: 100%;
             padding: 20px;
@@ -311,7 +310,6 @@
             z-index: 1;
         }
 
-        /* Output Section */
         .output-section {
             display: none;
             margin-top: 40px;
@@ -347,17 +345,13 @@
         }
 
         .result-label::before {
-            content: '✓';
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            content: '';
+            display: block;
             width: 32px;
             height: 32px;
             background: linear-gradient(135deg, var(--accent), var(--accent-light));
-            color: white;
             border-radius: 50%;
-            font-size: 18px;
-            font-weight: bold;
+            flex-shrink: 0;
             animation: checkPop 0.5s ease-out;
         }
 
@@ -434,7 +428,6 @@
             color: white;
         }
 
-        /* Info Box */
         .info-box {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), rgba(74, 143, 184, 0.05));
             padding: 25px;
@@ -456,7 +449,6 @@
             line-height: 1.6;
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -483,7 +475,6 @@
             transform: translateY(-2px);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             h1 {
                 font-size: 40px;
@@ -506,7 +497,7 @@
 <body>
     <div class="container">
         <header>
-            <div class="logo">📚</div>
+            <div class="logo">StudyKit</div>
             <h1>APA Citation Generator</h1>
             <p class="subtitle">Create perfect APA 7th edition citations in seconds</p>
             <div class="accent-line"></div>
@@ -516,27 +507,22 @@
             <div class="form-section">
                 <div class="section-title">Select Source Type</div>
                 <div class="source-selector">
-                    <button class="source-btn active" data-type="journal">
-                        <span class="source-btn-icon">📄</span>
+                    <button type="button" class="source-btn active" data-type="journal">
                         Journal Article
                     </button>
-                    <button class="source-btn" data-type="book">
-                        <span class="source-btn-icon">📖</span>
+                    <button type="button" class="source-btn" data-type="book">
                         Book
                     </button>
-                    <button class="source-btn" data-type="website">
-                        <span class="source-btn-icon">🌐</span>
+                    <button type="button" class="source-btn" data-type="website">
                         Website
                     </button>
-                    <button class="source-btn" data-type="ebook">
-                        <span class="source-btn-icon">💻</span>
+                    <button type="button" class="source-btn" data-type="ebook">
                         E-book
                     </button>
                 </div>
             </div>
 
             <form id="citationForm">
-                <!-- Journal Article Form (Default) -->
                 <div id="journalForm" class="source-form">
                     <div class="section-title">Article Information</div>
                     <div class="form-grid">
@@ -575,7 +561,6 @@
                     </div>
                 </div>
 
-                <!-- Book Form -->
                 <div id="bookForm" class="source-form" style="display: none;">
                     <div class="section-title">Book Information</div>
                     <div class="form-grid">
@@ -602,7 +587,6 @@
                     </div>
                 </div>
 
-                <!-- Website Form -->
                 <div id="websiteForm" class="source-form" style="display: none;">
                     <div class="section-title">Website Information</div>
                     <div class="form-grid">
@@ -637,7 +621,6 @@
                     </div>
                 </div>
 
-                <!-- E-book Form -->
                 <div id="ebookForm" class="source-form" style="display: none;">
                     <div class="section-title">E-book Information</div>
                     <div class="form-grid">
@@ -674,56 +657,51 @@
                 <div class="citation-output">
                     <div id="citationText" class="citation-text"></div>
                 </div>
-                <button id="copyBtn" class="copy-btn">Copy to Clipboard</button>
+                <button type="button" id="copyBtn" class="copy-btn">Copy to Clipboard</button>
             </div>
 
             <div class="info-box">
-                <h3>💡 Quick Tips</h3>
-                <p>• Use "&" between authors in the citation (e.g., Smith, J. & Doe, A.)<br>
-                   • Italicize journal names and book titles (done automatically)<br>
-                   • Include DOI when available for better source verification<br>
-                   • Double-check spelling and punctuation before copying</p>
+                <h3>Quick Tips</h3>
+                <p>Use "&amp;" between authors in the citation (e.g., Smith, J. &amp; Doe, A.)<br>
+                   Italicize journal names and book titles (done automatically)<br>
+                   Include DOI when available for better source verification<br>
+                   Double-check spelling and punctuation before copying</p>
             </div>
         </div>
 
         <footer>
             <p>&copy; 2025 APA Citation Generator | Created by América Bernal</p>
             <div class="footer-links">
-                <a href="index.html" class="footer-link">← Back to Portfolio</a>
-                <a href="https://github.com/Amerique82" class="footer-link">GitHub</a>
+                <a href="index.html" class="footer-link">Back to Portfolio</a>
+                <a href="https://github.com/Amerique82" class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a>
             </div>
         </footer>
     </div>
 
     <script>
-        // Source type switching
         const sourceButtons = document.querySelectorAll('.source-btn');
         const sourceForms = document.querySelectorAll('.source-form');
 
         sourceButtons.forEach(button => {
             button.addEventListener('click', () => {
-                // Remove active class from all buttons
                 sourceButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
 
-                // Hide all forms
                 sourceForms.forEach(form => form.style.display = 'none');
 
-                // Show selected form
                 const type = button.dataset.type;
                 document.getElementById(`${type}Form`).style.display = 'block';
             });
         });
 
-        // Form submission
         document.getElementById('citationForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const activeBtn = document.querySelector('.source-btn.active');
             const type = activeBtn.dataset.type;
             let citation = '';
 
-            switch(type) {
+            switch (type) {
                 case 'journal':
                     citation = generateJournalCitation();
                     break;
@@ -752,20 +730,20 @@
             const doi = document.getElementById('j-doi').value;
 
             let citation = `${author} (${year}). ${title}. <em>${journal}</em>`;
-            
+
             if (volume) {
                 citation += `, <em>${volume}</em>`;
                 if (issue) {
                     citation += `(${issue})`;
                 }
             }
-            
+
             if (pages) {
                 citation += `, ${pages}`;
             }
-            
+
             citation += '.';
-            
+
             if (doi) {
                 citation += ` https://doi.org/${doi}`;
             }
@@ -781,11 +759,11 @@
             const publisher = document.getElementById('b-publisher').value;
 
             let citation = `${author} (${year}). <em>${title}</em>`;
-            
+
             if (edition) {
                 citation += ` (${edition})`;
             }
-            
+
             citation += `. ${publisher}.`;
 
             return citation;
@@ -824,25 +802,23 @@
         function displayCitation(citation) {
             const outputSection = document.getElementById('outputSection');
             const citationText = document.getElementById('citationText');
-            
+
             citationText.innerHTML = citation;
             outputSection.classList.add('show');
-            
-            // Smooth scroll to output
+
             outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        // Copy to clipboard
-        document.getElementById('copyBtn').addEventListener('click', function() {
+        document.getElementById('copyBtn').addEventListener('click', function () {
             const citationText = document.getElementById('citationText');
             const textToCopy = citationText.innerText;
-            
+
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = this;
                 const originalText = btn.textContent;
-                btn.textContent = '✓ Copied!';
+                btn.textContent = 'Copied!';
                 btn.classList.add('copied');
-                
+
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.classList.remove('copied');
